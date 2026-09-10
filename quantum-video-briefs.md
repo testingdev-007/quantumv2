@@ -1,327 +1,414 @@
-# Dr Quantum — Ten Clips
-### Production briefs, v3 — rewritten for Google Flow
+# Dr Quantum — Fifteen Ready-to-Paste Flow Prompts
+### v5 — every prompt is complete. Nothing to assemble.
 
-## What changed from v2, and why
+Each clip below gives you two boxes. Copy the first into Flow's prompt field and the
+second into its negative prompt field. Everything the shot needs is already in there —
+the character, the room, the lighting, the camera, the sound. Nothing is described
+once and referred to later.
 
-**Flow tops out at 8 seconds, not 10.** Veo offers 4s, 6s or 8s per generation.
-Every action below has been re-timed for an 8-second slot. The v2 briefs had beats
-landing at "about seven seconds" with a hold after — that hold would simply not exist.
+**Settings for every clip:** duration **8 seconds** (Flow's maximum), and pin the
+Ingredients listed under each title — never more than three.
 
-**You can pin a maximum of three Ingredients per prompt.** Some v2 briefs implied
-five or six visual elements to keep consistent. Below, each clip names exactly which
-three to pin; everything else goes in the text and is allowed to vary.
-
-**Dialogue is the weakest thing to ask for at this length.** Google's own guidance
-says speech works best on longer clips and that 8-second clips "may have limitations."
-So dialogue is now optional on every clip — generate silent, add your voiceover in
-the edit. The lines are still written and timed if you want to try them, but nothing
-below depends on speech working.
-
-**The split screen is gone.** Asking for one generation containing two synchronised
-halves is a credit bonfire. The Mars clip is now two separate generations you place
-side by side in your editor, which also makes them individually re-rollable.
+**Set A** is the coding — that is what the series teaches. **Set B** is the quantum,
+which is the context. If you only make six: A1, A3, B1, B2, B3, B4.
 
 ---
 
-# BEFORE YOU SPEND A SINGLE VIDEO CREDIT
+## Before you spend a video credit
 
-You already have your character. Do this next, because **still images cost far less
-than video generations** and every one you make saves you re-rolls later.
+Make these **reference stills** first. Images cost a fraction of a video generation and
+every one saves you re-rolls later. You already have your character; add:
 
-Generate and save **five reference stills**:
+1. **The lab, empty** — no people. Your environment ingredient.
+2. **The brass coin** on the steel bench under the desk lamp.
+3. **One matte black cube** with a hairline cyan seam round the lid.
+4. **The molecule model** — brass rods, frosted glass spheres.
+5. **The gold refrigerator** in its lit glass cylinder.
+6. **Three brass instruction plates** in a row on the bench.
+7. **The brass value box** — a slot in the top, a blank enamel plate on the front.
+8. **The splitting brass channel** with its small pivoting flap.
 
-1. **The lab, wide** — no people in it. This becomes your environment ingredient.
-2. **The brass coin** on the steel bench, lit by the desk lamp.
-3. **One matte black cube** with its cyan seam.
-4. **The molecule model** in brass and frosted glass.
-5. **The gold refrigerator** in its glass cylinder.
+**Spend wisely.** Fast costs roughly 20 credits a generation, Quality roughly 100. Test
+each composition on the cheapest tier at the shortest duration, and only commit to 8
+seconds on Quality once you know the shot works. Use Extend rather than regenerating
+when something ends early.
 
-Now you have a character plus five props and one location. Every clip below draws
-three of them. Nothing has to be re-invented, and your look stays locked without
-paying for it in video credits.
-
----
-
-# THE TEXT BLOCKS
-
-Ingredients do the visual work; text does the behavioural work. Paste these verbatim
-alongside your pinned images.
-
-### Character behaviour (use whenever she appears)
-
-> She moves unhurriedly and is quietly delighted — showing a friend something she has
-> seen a thousand times and still finds astonishing. She does not smile at the camera
-> on purpose and she never gestures to explain.
-
-### Environment text (use with the lab ingredient)
-
-> A Victorian brick engine house converted into a laboratory. Black-painted brickwork,
-> tall arched windows with true night behind them, polished concrete floor. A brushed
-> black steel workbench, scratched from use, one amber desk lamp clamped to its edge.
-> Deep soft darkness thirty feet back.
-
-### Look and camera (use on every clip)
-
-> Deep navy-black shadows. Two light sources only: warm amber from the desk lamp, cool
-> cyan from equipment behind. 50mm lens, wide aperture, shallow depth of field. Camera
-> locked on a tripod — no handheld, no shake, no zoom. Fine film grain, no lens flares.
-
-### Negative prompt (use on every clip)
-
-> No text, captions, subtitles, numbers, logos or writing anywhere in frame. No lens
-> flare. No camera shake. No zoom. No split screen. No on-screen graphics or UI.
+**Two pairs must match.** B1/B2 and B3/B4 are before-and-after comparisons. Generate the
+first, pick your take, then feed that exact frame back as an image reference for the
+second — otherwise they will not cut together.
 
 ---
 
-# THE CLIPS
 
-Each is **8 seconds**. Timings are from the start of the generated clip.
+# SET A — THE TOPIC (coding)
 
----
 
-## 1 · The Coin — superposition
-**Pin:** character · coin · lab
+## A1 · The Sequence — instructions in order
 
-**Shot** — Medium close on the workbench, her face and shoulders behind it in the
-upper third. Camera locked off.
+**Teaches:** a sequence · **Slots into:** Vault Heist, Level 1  
+**Pin (max 3):** character · instruction plates · lab  
+**Duration:** 8 seconds
 
-**Action** — The brass coin is already spinning as the clip opens, blurred into a
-standing golden sphere, and it spins for the entire eight seconds. She watches it,
-not the camera. Nothing else happens.
+**PROMPT — copy this whole box**
 
-**Optional line (12 words, delivered 2–7s)** — *"Heads, or tails. Unless it's
-spinning. Then it's honestly both at once."*
+```
+A woman in her late thirties. Dark brown hair pulled back into a low knot with a few loose strands. No make-up beyond the practical. Charcoal merino roll-neck with the sleeves pushed to the elbow, an open white lab coat with a pen in the chest pocket and one frayed cuff, a plain steel watch on her left wrist. She moves unhurriedly and looks quietly delighted, like someone showing a friend a thing she has seen a thousand times and still finds astonishing. She does not smile at the camera on purpose and she never gestures to explain. Three flat brass plates the size of beer mats lie in a row on the steel bench, each engraved with a different simple geometric mark. She sets a fourth plate down at the end of the row. A small point of cyan light then travels along the plates from left to right, pausing on each one in turn and making it glow briefly before moving on to the next. It reaches the last plate and stops. Nothing else happens for the rest of the shot. The setting is a Victorian brick engine house converted into a research laboratory: black-painted brickwork, tall arched windows along the left wall with true night behind them, a polished concrete floor with old machine bolts still set into it, and deep soft darkness thirty feet back. Centre of the room is a brushed black steel workbench, scratched from use, with a single amber desk lamp clamped to its edge. Ten feet behind and thrown well out of focus stands a dilution refrigerator — a gold chandelier-shaped quantum computer suspended inside a tall glass cylinder, lit from within in pale cyan, with thick black cable looms running up into the roof. Medium close, looking down the length of the workbench at a shallow angle so the plates recede into soft focus. The camera is locked off on a tripod and does not move. Cinematic and calm. Deep navy-black shadows. Exactly two light sources: warm amber from the desk lamp and cool cyan from the equipment behind. Nothing else is lit. Shot on a 50mm lens at a wide aperture with shallow depth of field, the background reduced to soft coloured bokeh. Fine film grain. Photorealistic, not stylised. Audio: A soft brass clink as she sets the plate down, then four clean bell tones as the light touches each plate in turn. A distant low hum from the equipment behind. No speech and no lip movement. She does not talk in this shot.
+```
 
-**Sound** — Close dry metallic whirr. Distant low hum.
+**NEGATIVE PROMPT — copy this whole box**
 
-**Avoid** — The coin must not fall or slow. No cut to her face.
+```
+No text, captions, subtitles, numbers, letters, logos or writing anywhere in frame. No lens flare. No camera shake, no handheld movement, no zoom. No split screen. No on-screen graphics or user interface. No slow motion. No cuts — one continuous shot. The light must move strictly one plate at a time and must never skip ahead or blur along the row. The order is the entire point of the shot.
+```
 
----
+**Voiceover to add in the edit:** *Four instructions, carried out in the order you put them. That is a program. That is genuinely all a program is.*
 
-## 2 · The Slam — measurement
-**Pin:** character · coin · lab · **plus:** use the final frame of clip 1 as your
-starting frame if Flow offers Frames-to-Video, so the two match exactly.
-
-**Shot** — Identical framing to clip 1.
-
-**Action** — Coin spinning. At **2.5s** her open hand comes down flat over it, fast,
-and it stops dead. She holds her hand there, still, until **5.5s**, then lifts it: the
-coin lies flat and motionless on the steel. Hold to 8s.
-
-**Optional line (10 words, delivered 5.5–8s)** — *"But the moment you look, it has to
-pick one."*
-
-**Sound** — Whirr, hard flat slap, then a full second of true silence.
-
-**Avoid** — No reaction, no celebration. Do not push in on which face landed.
 
 ---
 
-## 3 · A Hundred Lids — searching one at a time
-**Pin:** character · black cube · lab
 
-**Shot** — High and wide, shallow downward angle across the floor. Locked off. She is
-small in frame.
+## A2 · The Variable — a box with a value in it
 
-**Action** — One hundred matte black cubes in a ten-by-ten grid on the concrete, each
-with a hairline cyan seam. She walks steadily along the front row, flipping each lid
-open without breaking stride. Each opened cube is empty black inside and its seam goes
-dark. She reaches the end of the row and starts along the next. That is the whole clip.
+**Teaches:** a variable · **Slots into:** Cipher Room, Step 1  
+**Pin (max 3):** character · value box · lab  
+**Duration:** 8 seconds
 
-**Dialogue** — None. This one should feel slightly tedious.
+**PROMPT — copy this whole box**
 
-**Sound** — Unhurried footsteps on concrete, the dull clack of each lid.
+```
+A woman in her late thirties. Dark brown hair pulled back into a low knot with a few loose strands. No make-up beyond the practical. Charcoal merino roll-neck with the sleeves pushed to the elbow, an open white lab coat with a pen in the chest pocket and one frayed cuff, a plain steel watch on her left wrist. She moves unhurriedly and looks quietly delighted, like someone showing a friend a thing she has seen a thousand times and still finds astonishing. She does not smile at the camera on purpose and she never gestures to explain. She drops a small brass token through the open slot in the top of the box. The blank enamel plate on the front of the box lights faintly. Along the bench behind it, all eight little mechanisms rotate by the same amount at the same moment, in unison, and settle. Around five seconds in she tips the token back out and drops a different one in. Every mechanism rotates again, by a different amount, and settles. The setting is a Victorian brick engine house converted into a research laboratory: black-painted brickwork, tall arched windows along the left wall with true night behind them, a polished concrete floor with old machine bolts still set into it, and deep soft darkness thirty feet back. Centre of the room is a brushed black steel workbench, scratched from use, with a single amber desk lamp clamped to its edge. Ten feet behind and thrown well out of focus stands a dilution refrigerator — a gold chandelier-shaped quantum computer suspended inside a tall glass cylinder, lit from within in pale cyan, with thick black cable looms running up into the roof. Medium close on the bench with a small brass box in the near foreground and a row of eight little brass mechanisms receding behind it into soft focus. Locked off on a tripod. Cinematic and calm. Deep navy-black shadows. Exactly two light sources: warm amber from the desk lamp and cool cyan from the equipment behind. Nothing else is lit. Shot on a 50mm lens at a wide aperture with shallow depth of field, the background reduced to soft coloured bokeh. Fine film grain. Photorealistic, not stylised. Audio: Two soft metallic drops, each followed by a run of tiny clicks travelling away down the bench. No speech and no lip movement. She does not talk in this shot.
+```
 
-**Avoid** — No time-lapse, no speed ramp, no cutting, nothing found.
+**NEGATIVE PROMPT — copy this whole box**
 
----
+```
+No text, captions, subtitles, numbers, letters, logos or writing anywhere in frame. No lens flare. No camera shake, no handheld movement, no zoom. No split screen. No on-screen graphics or user interface. No slow motion. No cuts — one continuous shot. No numbers, letters or markings on the token or the enamel plate. The eight mechanisms must move together in one motion, not one after another — this is not a sequence.
+```
 
-## 4 · A Hundred Spins — superposition at scale
-**Pin:** character · black cube · lab · **plus:** same framing as clip 3
+**Voiceover to add in the edit:** *Change what is in the box, and everything that depends on it changes too. That is a variable.*
 
-**Shot** — Identical to clip 3.
-
-**Action** — All one hundred cubes closed and glowing. She stands still at the near
-edge and snaps her fingers once at **1.5s**. Every cube simultaneously lifts a few
-inches and begins rotating in place, their cyan seams smearing into rings of light
-until the whole floor is a field of spinning light. She does not move again.
-
-**Dialogue** — None.
-
-**Sound** — One sharp snap, then a rising musical chorus as a hundred objects spin up
-together.
-
-**Avoid** — The cubes stay closed. Nothing is revealed.
 
 ---
 
-## 5 · The Ripple Tank — interference
-**Pin:** lab · (only two needed — no character in this shot)
 
-**Shot** — Directly overhead, pointing straight down at water filling the frame.
-Locked off.
+## A3 · The Loop — write it once, run it many times
 
-**Action** — A shallow black tank of water lit from directly beneath, its surface
-covered in an even grid of identical small ripples. At **2s** a slim brass rod dips
-once at a single point and withdraws, inverting that one ripple. Between **3s and 6s**
-every other ripple flattens to still black glass while, at that one point, the water
-rises into a tall standing column. Hold on the column alone in the dark to 8s.
+**Teaches:** a loop · **Slots into:** Vault Heist, the Repeat Block lesson  
+**Pin (max 3):** character · chalkboard · lab  
+**Duration:** 8 seconds
 
-**Dialogue** — None.
+**PROMPT — copy this whole box**
 
-**Sound** — Soft water, one dip, then a swelling low tone as everything stills.
+```
+A woman in her late thirties. Dark brown hair pulled back into a low knot with a few loose strands. No make-up beyond the practical. Charcoal merino roll-neck with the sleeves pushed to the elbow, an open white lab coat with a pen in the chest pocket and one frayed cuff, a plain steel watch on her left wrist. She moves unhurriedly and looks quietly delighted, like someone showing a friend a thing she has seen a thousand times and still finds astonishing. She does not smile at the camera on purpose and she never gestures to explain. The chalkboard is already covered from top to bottom with the same short abstract chalk mark repeated twenty times in a single column — identical, laborious, filling the whole board. About two seconds in she draws one long bracket down the left-hand side of the entire column. About four seconds in, nineteen of the twenty marks fade away, leaving a single mark at the top with the bracket beside it. She adds one small chalk stroke next to the bracket. Hold on the almost-empty board. The setting is a Victorian brick engine house converted into a research laboratory: black-painted brickwork, tall arched windows along the left wall with true night behind them, a polished concrete floor with old machine bolts still set into it, and deep soft darkness thirty feet back. Centre of the room is a brushed black steel workbench, scratched from use, with a single amber desk lamp clamped to its edge. Ten feet behind and thrown well out of focus stands a dilution refrigerator — a gold chandelier-shaped quantum computer suspended inside a tall glass cylinder, lit from within in pale cyan, with thick black cable looms running up into the roof. Straight on to a black slate chalkboard mounted on the brick wall, the board filling most of the frame. She stands at the edge of frame, mostly out of shot. Locked off on a tripod. Cinematic and calm. Deep navy-black shadows. Exactly two light sources: warm amber from the desk lamp and cool cyan from the equipment behind. Nothing else is lit. Shot on a 50mm lens at a wide aperture with shallow depth of field, the background reduced to soft coloured bokeh. Fine film grain. Photorealistic, not stylised. Audio: Chalk squeaking on slate, twice. A soft sweeping sound as the nineteen marks vanish. No speech and no lip movement. She does not talk in this shot.
+```
 
-**Avoid** — No splashing or chaos. The flattening must look deliberate, not like water
-naturally calming.
+**NEGATIVE PROMPT — copy this whole box**
 
----
+```
+No text, captions, subtitles, numbers, letters, logos or writing anywhere in frame. No lens flare. No camera shake, no handheld movement, no zoom. No split screen. No on-screen graphics or user interface. No slow motion. No cuts — one continuous shot. The chalk marks must be abstract shapes, never readable words, letters or digits. The collapse should be quick and clean rather than a slow dissolve.
+```
 
-## 6a · The Twins, here — entanglement
-**Pin:** character · coin · lab
+**Voiceover to add in the edit:** *Twenty lines, or one line and a number. Same job. That is a loop.*
 
-**Shot** — Medium close on the workbench, matching clip 1.
-
-**Action** — The brass coin spins. At **3s** her hand presses it flat and it stops.
-Hold on the stilled coin to 8s.
-
-**Optional line (11 words, delivered 3.5–8s)** — *"Stop this one, and one on Mars
-decides. Einstein hated that."*
-
-**Sound** — Whirr, a slap, then silence.
-
-## 6b · The Twins, there — entanglement
-**Pin:** coin · a Mars surface still · (no character)
-
-**Shot** — Medium close, matched framing and lens to 6a, on a flat slab of rock.
-
-**Action** — An identical brass coin spins on rust-red Martian regolith, lit hard and
-low by a single white rover lamp from frame right, black sky above, fine red dust in
-the beam. At **3s**, with nothing touching it, the coin stops dead on its own. Hold
-to 8s.
-
-**Sound** — A whirr, then a faint gritty rattle as it settles into dust.
-
-**Cut them together** side by side in your editor, trimmed so both coins stop on the
-same frame. **Avoid** adding any beam, line or glow between them — the absence of a
-connection is the whole point.
 
 ---
 
-## 7 · The Doubling — exponential growth
-**Pin:** character · violet glass cube · lab
 
-**Shot** — Medium wide on the workbench with her behind it. Very slow continuous pull
-back across the whole clip.
+## A4 · The Rule — a decision made for you
 
-**Action** — She sets one glowing violet cube on the bench. It splits into two. Two
-become four, four become eight, and the doubling continues at a steady rhythm — cubes
-cascading off the bench, pooling across the concrete, climbing the walls and filling
-the room. She stays exactly where she is, arms folded, in the small gap left around
-her.
+**Teaches:** a conditional · **Slots into:** Investment Puzzle, Steps 1 and 2  
+**Pin (max 3):** character · brass gate · lab  
+**Duration:** 8 seconds
 
-**Dialogue** — None.
+**PROMPT — copy this whole box**
 
-**Sound** — A soft glassy chime on each doubling, overlapping into a roar.
+```
+A woman in her late thirties. Dark brown hair pulled back into a low knot with a few loose strands. No make-up beyond the practical. Charcoal merino roll-neck with the sleeves pushed to the elbow, an open white lab coat with a pen in the chest pocket and one frayed cuff, a plain steel watch on her left wrist. She moves unhurriedly and looks quietly delighted, like someone showing a friend a thing she has seen a thousand times and still finds astonishing. She does not smile at the camera on purpose and she never gestures to explain. A brass ball rolls down the channel toward the split. As it approaches, a small pivoting brass flap at the junction snaps over of its own accord and sends the ball down the left-hand path. About four seconds in, her hand comes into frame and turns a small dial mounted beside the flap. A second brass ball rolls down the same channel, and this time the flap snaps the other way and sends it down the right-hand path. The setting is a Victorian brick engine house converted into a research laboratory: black-painted brickwork, tall arched windows along the left wall with true night behind them, a polished concrete floor with old machine bolts still set into it, and deep soft darkness thirty feet back. Centre of the room is a brushed black steel workbench, scratched from use, with a single amber desk lamp clamped to its edge. Ten feet behind and thrown well out of focus stands a dilution refrigerator — a gold chandelier-shaped quantum computer suspended inside a tall glass cylinder, lit from within in pale cyan, with thick black cable looms running up into the roof. Low and close, at bench height, looking along a brass channel toward the point where it splits into two paths. Shallow focus on the junction. Locked off on a tripod. Cinematic and calm. Deep navy-black shadows. Exactly two light sources: warm amber from the desk lamp and cool cyan from the equipment behind. Nothing else is lit. Shot on a 50mm lens at a wide aperture with shallow depth of field, the background reduced to soft coloured bokeh. Fine film grain. Photorealistic, not stylised. Audio: Two rolling balls on brass, each ending in one decisive metallic snap. No speech and no lip movement. She does not talk in this shot.
+```
 
-**Avoid** — She must not react, dodge or look alarmed. Her stillness is what makes it
-read as inevitable.
+**NEGATIVE PROMPT — copy this whole box**
 
----
+```
+No text, captions, subtitles, numbers, letters, logos or writing anywhere in frame. No lens flare. No camera shake, no handheld movement, no zoom. No split screen. No on-screen graphics or user interface. No slow motion. No cuts — one continuous shot. The flap must move before the ball reaches it, never be pushed aside by the ball. The gate is deciding, not reacting.
+```
 
-## 8 · The Molecule — why simulation is impossible
-**Pin:** character · molecule model · lab
+**Voiceover to add in the edit:** *Under the limit it goes left. Over, it goes right. That is a rule, and software is mostly rules.*
 
-**Shot** — Opens tight on her open palm. Camera cranes up and back as the model grows,
-ending wide with her small at the bottom of frame.
-
-**Action** — She opens her hand at **1s**. The brass-and-glass model lifts and unfolds
-— each sphere blooming into more spheres, each rod branching — expanding outward and
-upward until an enormous lattice of brass and cyan light fills the volume above her.
-She becomes a silhouette inside it, looking up.
-
-**Dialogue** — None.
-
-**Sound** — A soft harmonic that keeps adding voices and never resolves.
-
-**Avoid** — Not an explosion. It unfolds calmly, like something opening.
 
 ---
 
-## 9 · A Thousand Futures — simulation
-**Pin:** character · lab
 
-**Shot** — Medium, her in profile at frame left facing into darkness. Slow push in
-from behind her shoulder.
+# SET B — THE CONTEXT (quantum)
 
-**Action** — The darkest end of the lab, deep empty black to the right of frame. At
-**1s** a single thin thread of cyan light shoots away from her into the dark, wandering
-as it goes. Then a second. Then hundreds, then a thousand, fanning out and weaving
-together until their density resolves into the unmistakable shape of a bell curve
-hanging in the air — brightest at the centre, thinning at the edges. She watches it
-form.
 
-**Dialogue** — None.
+## B1 · The Coin — superposition
 
-**Sound** — One soft tone, then a wash of many settling into a sustained chord.
+**Teaches:** superposition · **Slots into:** Vault Heist intro, where they spin and stop a coin themselves  
+**Pin (max 3):** character · coin · lab  
+**Duration:** 8 seconds
 
-**Avoid** — No axes, no gridlines, no numbers, no graph. The shape emerges from the
-threads alone.
+**PROMPT — copy this whole box**
 
----
+```
+A woman in her late thirties. Dark brown hair pulled back into a low knot with a few loose strands. No make-up beyond the practical. Charcoal merino roll-neck with the sleeves pushed to the elbow, an open white lab coat with a pen in the chest pocket and one frayed cuff, a plain steel watch on her left wrist. She moves unhurriedly and looks quietly delighted, like someone showing a friend a thing she has seen a thousand times and still finds astonishing. She does not smile at the camera on purpose and she never gestures to explain. An oversized brass coin with a milled edge is already spinning on the steel bench as the shot opens, blurred into a standing golden sphere. It keeps spinning for the entire shot. She watches the coin, not the camera. Nothing else happens. The setting is a Victorian brick engine house converted into a research laboratory: black-painted brickwork, tall arched windows along the left wall with true night behind them, a polished concrete floor with old machine bolts still set into it, and deep soft darkness thirty feet back. Centre of the room is a brushed black steel workbench, scratched from use, with a single amber desk lamp clamped to its edge. Ten feet behind and thrown well out of focus stands a dilution refrigerator — a gold chandelier-shaped quantum computer suspended inside a tall glass cylinder, lit from within in pale cyan, with thick black cable looms running up into the roof. Medium close framed on the workbench with her face and shoulders behind it in the upper third of frame. Locked off on a tripod. Cinematic and calm. Deep navy-black shadows. Exactly two light sources: warm amber from the desk lamp and cool cyan from the equipment behind. Nothing else is lit. Shot on a 50mm lens at a wide aperture with shallow depth of field, the background reduced to soft coloured bokeh. Fine film grain. Photorealistic, not stylised. Audio: A close, dry metallic whirr from the spinning coin. A distant low hum from the equipment behind. She says, clearly and unhurriedly: "Heads, or tails. Unless it's spinning. Then it's honestly both at once."
+```
 
-## 10 · What It Won't Do — honest limits
-**Pin:** character · refrigerator · lab
+**NEGATIVE PROMPT — copy this whole box**
 
-**Shot** — Wide, her small at the bench with the glass-cased gold refrigerator behind
-her, in focus and fully visible. Very slow push in.
+```
+No text, captions, subtitles, numbers, letters, logos or writing anywhere in frame. No lens flare. No camera shake, no handheld movement, no zoom. No split screen. No on-screen graphics or user interface. No slow motion. No cuts — one continuous shot. The coin must not fall, slow down or wobble to a stop. Do not cut to her face.
+```
 
-**Action** — An ordinary black smartphone lies face up on the bench. At **2s** she taps
-it and it wakes, lighting her face with completely ordinary white screen light. At
-**4s** she looks up at the vast gold machine behind her. At **6s** a small amused shrug.
-
-**Optional line (12 words, delivered 3–8s)** — *"This will never replace that. It's not
-faster — it's for different problems."*
-
-**Sound** — One phone tap. The refrigerator's hum, louder here than anywhere else.
-
-**Avoid** — No smugness, no wink. A specialist being straight with you.
 
 ---
 
-# SPENDING CREDITS WISELY
 
-**Block out cheap, finish expensive.** Flow's pricing guidance is that longer
-generations cost more and the Quality tier costs several times what Fast does — Fast
-sits around 20 credits a generation against roughly 100 for Quality. So test each
-composition at the shortest duration on the cheapest tier that tells you whether the
-framing and action are right. Only commit to 8s on Quality once you know the shot
-works. On an AI Pro allowance of about 1,000 credits a month, that is the difference
-between roughly ten finished clips and roughly fifty attempts.
+## B2 · The Slam — measurement
 
-**Use Extend rather than regenerating.** If a clip is right but ends early, Extend
-continues from the final frames instead of rolling the whole thing again. Google
-explicitly recommends it as the way to avoid wasted generations.
+**Teaches:** measurement · **Slots into:** straight after B1; mirrors the app's slap-your-hand-down button  
+**Pin (max 3):** character · coin · lab · plus the final frame of B1 as a starting frame if Flow offers Frames-to-Video  
+**Duration:** 8 seconds
 
-**Chase consistency with images, not credits.** Every re-roll caused by the lab
-looking different is avoidable. Pin the same three ingredients and reuse the identical
-text blocks. That is what the reference stills are for.
+**PROMPT — copy this whole box**
 
-**Order to shoot in.** Clips 1 and 2 first — they are the simplest, they use the
-fewest elements, and getting them right proves your character and lab ingredients are
-working before you attempt anything harder. Clip 7 (the doubling) and clip 8 (the
-molecule) are the most ambitious; leave them until last, when you know your setup.
+```
+A woman in her late thirties. Dark brown hair pulled back into a low knot with a few loose strands. No make-up beyond the practical. Charcoal merino roll-neck with the sleeves pushed to the elbow, an open white lab coat with a pen in the chest pocket and one frayed cuff, a plain steel watch on her left wrist. She moves unhurriedly and looks quietly delighted, like someone showing a friend a thing she has seen a thousand times and still finds astonishing. She does not smile at the camera on purpose and she never gestures to explain. The brass coin is spinning on the steel bench. About two and a half seconds in, her open hand comes down flat over it, fast, and the coin stops dead beneath her palm. She holds her hand there, completely still, until about five and a half seconds. Then she lifts it: the coin lies flat and motionless on the steel. Hold on the still coin. The setting is a Victorian brick engine house converted into a research laboratory: black-painted brickwork, tall arched windows along the left wall with true night behind them, a polished concrete floor with old machine bolts still set into it, and deep soft darkness thirty feet back. Centre of the room is a brushed black steel workbench, scratched from use, with a single amber desk lamp clamped to its edge. Ten feet behind and thrown well out of focus stands a dilution refrigerator — a gold chandelier-shaped quantum computer suspended inside a tall glass cylinder, lit from within in pale cyan, with thick black cable looms running up into the roof. Identical framing to B1 — medium close on the bench, her face and shoulders in the upper third. Locked off on a tripod. Cinematic and calm. Deep navy-black shadows. Exactly two light sources: warm amber from the desk lamp and cool cyan from the equipment behind. Nothing else is lit. Shot on a 50mm lens at a wide aperture with shallow depth of field, the background reduced to soft coloured bokeh. Fine film grain. Photorealistic, not stylised. Audio: The metallic whirr, one hard flat slap, then a full second of complete silence before the room tone returns. She says, clearly and unhurriedly: "But the moment you look, it has to pick one."
+```
 
-**If you only make three:** 1, 2 and 6a. The coin, the slam, and the pause after.
-Those three map directly onto what people now do on screen in the Vault Heist.
+**NEGATIVE PROMPT — copy this whole box**
+
+```
+No text, captions, subtitles, numbers, letters, logos or writing anywhere in frame. No lens flare. No camera shake, no handheld movement, no zoom. No split screen. No on-screen graphics or user interface. No slow motion. No cuts — one continuous shot. No reaction, no celebration, no smile. Do not push in on which face the coin landed on.
+```
+
 
 ---
 
-# ONE THING I COULD NOT VERIFY
 
-I could not find a clear answer on whether a generation that fails or gets rejected by
-Flow's safety filters still consumes credits. Worth checking on a cheap tier before
-you attempt anything unusual — and none of the clips above should trip a filter, since
-there is no real person, brand, artwork or organisation in any of them.
+## B3 · A Hundred Lids — searching one at a time
+
+**Teaches:** classical search · **Slots into:** Vault Heist, alongside the classical half of the vault race  
+**Pin (max 3):** character · black cube · lab  
+**Duration:** 8 seconds
+
+**PROMPT — copy this whole box**
+
+```
+A woman in her late thirties. Dark brown hair pulled back into a low knot with a few loose strands. No make-up beyond the practical. Charcoal merino roll-neck with the sleeves pushed to the elbow, an open white lab coat with a pen in the chest pocket and one frayed cuff, a plain steel watch on her left wrist. She moves unhurriedly and looks quietly delighted, like someone showing a friend a thing she has seen a thousand times and still finds astonishing. She does not smile at the camera on purpose and she never gestures to explain. One hundred matte black cubes, each about twenty centimetres across with a single hairline seam of cyan light around the lid, sit in a precise ten-by-ten grid on the concrete floor. She walks steadily along the front row, flipping each lid open without breaking stride. Every cube she opens is empty black inside, and its cyan seam goes dark. She reaches the end of the row and starts along the next one. That is the whole shot. The setting is a Victorian brick engine house converted into a research laboratory: black-painted brickwork, tall arched windows along the left wall with true night behind them, a polished concrete floor with old machine bolts still set into it, and deep soft darkness thirty feet back. Centre of the room is a brushed black steel workbench, scratched from use, with a single amber desk lamp clamped to its edge. Ten feet behind and thrown well out of focus stands a dilution refrigerator — a gold chandelier-shaped quantum computer suspended inside a tall glass cylinder, lit from within in pale cyan, with thick black cable looms running up into the roof. High and wide, at a shallow downward angle across the floor. She is small in frame. Locked off on a tripod. Cinematic and calm. Deep navy-black shadows. Exactly two light sources: warm amber from the desk lamp and cool cyan from the equipment behind. Nothing else is lit. Shot on a 50mm lens at a wide aperture with shallow depth of field, the background reduced to soft coloured bokeh. Fine film grain. Photorealistic, not stylised. Audio: Unhurried footsteps on concrete and the dull clack of each lid opening. Nothing else. No speech and no lip movement. She does not talk in this shot.
+```
+
+**NEGATIVE PROMPT — copy this whole box**
+
+```
+No text, captions, subtitles, numbers, letters, logos or writing anywhere in frame. No lens flare. No camera shake, no handheld movement, no zoom. No split screen. No on-screen graphics or user interface. No slow motion. No cuts — one continuous shot. No time-lapse, no speed ramp, no cutting. She must not find anything. It should feel slightly tedious, deliberately.
+```
+
+**Voiceover to add in the edit:** *A hundred boxes, one prize. An ordinary computer does exactly this — one lid at a time.*
+
+
+---
+
+
+## B4 · A Hundred Spins — superposition at scale
+
+**Teaches:** superposition across many states · **Slots into:** straight after B3  
+**Pin (max 3):** character · black cube · lab · plus the same framing as B3  
+**Duration:** 8 seconds
+
+**PROMPT — copy this whole box**
+
+```
+A woman in her late thirties. Dark brown hair pulled back into a low knot with a few loose strands. No make-up beyond the practical. Charcoal merino roll-neck with the sleeves pushed to the elbow, an open white lab coat with a pen in the chest pocket and one frayed cuff, a plain steel watch on her left wrist. She moves unhurriedly and looks quietly delighted, like someone showing a friend a thing she has seen a thousand times and still finds astonishing. She does not smile at the camera on purpose and she never gestures to explain. The same hundred matte black cubes sit closed in their ten-by-ten grid, cyan seams glowing. She stands completely still at the near edge of the grid and snaps her fingers once, about a second and a half in. Every cube simultaneously lifts a few inches off the floor and begins rotating in place, all of them at once, their cyan seams smearing into rings of light until the whole floor is a field of spinning light. She does not move again. The setting is a Victorian brick engine house converted into a research laboratory: black-painted brickwork, tall arched windows along the left wall with true night behind them, a polished concrete floor with old machine bolts still set into it, and deep soft darkness thirty feet back. Centre of the room is a brushed black steel workbench, scratched from use, with a single amber desk lamp clamped to its edge. Ten feet behind and thrown well out of focus stands a dilution refrigerator — a gold chandelier-shaped quantum computer suspended inside a tall glass cylinder, lit from within in pale cyan, with thick black cable looms running up into the roof. Identical framing, height and angle to B3. Locked off on a tripod. Cinematic and calm. Deep navy-black shadows. Exactly two light sources: warm amber from the desk lamp and cool cyan from the equipment behind. Nothing else is lit. Shot on a 50mm lens at a wide aperture with shallow depth of field, the background reduced to soft coloured bokeh. Fine film grain. Photorealistic, not stylised. Audio: One sharp finger snap, then a rising musical chorus as a hundred objects spin up together. Musical rather than mechanical. No speech and no lip movement. She does not talk in this shot.
+```
+
+**NEGATIVE PROMPT — copy this whole box**
+
+```
+No text, captions, subtitles, numbers, letters, logos or writing anywhere in frame. No lens flare. No camera shake, no handheld movement, no zoom. No split screen. No on-screen graphics or user interface. No slow motion. No cuts — one continuous shot. The cubes must stay closed. Nothing is revealed and nothing is found in this shot.
+```
+
+**Voiceover to add in the edit:** *A quantum computer doesn't open them. It sets all one hundred spinning and asks the whole room at once.*
+
+
+---
+
+
+## B5 · The Ripple Tank — interference
+
+**Teaches:** interference · **Slots into:** the Heist's 'Why Mark + Boost actually works' screen  
+**Pin (max 3):** lab · (only two ingredients needed — she does not appear)  
+**Duration:** 8 seconds
+
+**PROMPT — copy this whole box**
+
+```
+A woman in her late thirties. Dark brown hair pulled back into a low knot with a few loose strands. No make-up beyond the practical. Charcoal merino roll-neck with the sleeves pushed to the elbow, an open white lab coat with a pen in the chest pocket and one frayed cuff, a plain steel watch on her left wrist. She moves unhurriedly and looks quietly delighted, like someone showing a friend a thing she has seen a thousand times and still finds astonishing. She does not smile at the camera on purpose and she never gestures to explain. A shallow rectangular black tank of water about ninety centimetres wide sits on the bench, lit from directly underneath so the surface reads as bright caustic patterns against black. The surface is covered in an even grid of identical small ripples. About two seconds in, a slim brass rod dips once at a single point and withdraws, inverting that one ripple into a trough. Between three and six seconds every other ripple flattens away to still black glass while, at that one marked point, the water rises into a tall standing column. Hold on the single column standing alone in the dark. The setting is a Victorian brick engine house converted into a research laboratory: black-painted brickwork, tall arched windows along the left wall with true night behind them, a polished concrete floor with old machine bolts still set into it, and deep soft darkness thirty feet back. Centre of the room is a brushed black steel workbench, scratched from use, with a single amber desk lamp clamped to its edge. Ten feet behind and thrown well out of focus stands a dilution refrigerator — a gold chandelier-shaped quantum computer suspended inside a tall glass cylinder, lit from within in pale cyan, with thick black cable looms running up into the roof. Directly overhead, pointing straight down at the surface of the water so it fills the frame edge to edge. Locked off. Cinematic and calm. Deep navy-black shadows. Exactly two light sources: warm amber from the desk lamp and cool cyan from the equipment behind. Nothing else is lit. Shot on a 50mm lens at a wide aperture with shallow depth of field, the background reduced to soft coloured bokeh. Fine film grain. Photorealistic, not stylised. Audio: Soft water movement, one clean dip, then a swelling low tone as everything else goes still and the column rises. No speech and no lip movement. She does not talk in this shot.
+```
+
+**NEGATIVE PROMPT — copy this whole box**
+
+```
+No text, captions, subtitles, numbers, letters, logos or writing anywhere in frame. No lens flare. No camera shake, no handheld movement, no zoom. No split screen. No on-screen graphics or user interface. No slow motion. No cuts — one continuous shot. No splashing and no chaos. The flattening must look orderly and deliberate rather than like water naturally calming down. Her hands never appear.
+```
+
+**Voiceover to add in the edit:** *Every wrong answer cancels itself into stillness. The right one stacks up until it is the only thing left standing.*
+
+
+---
+
+
+## B6a · The Twins, here — entanglement
+
+**Teaches:** entanglement · **Slots into:** the Twin Vaults, now an optional bonus round  
+**Pin (max 3):** character · coin · lab  
+**Duration:** 8 seconds
+
+**PROMPT — copy this whole box**
+
+```
+A woman in her late thirties. Dark brown hair pulled back into a low knot with a few loose strands. No make-up beyond the practical. Charcoal merino roll-neck with the sleeves pushed to the elbow, an open white lab coat with a pen in the chest pocket and one frayed cuff, a plain steel watch on her left wrist. She moves unhurriedly and looks quietly delighted, like someone showing a friend a thing she has seen a thousand times and still finds astonishing. She does not smile at the camera on purpose and she never gestures to explain. An oversized brass coin spins on the steel bench. About three seconds in, her hand presses it flat and it stops dead. Hold on the stilled coin for the rest of the shot. The setting is a Victorian brick engine house converted into a research laboratory: black-painted brickwork, tall arched windows along the left wall with true night behind them, a polished concrete floor with old machine bolts still set into it, and deep soft darkness thirty feet back. Centre of the room is a brushed black steel workbench, scratched from use, with a single amber desk lamp clamped to its edge. Ten feet behind and thrown well out of focus stands a dilution refrigerator — a gold chandelier-shaped quantum computer suspended inside a tall glass cylinder, lit from within in pale cyan, with thick black cable looms running up into the roof. Medium close on the workbench, matching the framing of B1. Locked off on a tripod. Cinematic and calm. Deep navy-black shadows. Exactly two light sources: warm amber from the desk lamp and cool cyan from the equipment behind. Nothing else is lit. Shot on a 50mm lens at a wide aperture with shallow depth of field, the background reduced to soft coloured bokeh. Fine film grain. Photorealistic, not stylised. Audio: A metallic whirr, one slap, then silence. She says, clearly and unhurriedly: "Stop this one, and one on Mars decides. Einstein hated that."
+```
+
+**NEGATIVE PROMPT — copy this whole box**
+
+```
+No text, captions, subtitles, numbers, letters, logos or writing anywhere in frame. No lens flare. No camera shake, no handheld movement, no zoom. No split screen. No on-screen graphics or user interface. No slow motion. No cuts — one continuous shot. No beam, line, glow or any visible connection leaving the frame. The absence of a connection is the entire point.
+```
+
+
+---
+
+
+## B6b · The Twins, there — entanglement
+
+**Teaches:** entanglement · **Slots into:** cut side by side with B6a in your editor  
+**Pin (max 3):** coin · a Mars surface still · (she does not appear)  
+**Duration:** 8 seconds
+
+**PROMPT — copy this whole box**
+
+```
+A woman in her late thirties. Dark brown hair pulled back into a low knot with a few loose strands. No make-up beyond the practical. Charcoal merino roll-neck with the sleeves pushed to the elbow, an open white lab coat with a pen in the chest pocket and one frayed cuff, a plain steel watch on her left wrist. She moves unhurriedly and looks quietly delighted, like someone showing a friend a thing she has seen a thousand times and still finds astonishing. She does not smile at the camera on purpose and she never gestures to explain. An oversized brass coin with a milled edge spins on the flat rock. About three seconds in, with nothing touching it and no hand anywhere in frame, the coin stops dead of its own accord. Hold on the stilled coin. The setting is the surface of Mars: rust-red regolith close to the ground, a flat slab of dark rock, fine red dust suspended in the air, a black sky above with no stars visible. A single hard white rover lamp lights the scene from frame right at a low angle, throwing a long shadow. Medium close, matched in framing and lens to B6a, looking at a flat slab of Martian rock. Locked off on a tripod. Cinematic and calm. Deep navy-black shadows. Exactly two light sources: warm amber from the desk lamp and cool cyan from the equipment behind. Nothing else is lit. Shot on a 50mm lens at a wide aperture with shallow depth of field, the background reduced to soft coloured bokeh. Fine film grain. Photorealistic, not stylised. Audio: A metallic whirr, then a faint gritty rattle as the coin settles into the dust. No other sound. No speech and no lip movement. She does not talk in this shot.
+```
+
+**NEGATIVE PROMPT — copy this whole box**
+
+```
+No text, captions, subtitles, numbers, letters, logos or writing anywhere in frame. No lens flare. No camera shake, no handheld movement, no zoom. No split screen. No on-screen graphics or user interface. No slow motion. No cuts — one continuous shot. No hands, no people, no machinery in frame. Nothing may touch the coin. No beam or glow arriving from off-screen.
+```
+
+
+---
+
+
+## B7 · The Doubling — exponential growth
+
+**Teaches:** exponential growth · **Slots into:** the Investment Puzzle's doubling ladder  
+**Pin (max 3):** character · violet glass cube · lab  
+**Duration:** 8 seconds
+
+**PROMPT — copy this whole box**
+
+```
+A woman in her late thirties. Dark brown hair pulled back into a low knot with a few loose strands. No make-up beyond the practical. Charcoal merino roll-neck with the sleeves pushed to the elbow, an open white lab coat with a pen in the chest pocket and one frayed cuff, a plain steel watch on her left wrist. She moves unhurriedly and looks quietly delighted, like someone showing a friend a thing she has seen a thousand times and still finds astonishing. She does not smile at the camera on purpose and she never gestures to explain. She sets a single small cube of violet glass, lit from within, down on the bench. It splits into two. Those two become four, the four become eight, and the doubling continues at a steady rhythm — cubes cascading off the bench, pooling across the concrete floor, climbing the walls, filling the room and pressing against the arched windows. She stays exactly where she is, arms folded, standing in the one small gap that remains around her. The setting is a Victorian brick engine house converted into a research laboratory: black-painted brickwork, tall arched windows along the left wall with true night behind them, a polished concrete floor with old machine bolts still set into it, and deep soft darkness thirty feet back. Centre of the room is a brushed black steel workbench, scratched from use, with a single amber desk lamp clamped to its edge. Ten feet behind and thrown well out of focus stands a dilution refrigerator — a gold chandelier-shaped quantum computer suspended inside a tall glass cylinder, lit from within in pale cyan, with thick black cable looms running up into the roof. Medium wide on the workbench with her standing behind it. The camera pulls slowly and continuously backwards throughout the whole shot, revealing more of the room as it goes. Cinematic and calm. Deep navy-black shadows. Exactly two light sources: warm amber from the desk lamp and cool cyan from the equipment behind. Nothing else is lit. Shot on a 50mm lens at a wide aperture with shallow depth of field, the background reduced to soft coloured bokeh. Fine film grain. Photorealistic, not stylised. Audio: A soft glassy chime on each doubling, the chimes overlapping and building into a roar. No speech and no lip movement. She does not talk in this shot.
+```
+
+**NEGATIVE PROMPT — copy this whole box**
+
+```
+No text, captions, subtitles, numbers, letters, logos or writing anywhere in frame. No lens flare. No camera shake, no handheld movement, no zoom. No split screen. No on-screen graphics or user interface. No slow motion. No cuts — one continuous shot. She must not react, dodge, flinch or look alarmed. Her stillness is what makes the room filling read as inevitable rather than as an accident.
+```
+
+**Voiceover to add in the edit:** *Add one more choice and the work doubles. Do that fifty times and no computer on Earth will ever finish.*
+
+
+---
+
+
+## B8 · The Molecule — why simulation is impossible
+
+**Teaches:** quantum simulation · **Slots into:** the Molecule Lab, before the certificate  
+**Pin (max 3):** character · molecule model · lab  
+**Duration:** 8 seconds
+
+**PROMPT — copy this whole box**
+
+```
+A woman in her late thirties. Dark brown hair pulled back into a low knot with a few loose strands. No make-up beyond the practical. Charcoal merino roll-neck with the sleeves pushed to the elbow, an open white lab coat with a pen in the chest pocket and one frayed cuff, a plain steel watch on her left wrist. She moves unhurriedly and looks quietly delighted, like someone showing a friend a thing she has seen a thousand times and still finds astonishing. She does not smile at the camera on purpose and she never gestures to explain. She holds a small ball-and-stick molecule model of brass rods and frosted glass spheres in her open palm. About a second in she opens her hand fully and the model lifts and begins to unfold — each sphere blooming into more spheres, each rod branching into more rods — expanding outward and upward in every direction until an enormous lattice of brass and cyan light fills the entire volume above her. She becomes a silhouette standing inside it, looking up. The setting is a Victorian brick engine house converted into a research laboratory: black-painted brickwork, tall arched windows along the left wall with true night behind them, a polished concrete floor with old machine bolts still set into it, and deep soft darkness thirty feet back. Centre of the room is a brushed black steel workbench, scratched from use, with a single amber desk lamp clamped to its edge. Ten feet behind and thrown well out of focus stands a dilution refrigerator — a gold chandelier-shaped quantum computer suspended inside a tall glass cylinder, lit from within in pale cyan, with thick black cable looms running up into the roof. Opens tight on her open palm. As the model unfolds the camera cranes up and back to a wide shot, ending with her small at the bottom of frame. Cinematic and calm. Deep navy-black shadows. Exactly two light sources: warm amber from the desk lamp and cool cyan from the equipment behind. Nothing else is lit. Shot on a 50mm lens at a wide aperture with shallow depth of field, the background reduced to soft coloured bokeh. Fine film grain. Photorealistic, not stylised. Audio: A soft harmonic that keeps adding voices as the structure grows and never resolves. No speech and no lip movement. She does not talk in this shot.
+```
+
+**NEGATIVE PROMPT — copy this whole box**
+
+```
+No text, captions, subtitles, numbers, letters, logos or writing anywhere in frame. No lens flare. No camera shake, no handheld movement, no zoom. No split screen. No on-screen graphics or user interface. No slow motion. No cuts — one continuous shot. It must not look like an explosion. The lattice unfolds calmly, like something opening, without limit.
+```
+
+**Voiceover to add in the edit:** *To simulate this exactly you would need a computer bigger than the planet. Unless you build one out of the same stuff nature already uses.*
+
+
+---
+
+
+## B9 · A Thousand Futures — simulation
+
+**Teaches:** Monte Carlo simulation · **Slots into:** the Simulation Room, Step 2  
+**Pin (max 3):** character · lab  
+**Duration:** 8 seconds
+
+**PROMPT — copy this whole box**
+
+```
+A woman in her late thirties. Dark brown hair pulled back into a low knot with a few loose strands. No make-up beyond the practical. Charcoal merino roll-neck with the sleeves pushed to the elbow, an open white lab coat with a pen in the chest pocket and one frayed cuff, a plain steel watch on her left wrist. She moves unhurriedly and looks quietly delighted, like someone showing a friend a thing she has seen a thousand times and still finds astonishing. She does not smile at the camera on purpose and she never gestures to explain. She stands at the darkest end of the laboratory with deep empty black filling the right of frame. About a second in, a single thin thread of cyan light shoots away from her into the darkness, wandering as it travels. Then a second thread. Then hundreds, then a thousand, fanning out and weaving together — and as they accumulate, their density resolves into the unmistakable shape of a bell curve hanging in the air, brightest at the centre and thinning at the edges. She watches it form. The setting is a Victorian brick engine house converted into a research laboratory: black-painted brickwork, tall arched windows along the left wall with true night behind them, a polished concrete floor with old machine bolts still set into it, and deep soft darkness thirty feet back. Centre of the room is a brushed black steel workbench, scratched from use, with a single amber desk lamp clamped to its edge. Ten feet behind and thrown well out of focus stands a dilution refrigerator — a gold chandelier-shaped quantum computer suspended inside a tall glass cylinder, lit from within in pale cyan, with thick black cable looms running up into the roof. Medium shot with her in profile at frame left, facing into darkness. The camera pushes in slowly from behind her shoulder. Cinematic and calm. Deep navy-black shadows. Exactly two light sources: warm amber from the desk lamp and cool cyan from the equipment behind. Nothing else is lit. Shot on a 50mm lens at a wide aperture with shallow depth of field, the background reduced to soft coloured bokeh. Fine film grain. Photorealistic, not stylised. Audio: One soft tone for the first thread, then a wash of many tones settling into a single sustained chord as the shape appears. No speech and no lip movement. She does not talk in this shot.
+```
+
+**NEGATIVE PROMPT — copy this whole box**
+
+```
+No text, captions, subtitles, numbers, letters, logos or writing anywhere in frame. No lens flare. No camera shake, no handheld movement, no zoom. No split screen. No on-screen graphics or user interface. No slow motion. No cuts — one continuous shot. No axes, no gridlines, no numbers, no graph furniture of any kind. The shape must emerge from the density of the threads alone.
+```
+
+**Voiceover to add in the edit:** *You cannot predict next year. But run it a thousand times and the shape of the answer rises out of the noise.*
+
+
+---
+
+
+## B10 · What It Won't Do — honest limits
+
+**Teaches:** honest limits · **Slots into:** the close of the session, or the Molecule Lab's 'will it replace my laptop' panel  
+**Pin (max 3):** character · refrigerator · lab  
+**Duration:** 8 seconds
+
+**PROMPT — copy this whole box**
+
+```
+A woman in her late thirties. Dark brown hair pulled back into a low knot with a few loose strands. No make-up beyond the practical. Charcoal merino roll-neck with the sleeves pushed to the elbow, an open white lab coat with a pen in the chest pocket and one frayed cuff, a plain steel watch on her left wrist. She moves unhurriedly and looks quietly delighted, like someone showing a friend a thing she has seen a thousand times and still finds astonishing. She does not smile at the camera on purpose and she never gestures to explain. An ordinary black smartphone lies face up on the steel bench beside her hand. About two seconds in she taps it and it wakes, lighting her face with completely ordinary white screen light. About four seconds in she looks up at the vast gold machine behind her. About six seconds in she gives a small amused shrug. The setting is a Victorian brick engine house converted into a research laboratory: black-painted brickwork, tall arched windows along the left wall with true night behind them, a polished concrete floor with old machine bolts still set into it, and deep soft darkness thirty feet back. Centre of the room is a brushed black steel workbench, scratched from use, with a single amber desk lamp clamped to its edge. Ten feet behind and thrown well out of focus stands a dilution refrigerator — a gold chandelier-shaped quantum computer suspended inside a tall glass cylinder, lit from within in pale cyan, with thick black cable looms running up into the roof. Wide shot on a 35mm lens, her small in frame at the bench with the glass-cased gold refrigerator towering behind her, this time in focus and fully visible. Very slow push in. Cinematic and calm. Deep navy-black shadows. Exactly two light sources: warm amber from the desk lamp and cool cyan from the equipment behind. Nothing else is lit. Shot on a 50mm lens at a wide aperture with shallow depth of field, the background reduced to soft coloured bokeh. Fine film grain. Photorealistic, not stylised. Audio: One phone tap. The deep hum of the refrigerator, louder here than in any other shot. She says, clearly and unhurriedly: "This will never replace that. It's not faster — it's for different problems."
+```
+
+**NEGATIVE PROMPT — copy this whole box**
+
+```
+No text, captions, subtitles, numbers, letters, logos or writing anywhere in frame. No lens flare. No camera shake, no handheld movement, no zoom. No split screen. No on-screen graphics or user interface. No slow motion. No cuts — one continuous shot. No smugness and no wink to camera. The tone is a specialist being straight with you.
+```
+
+
+---
+
+
+## If a clip misbehaves
+
+**Wrong face or wrong coat** — your character ingredient is not pinned, or you pinned
+four things and Flow dropped one. Never exceed three.
+
+**Text appearing on screen** — the negative prompt is not in the negative field. Flow
+treats "no text" inside the main prompt as a request for text surprisingly often.
+
+**Camera drifting** — add "static locked-off tripod shot" to the front of the prompt as
+well as leaving it where it is. Repetition helps more than rewording.
+
+**The action happens too fast and then nothing** — drop to 6 seconds rather than
+re-rolling at 8. Most of these read fine at 6.
 
 **Sources:** [Flow pricing and credits](https://costgoat.com/pricing/google-flow) ·
 [Veo clip length limits](https://ulazai.com/how-long-veo3-videos/) ·

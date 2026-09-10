@@ -250,6 +250,34 @@
   .ladder-row.newest{ background: rgba(124,111,255,0.16); }
   .ladder-row .t{ font-weight:700; }
 
+  /* ---------- the password maker: a function with typed arguments ---------- */
+  .arg-grid{ display:flex; flex-direction:column; gap:10px; margin:16px 0; }
+  .arg-row{ background: var(--panel-2); border-radius:14px; padding:13px 15px; }
+  .arg-head{ display:flex; align-items:baseline; gap:10px; margin-bottom:9px; flex-wrap:wrap; }
+  .arg-name{ font-family:var(--f-mono); font-weight:700; font-size:0.95rem; color: var(--zero); }
+  .type-badge{ font-family:var(--f-mono); font-weight:700; font-size:0.66rem; letter-spacing:0.4px; padding:3px 8px; border-radius:7px; background: rgba(255,255,255,0.09); color: var(--text-dim); }
+  .arg-note{ font-size:0.8rem; color: var(--text-dim); margin-left:auto; }
+  .seg{ display:flex; gap:6px; flex-wrap:wrap; }
+  .seg button{ flex:1 1 auto; min-width:86px; border:none; border-radius:10px; padding:11px 10px; cursor:pointer;
+    font-family:var(--f-display); font-weight:700; font-size:0.86rem; background: var(--bg-deep); color: var(--text-dim); }
+  .seg button.on{ background: var(--zero); color:#0B0E24; }
+  .seg.bool button.on{ background: var(--good); color:#08281c; }
+  .stepper-num{ display:flex; align-items:center; justify-content:center; gap:14px; }
+  .stepper-num button{ width:44px; height:44px; border-radius:12px; border:none; cursor:pointer; background: var(--bg-deep); color: var(--text); font-size:1.3rem; font-weight:700; }
+  .stepper-num .n{ font-family:var(--f-mono); font-weight:700; font-size:1.6rem; color: var(--star); min-width:3rem; text-align:center; }
+  .call-sig{ background:#05060f; border:1px solid rgba(76,214,255,0.28); border-radius:12px; padding:14px; margin:14px 0;
+    font-family:var(--f-mono); font-size:0.86rem; line-height:1.6; color:#B8E6FF; overflow-x:auto; white-space:pre; }
+  .call-sig .fn{ color: var(--star); }
+  .call-sig .str{ color: var(--good); }
+  .call-sig .num{ color: var(--one); }
+  .call-sig .bool{ color: var(--pink); }
+  .pw-display{ background: var(--bg-deep); border:1px dashed rgba(255,255,255,0.2); border-radius:14px;
+    padding:20px 16px; margin:14px 0; text-align:center; font-family:var(--f-mono); font-weight:700;
+    font-size:1.35rem; color:#fff; word-break:break-all; line-height:1.5; min-height:3.6rem;
+    display:flex; align-items:center; justify-content:center; }
+  .pw-display.empty{ color: var(--text-dim); font-size:0.95rem; font-weight:600; }
+  .pw-space{ text-align:center; font-size:0.84rem; color: var(--text-dim); margin:-4px 0 4px; line-height:1.55; }
+
   /* ---------- plenary ---------- */
   .recap-card{ background: var(--panel-2); border-radius: 14px; padding: 15px; margin-bottom: 10px; }
   .recap-card h4{ font-family:var(--f-display); font-size:0.98rem; margin:0 0 5px; color: var(--star); }
@@ -476,8 +504,8 @@
         <div class="ico">💻</div>
         <div>
           <span class="aim-tag prog">PROGRAMMING</span>
-          <h4>A variable, then a loop</h4>
-          <p>Two ideas, and between them they make up most of any program ever written. A <b>variable</b> is a named box holding a value you can change — you'll change one and watch your program's output change with it. A <b>loop</b> repeats an action until it finds an answer.</p>
+          <h4>A variable, a loop, and your first function</h4>
+          <p>Three things, and between them they are most of what any program is made of. A <b>variable</b> — a named box holding a value you can change. A <b>loop</b> that keeps going until it succeeds, unlike the counted one you used in the Vault Heist. And a <b>function</b>: a named recipe you hand some information to, which does a job and hands something back. You will write one that builds passwords.</p>
         </div>
       </div>
 
@@ -551,7 +579,7 @@
       </div>
 
       <div class="callback-box" id="varCallout" style="display:none;">
-        <b>That dial has a name.</b> The number it holds is a <b>variable</b> — a named box with a value in it that you are allowed to change. Yours is called <span class="mono">shift_amount</span>, and you can see it sitting in the code above, changing every time you press + or −. Every program you have ever used is full of these. That is genuinely all a variable is.
+        <b>That dial has a name.</b> The number it holds is a <b>variable</b> — a named box with a value in it that you are allowed to change. Yours is called <span class="mono">shift_amount</span>, and you can see it sitting in the code above, changing every time you press + or −.<br><br>You have already used one, in fact: the number on your Repeat block in the Vault Heist was a variable too. Every program you have ever used is full of them. That is genuinely all a variable is.
       </div>
 
       <button class="cta" id="btnToEncodeNext" disabled>Now be the codebreaker →</button>
@@ -563,8 +591,8 @@
   <section class="screen" id="screenCrack">
     <div class="stage">
       <div class="scan-sweep"></div>
-      <div class="live-tag"><span class="pulse-dot"></span>STEP 2 · WRITE A LOOP</div>
-      <h2>Crack it back without knowing the shift</h2>
+      <div class="live-tag"><span class="pulse-dot"></span>STEP 2 · A LOOP THAT RUNS UNTIL IT WORKS</div>
+      <h2>A loop that does not know when to stop</h2>
       <p class="lede">A friend's computer only sees <span class="mono" id="crackCipherLabel">HTIJ</span> and knows it's looking for the word <span class="mono">CODE</span>. It doesn't know the shift. Try cracking it by hand first — drag the block below, once per guess.</p>
 
       <div class="lock-display"><span class="icon" id="lockIcon">🔒</span></div>
@@ -593,39 +621,81 @@
     <p class="footer-note">Real codebreaking checks whether decoded text makes sense using a dictionary. We simplified that to "does it match CODE?" — same loop, easier to see.</p>
   </section>
 
-  <!-- STEP 3: SCALE + QUANTUM -->
+  <!-- STEP 3: THE PASSWORD MAKER -->
   <section class="screen" id="screenScale">
     <div class="stage">
-      <div class="live-tag"><span class="pulse-dot"></span>STEP 3 · WHY LOOPS CAN TAKE FOREVER</div>
-      <h2>Make the key longer</h2>
-      <p class="lede">Our 26-letter alphabet only gave the loop 25 possible keys to try — instant. Real passwords use much bigger key spaces. Drag the slider and watch both computers, live.</p>
+      <div class="live-tag"><span class="pulse-dot"></span>STEP 3 · WRITE A FUNCTION</div>
+      <h2>Build a password maker</h2>
+      <p class="lede">A <b>function</b> is a named recipe you can run whenever you like. You give it some information, it does the work, and it hands something back. This one is called <span class="mono">password_maker</span> and it wants four things. Set them however you like.</p>
 
-      <div class="bits-slider">
-        <div class="bits-label"><span id="bitsVal">32</span>-bit key — <span class="mono" id="bitsCount">4,294,967,296</span> possible keys</div>
-        <input type="range" id="bitsSlider" min="0" max="9" step="1" value="4">
+      <div class="arg-grid">
+        <div class="arg-row">
+          <div class="arg-head"><span class="arg-name">type</span><span class="type-badge">TEXT</span><span class="arg-note">letters, or whole words?</span></div>
+          <div class="seg" id="segType">
+            <button data-v="letters" class="on">letters</button>
+            <button data-v="words">words</button>
+          </div>
+        </div>
+        <div class="arg-row">
+          <div class="arg-head"><span class="arg-name">special</span><span class="type-badge">TRUE / FALSE</span><span class="arg-note">throw in !@#$ and friends?</span></div>
+          <div class="seg bool" id="segSpecial">
+            <button data-v="false" class="on">False</button>
+            <button data-v="true">True</button>
+          </div>
+        </div>
+        <div class="arg-row">
+          <div class="arg-head"><span class="arg-name">case</span><span class="type-badge">TEXT</span><span class="arg-note">how should the letters look?</span></div>
+          <div class="seg" id="segCase">
+            <button data-v="lower" class="on">lower</button>
+            <button data-v="upper">UPPER</button>
+            <button data-v="mix">MiXeD</button>
+          </div>
+        </div>
+        <div class="arg-row">
+          <div class="arg-head"><span class="arg-name">max</span><span class="type-badge">NUMBER</span><span class="arg-note">how many characters, at most</span></div>
+          <div class="stepper-num">
+            <button type="button" id="pwMinus" aria-label="fewer characters">−</button>
+            <span class="n mono" id="pwMax">12</span>
+            <button type="button" id="pwPlus" aria-label="more characters">+</button>
+          </div>
+        </div>
       </div>
 
-      <div class="stat-callout">
-        <div class="stat-item limit"><div class="num mono" id="classicalTime">4.3 seconds</div><div class="lbl">Classical computer<br>(1 billion keys/sec)</div></div>
+      <div class="call-sig" id="callSig"></div>
+
+      <button class="cta" id="btnMakePw">▸ Run the function</button>
+
+      <div class="pw-display empty" id="pwOut">Press the button and the function will hand you back a password.</div>
+      <div class="pw-space" id="pwSpace"></div>
+
+      <div class="callback-box">
+        <b>Look at the four labels.</b> <span class="mono">type</span> and <span class="mono">case</span> hold <b>text</b>, so they go in quote marks. <span class="mono">special</span> holds <b>True</b> or <b>False</b> and nothing else — programmers call that a Boolean, after George Boole, and it is just a switch. <span class="mono">max</span> holds a <b>number</b>, so no quote marks. Those three types cover most of what any program ever handles.
+      </div>
+
+      <div class="code-panel open">
+        <pre id="pwCode"></pre>
+      </div>
+
+      <h2 style="margin-top:26px;">Now let's attack it</h2>
+      <p class="lede">Your password is one of a very large number of possible passwords. Cracking it means guessing until one fits. So: how long would that take?</p>
+
+      <div class="row2">
+        <button class="primary" id="btnCrackClassical">🖥️ An ordinary computer</button>
+        <button id="btnCrackQuantum" disabled>⚛️ A quantum computer</button>
+      </div>
+
+      <div class="stat-callout" id="crackOut" style="display:none;">
+        <div class="stat-item limit"><div class="num mono" id="crackC">—</div><div class="lbl">Ordinary computer<br>a trillion guesses a second</div></div>
         <div class="stat-vs">VS</div>
-        <div class="stat-item quantum"><div class="num mono" id="quantumTime">under a second</div><div class="lbl">Quantum computer<br>(same throughput)</div></div>
+        <div class="stat-item quantum"><div class="num mono" id="crackQ">—</div><div class="lbl">Quantum computer<br>using Grover's algorithm</div></div>
       </div>
-      <div class="callback-box">Remember the Vault Heist? Quantum search explores a huge pile of possibilities almost at once, so it needs about the <b>square root</b> of the classical loop's work rather than all of it.<br><br>Put a number on that. A million possibilities takes your loop about 500,000 tries on average. Grover's algorithm needs roughly <b>1,000</b>. Same problem, same answer, a thousand times less work.</div>
-      <div class="callback-box" id="scaleMessage">At small key sizes it barely matters. Keep dragging the slider up.</div>
-
-      <div class="palette-caption" style="margin-top:16px;">Quick guess, any time — try it at different slider positions</div>
-      <p class="lede" style="text-align:center;">How long would the <b>classical</b> computer take at <span class="mono" id="predictBitsLabel">32</span>-bit?</p>
-      <div class="predict-row">
-        <button data-guess="fast">Seconds or minutes</button>
-        <button data-guess="mid">Hours to years</button>
-        <button data-guess="slow">Centuries or more</button>
-      </div>
+      <div class="callback-box" id="crackNote" style="display:none;"></div>
 
       <details class="reveal">
         <summary>So is quantum bad news for security? Open this.</summary>
         <div class="hn-body">
           <p style="margin-top:0;">Both, actually. Everything above is the threat. Here is the fix — and you have already met the trick behind it.</p>
-          <p>Remember the Twin Vaults in the Vault Heist — two linked tools that agreed with each other far more often than logic should allow? That is not just a party trick. It is the basis of <b>Quantum Key Distribution</b>: two people share a secret key made of entangled particles instead of ordinary bits.</p>
+          <p>Remember the Twin Vaults in the Vault Heist — two linked tools that agreed with each other far more often than logic should allow? That is the basis of <b>Quantum Key Distribution</b>: two people share a secret key made of entangled particles instead of ordinary bits.</p>
           <p>If anyone eavesdrops and measures those particles in transit, the entanglement breaks — and both sides instantly know someone was listening. You cannot even <i>tap</i> the line without getting caught.</p>
           <p style="margin-bottom:0;">That is not better encryption. It is a different kind of secret: one where spying leaves a mark.</p>
         </div>
@@ -633,7 +703,7 @@
 
       <button class="cta" id="btnToQCrack">Now build the quantum version yourself →</button>
     </div>
-    <p class="footer-note">This is a simplified real comparison — it's why banks are already moving to longer, quantum-resistant keys today, years before powerful quantum computers exist.</p>
+    <p class="footer-note">Every number here is real arithmetic on the password you just made — nothing is invented for effect.</p>
   </section>
 
   <!-- STEP 4: BUILD THE QUANTUM CRACKER -->
@@ -704,8 +774,12 @@
         <p>A named box holding a value you can change. Yours was <span class="mono">shift_amount</span> — you turned the dial, the box changed, and everything downstream of it changed too. Nothing more mysterious than that.</p>
       </div>
       <div class="recap-card">
-        <h4>✅ Programming: What's a loop?</h4>
-        <p>A loop repeats an action — "try this, check it, try the next one" — until a condition is met. You watched one try every possible key, one at a time, and stop the moment it found the right one.</p>
+        <h4>✅ Programming: Two kinds of loop</h4>
+        <p>In the Vault Heist you used a <b>counted</b> loop — "do this six times" — because you knew the number. Here you used the other kind: "keep going <b>until</b> it works." Your program had no idea whether the answer was at key 3 or key 25, so it could not count. It just kept trying and stopped the moment it succeeded. Between them, those two cover almost every loop ever written.</p>
+      </div>
+      <div class="recap-card">
+        <h4>✅ Programming: What's a function?</h4>
+        <p>A named recipe you can run whenever you like. <span class="mono">password_maker</span> took four pieces of information — some text, a True/False, more text and a number — did its job, and handed you back a password. Write it once, use it forever, and never think about the insides again. Almost everything in real software is functions calling other functions.</p>
       </div>
       <div class="recap-card">
         <h4>✅ Quantum: Why won't long passwords stay safe forever?</h4>
@@ -1085,16 +1159,21 @@ makeDraggable(document.getElementById('paletteLoop'), ()=>{
   step();
 }, document.getElementById('crackTrackZone'));
 
-/* ================= STEP 3: SCALE + QUANTUM ================= */
-const BIT_STEPS = [4,8,16,24,32,40,48,64,96,128];
-const THROUGHPUT = 1e9; // guesses per second, illustrative
+/* ================= STEP 3: THE PASSWORD MAKER ================= */
+const PW_WORDS = ['able','acid','aged','also','arch','army','atom','aunt','away','axis','baby','back','bake','bald','band','bank','barn','base','bath','bead','beam','bean','bear','beat','beef','bell','belt','bend','best','bike','bill','bird','bite','blue','boat','body','boil','bold','bolt','bone','book','boot','born','boss','both','bowl','bulb','bull','bush','busy','cafe','cage','cake','calm','camp','cane','card','care','cart','case','cash','cast','cave','cell','chat','chef','chin','chip','city','clay','clip','club','coal','coat','code','coin','cold','cook','cool','cope','copy','cord','core','cork','corn','cost','cosy','crew','crop','crow','cube','cure','curl','dark','dart','dash','data','date','dawn','deal','deck','deep','deer','desk','dial','dice','diet','dine','dish','dive','dock','does','dome','door','dose','dove','down','drag','draw','drum','dual','duck','dusk','dust','duty','each','earn','ease','east','easy','edge','exit','face','fact','fade','fair','fall','farm','fast','fate','fear','feed','feel','fern','file','fill','film','find','fine','fire','firm','fish','fist','five','flag','flat','flax','flee','flew','flex','flow','foam','fold','folk','fond','food','foot','fork','form','fort','four','free','frog','fuel','full','fund','gain','game','gate','gave','gear','gift','girl','give','glad','glow','goat','gold','golf','gone','good','gown','grab','gram','gray','grew','grid','grim','grin','grip','grow','gulf','gull','hail','hair','half','hall','halt','hand','hang','harm','hawk','haze','head','heal','heap','hear','heat','heel','held','helm','herb','hero','hide','high','hill','hint','hive','hold','hole','holy','home','hood','hoof','hook','hope','horn','hose','host','hour','huge','hunt','hurt','icon','idea','idle','inch','iron','item','jade','jazz','join','joke','jump','jury','just','keen','keep','kelp','kept','kick','kind','king','kite','knee','knot','lace','lake','lamb','lamp','land','lane','last','late','lawn','lead','leaf','leak','lean','leap','left','lend','lens','lion','list','live','load','loaf','loan','lock','loft','logo','long','look','loom','loop','lord','lost','loud','love','luck','lung','mail','main','make','many','maple','mark','mask','mast','mate','math','maze','meal','mean','meat','melt','menu','mesh','mild','mile','milk','mill','mind','mine','mint','mist','moon','moss','most','moth','move','much','mule','nail','name','navy','near','neat','neck','need','nest','news','next','nice','node','none','noon','norm','nose','note','oath','oats','obey','once','open','oval','oven','over','pace','pack','page','paid','pair','palm','park','part','pass','past','path','peak','pear','peat','peel','pier','pile','pine','pink','pipe','plan','play','plot','plug','plum','poem','poet','pole','polo','pond','pony','pool','port','post','pull','pulp','pure','push','quit','quiz','raft','rail','rain','rake','ramp','rank','rare','rate','read','real','reed','reef','rely','rent','rest','ride','ring','ripe','rise','risk','road','robe','rock','role','roll','roof','room','root','rope','rose','ruby','rule','rush','rust','safe','sage','sail','salt','same','sand','save','scan','seal','seam','seat','seed','seek','self','sell','send','shed','ship','shoe','shop','shot','show','side','sign','silk','sing','sink','site','size','skin','sled','slot','slow','snap','snow','soap','sock','soft','soil','sold','sole','song','soon','sort','soup','span','spin','spot','star','stay','stem','step','stir','stone','stop','swim','tale','tall','tank','tape','task','team','tear','tent','term','test','text','than','that','thaw','them','then','they','thin','this','thus','tide','tidy','tile','time','tiny','toad','toll','tone','took','tool','tore','torn','town','trap','tray','tree','trim','trip','true','tube','tune','turn','twin','type','unit','upon','urge','used','user','vast','verb','vest','view','vine','visa','vote','wade','wage','wait','wake','walk','wall','wand','want','ward','warm','warn','wash','wave','wear','weed','week','well','went','west','what','when','whip','wide','wild','will','wind','wine','wing','wipe','wire','wise','wish','with','wolf','wood','wool','word','wore','work','worm','wrap','yard','yarn','year','yoga','zeal','zero','zinc','zone'];
+const PW_LOWER = 'abcdefghijklmnopqrstuvwxyz';
+const PW_SPECIAL = '!@#$%^&*()-_=+[]{};:,.<>?/';
+const CLASSICAL_RATE = 1e12;   // a dedicated cracking rig: a trillion guesses a second
+
+let pwType = 'letters', pwSpecial = false, pwCase = 'lower', pwMax = 12;
+let pwLastSpace = 0, pwMade = false;
 
 function formatDuration(sec){
   const universeAge = 31557600*13.8e9;
   if (sec < 1) return 'under a second';
   if (sec > universeAge){
     const ratio = sec/universeAge;
-    return 'about ' + (ratio>=1000 ? ratio.toExponential(1) : ratio.toFixed(1)) + '× the age of the universe';
+    return (ratio>=1000 ? ratio.toExponential(1) : ratio.toFixed(1)) + '\u00d7 the age of the universe';
   }
   const units = [['year',31557600],['day',86400],['hour',3600],['minute',60],['second',1]];
   for (const [name,s] of units){
@@ -1105,46 +1184,153 @@ function formatDuration(sec){
   }
   return sec.toFixed(1)+' seconds';
 }
-
-function renderScale(){
-  const idx = parseInt(document.getElementById('bitsSlider').value, 10);
-  const bits = BIT_STEPS[idx];
-  const space = Math.pow(2, bits);
-  document.getElementById('bitsVal').textContent = bits;
-  document.getElementById('bitsCount').textContent = space >= 1e15 ? space.toExponential(2) : Math.round(space).toLocaleString();
-  document.getElementById('predictBitsLabel').textContent = bits;
-
-  const classicalSec = space/THROUGHPUT;
-  const quantumSec = Math.sqrt(space)/THROUGHPUT;
-  document.getElementById('classicalTime').textContent = formatDuration(classicalSec);
-  document.getElementById('quantumTime').textContent = formatDuration(quantumSec);
-
-  let msg;
-  if (bits <= 24) msg = "At this size, both a normal computer and a quantum computer crack it instantly. The difference doesn't matter yet.";
-  else if (bits <= 48) msg = "Now a normal computer is starting to sweat — but a quantum computer barely notices.";
-  else if (bits <= 64) msg = "This is the danger zone: a normal computer needs centuries. A quantum computer needs seconds.";
-  else msg = "Even at this length — safe from any classical computer for longer than the universe has existed — a quantum computer could still crack it within a human lifetime. That's exactly why banks are upgrading key sizes now.";
-  document.getElementById('scaleMessage').textContent = msg;
-  return classicalSec;
+function bigNumber(x){
+  if (x < 1e6) return Math.round(x).toLocaleString();
+  const e = Math.floor(Math.log10(x));
+  return (x/Math.pow(10,e)).toFixed(1)+' \u00d7 10^'+e;
 }
-function classifyDuration(sec){
-  if (sec < 3600) return 'fast';            // seconds or minutes
-  if (sec < 31557600*100) return 'mid';     // hours up to a century
-  return 'slow';                            // centuries or more
+
+/* How many different passwords could this function possibly produce? */
+function pwKeyspace(){
+  if (pwType === 'words'){
+    const n = pwWordCount();
+    return n > 0 ? Math.pow(PW_WORDS.length, n) : 0;
+  }
+  let set = 26;
+  if (pwCase === 'mix') set = 52;
+  if (pwSpecial) set += PW_SPECIAL.length;
+  return Math.pow(set, pwMax);
 }
-const DURATION_WORDS = { fast:'seconds or minutes', mid:'hours to years', slow:'centuries or more' };
-document.getElementById('bitsSlider').addEventListener('input', renderScale);
-document.querySelectorAll('.predict-row button').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    document.querySelectorAll('.predict-row button').forEach(b=>b.classList.remove('picked'));
-    btn.classList.add('picked');
-    const classicalSec = renderScale();
-    const actual = classifyDuration(classicalSec);
-    const correct = btn.dataset.guess === actual;
-    showToast(correct ? '✅ Right!' : `😮 Actually: ${DURATION_WORDS[actual]}. Try another bit size!`);
-  });
+function pwWordCount(){
+  // fit as many words as will go, hyphen-separated, inside max characters
+  let n = 0, used = 0;
+  const avg = 4.4;              // average length of the list
+  while (used + Math.ceil(avg) + (n>0?1:0) <= pwMax){ used += Math.ceil(avg) + (n>0?1:0); n++; }
+  return n;
+}
+function pwCharsetSize(){
+  let set = 26;
+  if (pwCase === 'mix') set = 52;
+  if (pwSpecial) set += PW_SPECIAL.length;
+  return set;
+}
+
+function renderCallSig(){
+  const el = document.getElementById('callSig');
+  el.innerHTML = 'my_password = <span class="fn">password_maker</span>('
+    + '<span class="str">"'+pwType+'"</span>, '
+    + '<span class="bool">'+(pwSpecial?'True':'False')+'</span>, '
+    + '<span class="str">"'+pwCase+'"</span>, '
+    + '<span class="num">'+pwMax+'</span>)';
+  renderPwCode();
+  // changing the recipe invalidates the previous attack
+  document.getElementById('crackOut').style.display = 'none';
+  document.getElementById('crackNote').style.display = 'none';
+  document.getElementById('btnCrackQuantum').disabled = true;
+}
+function renderPwCode(){
+  const lines = [
+    '<span class="cm"># a function: a named recipe, with four things it needs</span>',
+    '<span class="cd">def password_maker(type, special, case, max):</span>',
+    '<span class="cd">    ...builds the password...</span>',
+    '<span class="ch">    return password</span>',
+    '',
+    '<span class="cm"># and this is you running it, with your four values</span>',
+    '<span class="cd">my_password = password_maker("'+pwType+'", '+(pwSpecial?'True':'False')+', "'+pwCase+'", '+pwMax+')</span>'
+  ];
+  document.getElementById('pwCode').innerHTML = lines.join('\n');
+}
+
+function makePassword(){
+  if (pwType === 'words'){
+    const n = pwWordCount();
+    const picked = [];
+    for (let i=0;i<n;i++){
+      let w = PW_WORDS[Math.floor(Math.random()*PW_WORDS.length)];
+      if (pwCase === 'upper') w = w.toUpperCase();
+      else if (pwCase === 'mix') w = w.charAt(0).toUpperCase() + w.slice(1);
+      picked.push(w);
+    }
+    let out = picked.join('-');
+    if (pwSpecial) out += PW_SPECIAL.charAt(Math.floor(Math.random()*PW_SPECIAL.length));
+    return out;
+  }
+  let pool = PW_LOWER;
+  if (pwCase === 'upper') pool = PW_LOWER.toUpperCase();
+  else if (pwCase === 'mix') pool = PW_LOWER + PW_LOWER.toUpperCase();
+  if (pwSpecial) pool += PW_SPECIAL;
+  let out = '';
+  for (let i=0;i<pwMax;i++) out += pool.charAt(Math.floor(Math.random()*pool.length));
+  return out;
+}
+
+document.getElementById('btnMakePw').addEventListener('click', ()=>{
+  const pw = makePassword();
+  const el = document.getElementById('pwOut');
+  el.textContent = pw;
+  el.classList.remove('empty');
+  pwLastSpace = pwKeyspace();
+  pwMade = true;
+  spawnSparkles(el);
+  const space = document.getElementById('pwSpace');
+  space.innerHTML = pwType === 'words'
+    ? 'Picked from a list of <b>'+PW_WORDS.length+'</b> words, '+pwWordCount()+' of them &mdash; that is <b>'+bigNumber(pwLastSpace)+'</b> possible passwords this recipe could have produced.'
+    : '<b>'+pwCharsetSize()+'</b> possible characters in <b>'+pwMax+'</b> positions &mdash; that is <b>'+bigNumber(pwLastSpace)+'</b> possible passwords this recipe could have produced.';
+  document.getElementById('crackOut').style.display = 'none';
+  document.getElementById('crackNote').style.display = 'none';
+  document.getElementById('btnCrackQuantum').disabled = true;
+  showToast('The function handed you a password.');
 });
-renderScale();
+
+document.getElementById('btnCrackClassical').addEventListener('click', ()=>{
+  if (!pwMade){ showToast('Make a password first.'); return; }
+  const sec = pwLastSpace / 2 / CLASSICAL_RATE;   // average case: half the space
+  document.getElementById('crackOut').style.display = 'flex';
+  document.getElementById('crackC').textContent = formatDuration(sec);
+  document.getElementById('crackQ').textContent = '?';
+  document.getElementById('btnCrackQuantum').disabled = false;
+  const note = document.getElementById('crackNote');
+  note.style.display = 'block';
+  note.innerHTML = sec < 60
+    ? 'That is a machine trying a trillion passwords every second, and yours did not last a minute. Add characters and press again.'
+    : 'That is a dedicated cracking rig making a trillion guesses a second, working through half the possibilities before it expects to hit yours. Now try the other button.';
+  showToast('🖥️ Attacked with an ordinary computer.');
+});
+
+document.getElementById('btnCrackQuantum').addEventListener('click', ()=>{
+  const csec = pwLastSpace / 2 / CLASSICAL_RATE;
+  const qsec = Math.sqrt(pwLastSpace) / CLASSICAL_RATE;   // Grover: square root of the space
+  document.getElementById('crackQ').textContent = formatDuration(qsec);
+  const note = document.getElementById('crackNote');
+  note.style.display = 'block';
+  note.innerHTML = "<b>Grover&rsquo;s algorithm again</b> &mdash; the square root, exactly as in the Vault Heist. "
+    + 'The honest way to say it: a quantum computer effectively <b>halves the length</b> of your password. '
+    + 'A twelve-character password becomes about as much work as a six-character one.'
+    + '<br><br><b>And the fix is embarrassingly simple.</b> Make it longer. Double the length and you are back where you started. '
+    + 'That is genuinely the advice, and it is why nobody serious is panicking about passwords.'
+    + "<br><br><i>One caveat, to be straight about it:</i> both figures above assume a quantum machine guessing as fast as the cracking rigs we have today. Nothing like that exists, and real quantum hardware is far slower per step. Treat the quantum number as the attacker&rsquo;s dream scenario, not next Tuesday.";
+  showToast("\u269b\ufe0f Attacked with the Grover algorithm.");
+});
+
+document.querySelectorAll('#segType button').forEach(b=> b.addEventListener('click', ()=>{
+  document.querySelectorAll('#segType button').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on'); pwType = b.dataset.v; renderCallSig();
+}));
+document.querySelectorAll('#segSpecial button').forEach(b=> b.addEventListener('click', ()=>{
+  document.querySelectorAll('#segSpecial button').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on'); pwSpecial = (b.dataset.v === 'true'); renderCallSig();
+}));
+document.querySelectorAll('#segCase button').forEach(b=> b.addEventListener('click', ()=>{
+  document.querySelectorAll('#segCase button').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on'); pwCase = b.dataset.v; renderCallSig();
+}));
+document.getElementById('pwPlus').addEventListener('click', ()=>{
+  pwMax = Math.min(48, pwMax + 2); document.getElementById('pwMax').textContent = pwMax; renderCallSig();
+});
+document.getElementById('pwMinus').addEventListener('click', ()=>{
+  pwMax = Math.max(6, pwMax - 2); document.getElementById('pwMax').textContent = pwMax; renderCallSig();
+});
+renderCallSig();
 
 document.getElementById('btnToScaleNext').addEventListener('click', ()=>{ unlockNext('crack'); goToStage('scale'); });
 document.getElementById('btnToQCrack').addEventListener('click', ()=>{ unlockNext('scale'); goToStage('qcrack'); resetQCrack(); });
@@ -1265,7 +1451,13 @@ const QUIZ = [
     explain:'A loop repeats an action — exactly what "try key 1, try key 2..." was doing.' },
   { q:"Why does adding just a few more characters to a key make cracking it MUCH harder, not just a little harder?",
     opts:["Every extra character doubles (at least) the number of possible keys","Computers get slower with longer keys","It doesn't really change much"], correct:0,
-    explain:'The number of possible keys grows exponentially with length — that\'s why the slider numbers exploded so fast.' },
+    explain:'The number of possible passwords grows exponentially with length — which is why two more characters moved your crack time from minutes to millennia.' },
+  { q:'You ran password_maker("letters", True, "mix", 12). What do programmers call that whole named, reusable thing you were running?',
+    opts:['A loop','A function','A folder'], correct:1,
+    explain:'A function: a named recipe you hand information to, which does a job and gives something back. The four things in the brackets are its inputs, and they had types — text, True/False, and a number.' },
+  { q:'In password_maker("letters", True, "mix", 12), why does 12 have no quote marks around it when "letters" does?',
+    opts:['Because it is shorter','Because 12 is a number and "letters" is text — different types','It is a mistake'], correct:1,
+    explain:'Text goes in quote marks, numbers do not, and True/False is a third type of its own. Getting types right is most of what stops real programs breaking.' },
   { q:'Why are banks worried about quantum computers and passwords?',
     opts:['Quantum computers can explore many possible keys at once, needing far fewer tries','Quantum computers are just faster at everything','It isn\'t a real concern'], correct:0,
     explain:'Same trick as the Vault Heist: exploring many possibilities at once means needing roughly the square root of the classical effort.' },

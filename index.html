@@ -250,6 +250,34 @@
   .ladder-row.newest{ background: rgba(124,111,255,0.16); }
   .ladder-row .t{ font-weight:700; }
 
+  /* ---------- the password maker: a function with typed arguments ---------- */
+  .arg-grid{ display:flex; flex-direction:column; gap:10px; margin:16px 0; }
+  .arg-row{ background: var(--panel-2); border-radius:14px; padding:13px 15px; }
+  .arg-head{ display:flex; align-items:baseline; gap:10px; margin-bottom:9px; flex-wrap:wrap; }
+  .arg-name{ font-family:var(--f-mono); font-weight:700; font-size:0.95rem; color: var(--zero); }
+  .type-badge{ font-family:var(--f-mono); font-weight:700; font-size:0.66rem; letter-spacing:0.4px; padding:3px 8px; border-radius:7px; background: rgba(255,255,255,0.09); color: var(--text-dim); }
+  .arg-note{ font-size:0.8rem; color: var(--text-dim); margin-left:auto; }
+  .seg{ display:flex; gap:6px; flex-wrap:wrap; }
+  .seg button{ flex:1 1 auto; min-width:86px; border:none; border-radius:10px; padding:11px 10px; cursor:pointer;
+    font-family:var(--f-display); font-weight:700; font-size:0.86rem; background: var(--bg-deep); color: var(--text-dim); }
+  .seg button.on{ background: var(--zero); color:#0B0E24; }
+  .seg.bool button.on{ background: var(--good); color:#08281c; }
+  .stepper-num{ display:flex; align-items:center; justify-content:center; gap:14px; }
+  .stepper-num button{ width:44px; height:44px; border-radius:12px; border:none; cursor:pointer; background: var(--bg-deep); color: var(--text); font-size:1.3rem; font-weight:700; }
+  .stepper-num .n{ font-family:var(--f-mono); font-weight:700; font-size:1.6rem; color: var(--star); min-width:3rem; text-align:center; }
+  .call-sig{ background:#05060f; border:1px solid rgba(76,214,255,0.28); border-radius:12px; padding:14px; margin:14px 0;
+    font-family:var(--f-mono); font-size:0.86rem; line-height:1.6; color:#B8E6FF; overflow-x:auto; white-space:pre; }
+  .call-sig .fn{ color: var(--star); }
+  .call-sig .str{ color: var(--good); }
+  .call-sig .num{ color: var(--one); }
+  .call-sig .bool{ color: var(--pink); }
+  .pw-display{ background: var(--bg-deep); border:1px dashed rgba(255,255,255,0.2); border-radius:14px;
+    padding:20px 16px; margin:14px 0; text-align:center; font-family:var(--f-mono); font-weight:700;
+    font-size:1.35rem; color:#fff; word-break:break-all; line-height:1.5; min-height:3.6rem;
+    display:flex; align-items:center; justify-content:center; }
+  .pw-display.empty{ color: var(--text-dim); font-size:0.95rem; font-weight:600; }
+  .pw-space{ text-align:center; font-size:0.84rem; color: var(--text-dim); margin:-4px 0 4px; line-height:1.55; }
+
   /* ---------- plenary ---------- */
   .recap-card{ background: var(--panel-2); border-radius: 14px; padding: 15px; margin-bottom: 10px; }
   .recap-card h4{ font-family:var(--f-display); font-size:0.98rem; margin:0 0 5px; color: var(--star); }
@@ -522,11 +550,12 @@
         <div class="card-arrow">→</div>
       </div>
       <h3>The Cipher Room</h3>
-      <p>Meet a variable, crack a secret code by hand, then drag in a block that automates the whole boring process for you — and find out why quantum computers threaten every password on Earth.</p>
+      <p>Meet a variable, crack a secret code by hand, then write a real function that builds passwords — and find out how long yours would survive an ordinary computer, and a quantum one.</p>
       <div class="tags">
         <span class="tag live">● LIVE</span>
         <span class="tag prog">VARIABLES</span>
         <span class="tag prog">LOOPS</span>
+        <span class="tag prog">FUNCTIONS</span>
         <span class="tag quantum">QUANTUM SEARCH</span>
         <span class="tag quantum">CRYPTOGRAPHY</span>
       </div>
@@ -593,7 +622,7 @@
     </div>
   </div>
 
-  <p class="footer-note">Five activities, six programming fundamentals — sequences, variables, loops, conditionals, randomness and composition — each taught through something genuinely exciting rather than a textbook example. No installation, no account, works on any shared machine.</p>
+  <p class="footer-note">Five activities, seven programming fundamentals — sequences, variables, loops, conditionals, functions, randomness and composition — each taught through something genuinely exciting rather than a textbook example. No installation, no account, works on any shared machine.</p>
 </div>
 
 <script>

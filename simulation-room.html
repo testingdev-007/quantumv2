@@ -250,6 +250,34 @@
   .ladder-row.newest{ background: rgba(124,111,255,0.16); }
   .ladder-row .t{ font-weight:700; }
 
+  /* ---------- the password maker: a function with typed arguments ---------- */
+  .arg-grid{ display:flex; flex-direction:column; gap:10px; margin:16px 0; }
+  .arg-row{ background: var(--panel-2); border-radius:14px; padding:13px 15px; }
+  .arg-head{ display:flex; align-items:baseline; gap:10px; margin-bottom:9px; flex-wrap:wrap; }
+  .arg-name{ font-family:var(--f-mono); font-weight:700; font-size:0.95rem; color: var(--zero); }
+  .type-badge{ font-family:var(--f-mono); font-weight:700; font-size:0.66rem; letter-spacing:0.4px; padding:3px 8px; border-radius:7px; background: rgba(255,255,255,0.09); color: var(--text-dim); }
+  .arg-note{ font-size:0.8rem; color: var(--text-dim); margin-left:auto; }
+  .seg{ display:flex; gap:6px; flex-wrap:wrap; }
+  .seg button{ flex:1 1 auto; min-width:86px; border:none; border-radius:10px; padding:11px 10px; cursor:pointer;
+    font-family:var(--f-display); font-weight:700; font-size:0.86rem; background: var(--bg-deep); color: var(--text-dim); }
+  .seg button.on{ background: var(--zero); color:#0B0E24; }
+  .seg.bool button.on{ background: var(--good); color:#08281c; }
+  .stepper-num{ display:flex; align-items:center; justify-content:center; gap:14px; }
+  .stepper-num button{ width:44px; height:44px; border-radius:12px; border:none; cursor:pointer; background: var(--bg-deep); color: var(--text); font-size:1.3rem; font-weight:700; }
+  .stepper-num .n{ font-family:var(--f-mono); font-weight:700; font-size:1.6rem; color: var(--star); min-width:3rem; text-align:center; }
+  .call-sig{ background:#05060f; border:1px solid rgba(76,214,255,0.28); border-radius:12px; padding:14px; margin:14px 0;
+    font-family:var(--f-mono); font-size:0.86rem; line-height:1.6; color:#B8E6FF; overflow-x:auto; white-space:pre; }
+  .call-sig .fn{ color: var(--star); }
+  .call-sig .str{ color: var(--good); }
+  .call-sig .num{ color: var(--one); }
+  .call-sig .bool{ color: var(--pink); }
+  .pw-display{ background: var(--bg-deep); border:1px dashed rgba(255,255,255,0.2); border-radius:14px;
+    padding:20px 16px; margin:14px 0; text-align:center; font-family:var(--f-mono); font-weight:700;
+    font-size:1.35rem; color:#fff; word-break:break-all; line-height:1.5; min-height:3.6rem;
+    display:flex; align-items:center; justify-content:center; }
+  .pw-display.empty{ color: var(--text-dim); font-size:0.95rem; font-weight:600; }
+  .pw-space{ text-align:center; font-size:0.84rem; color: var(--text-dim); margin:-4px 0 4px; line-height:1.55; }
+
   /* ---------- plenary ---------- */
   .recap-card{ background: var(--panel-2); border-radius: 14px; padding: 15px; margin-bottom: 10px; }
   .recap-card h4{ font-family:var(--f-display); font-size:0.98rem; margin:0 0 5px; color: var(--star); }
@@ -475,8 +503,8 @@
         <div class="ico">💻</div>
         <div>
           <span class="aim-tag prog">PROGRAMMING</span>
-          <h4>What's a simulation?</h4>
-          <p>You'll use a loop and randomness together — running the same "what if" over and over — to estimate an answer you couldn't calculate directly. This is called Monte Carlo simulation.</p>
+          <h4>Randomness, and a variable that keeps score</h4>
+          <p>Two new things on top of the loop you already know. <b>Randomness</b> — asking the computer for a number nobody can predict. And a <b>counter</b>: a variable the program updates by itself, every time round the loop, so that a thousand separate answers add up into one. Put those together and you get what analysts call a simulation.</p>
         </div>
       </div>
       <div class="aim-card">
@@ -569,6 +597,10 @@
 
       <div class="code-panel open" id="codePanel1">
         <pre id="codeOutput1"></pre>
+      </div>
+
+      <div class="callback-box">
+        <b>Watch the first line and the fifth.</b> <span class="mono">losses = 0</span> sets up a variable — the same idea as the dial in the Cipher Room, except this time <i>you</i> never touch it. <span class="mono">losses += 1</span> means "add one to whatever is in there", and the loop runs it a thousand times. A variable the program updates itself is called a <b>counter</b>, and it is how software turns a thousand separate events into a single answer.
       </div>
 
       <button class="cta" id="btnToPrecisionNext" disabled>How trustworthy is that number? →</button>
@@ -666,8 +698,8 @@
       <h2 style="margin-top:22px;">Let's check what stuck</h2>
       <p class="lede">Back to the two aims from the start.</p>
       <div class="recap-card">
-        <h4>✅ Programming: What's a simulation?</h4>
-        <p>A loop that repeats a random "what if" many times, collecting results, then averaging them — used when you can't calculate an answer directly, only estimate it.</p>
+        <h4>✅ Programming: Randomness and a counter</h4>
+        <p><span class="mono">random_return()</span> gave you a number nobody could predict. <span class="mono">losses</span> was a counter — a variable the program added to itself, once per loop, a thousand times over. Neither is complicated on its own. Together they let a computer answer a question that cannot be worked out directly, only estimated.</p>
       </div>
       <div class="recap-card">
         <h4>✅ Quantum: Why quantum computers need far fewer guesses</h4>

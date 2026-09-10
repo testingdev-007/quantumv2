@@ -250,6 +250,34 @@
   .ladder-row.newest{ background: rgba(124,111,255,0.16); }
   .ladder-row .t{ font-weight:700; }
 
+  /* ---------- the password maker: a function with typed arguments ---------- */
+  .arg-grid{ display:flex; flex-direction:column; gap:10px; margin:16px 0; }
+  .arg-row{ background: var(--panel-2); border-radius:14px; padding:13px 15px; }
+  .arg-head{ display:flex; align-items:baseline; gap:10px; margin-bottom:9px; flex-wrap:wrap; }
+  .arg-name{ font-family:var(--f-mono); font-weight:700; font-size:0.95rem; color: var(--zero); }
+  .type-badge{ font-family:var(--f-mono); font-weight:700; font-size:0.66rem; letter-spacing:0.4px; padding:3px 8px; border-radius:7px; background: rgba(255,255,255,0.09); color: var(--text-dim); }
+  .arg-note{ font-size:0.8rem; color: var(--text-dim); margin-left:auto; }
+  .seg{ display:flex; gap:6px; flex-wrap:wrap; }
+  .seg button{ flex:1 1 auto; min-width:86px; border:none; border-radius:10px; padding:11px 10px; cursor:pointer;
+    font-family:var(--f-display); font-weight:700; font-size:0.86rem; background: var(--bg-deep); color: var(--text-dim); }
+  .seg button.on{ background: var(--zero); color:#0B0E24; }
+  .seg.bool button.on{ background: var(--good); color:#08281c; }
+  .stepper-num{ display:flex; align-items:center; justify-content:center; gap:14px; }
+  .stepper-num button{ width:44px; height:44px; border-radius:12px; border:none; cursor:pointer; background: var(--bg-deep); color: var(--text); font-size:1.3rem; font-weight:700; }
+  .stepper-num .n{ font-family:var(--f-mono); font-weight:700; font-size:1.6rem; color: var(--star); min-width:3rem; text-align:center; }
+  .call-sig{ background:#05060f; border:1px solid rgba(76,214,255,0.28); border-radius:12px; padding:14px; margin:14px 0;
+    font-family:var(--f-mono); font-size:0.86rem; line-height:1.6; color:#B8E6FF; overflow-x:auto; white-space:pre; }
+  .call-sig .fn{ color: var(--star); }
+  .call-sig .str{ color: var(--good); }
+  .call-sig .num{ color: var(--one); }
+  .call-sig .bool{ color: var(--pink); }
+  .pw-display{ background: var(--bg-deep); border:1px dashed rgba(255,255,255,0.2); border-radius:14px;
+    padding:20px 16px; margin:14px 0; text-align:center; font-family:var(--f-mono); font-weight:700;
+    font-size:1.35rem; color:#fff; word-break:break-all; line-height:1.5; min-height:3.6rem;
+    display:flex; align-items:center; justify-content:center; }
+  .pw-display.empty{ color: var(--text-dim); font-size:0.95rem; font-weight:600; }
+  .pw-space{ text-align:center; font-size:0.84rem; color: var(--text-dim); margin:-4px 0 4px; line-height:1.55; }
+
   /* ---------- plenary ---------- */
   .recap-card{ background: var(--panel-2); border-radius: 14px; padding: 15px; margin-bottom: 10px; }
   .recap-card h4{ font-family:var(--f-display); font-size:0.98rem; margin:0 0 5px; color: var(--star); }
@@ -566,6 +594,36 @@
     </div>
   </section>
 
+  <!-- LOOP LESSON: sits between Level 1 and Level 2 -->
+  <section class="screen" id="screenLoop">
+    <div class="stage">
+      <div class="live-tag"><span class="pulse-dot"></span>NEW TOOL · THE REPEAT BLOCK</div>
+      <h2>Six blocks, or one?</h2>
+      <p class="lede" id="loopLede">The next vault is four times bigger, and it needs three Search Steps instead of one. That is six blocks to drag across, one at a time. Here is what that program would look like.</p>
+
+      <div class="track-zone" id="loopDemoTrack"></div>
+
+      <div class="code-panel open">
+        <pre id="loopDemoCode"></pre>
+      </div>
+
+      <p class="lede" id="loopPrompt" style="margin-top:14px;">Look at what you just wrote out: the same two instructions, three times over. Programmers came up against this almost immediately, and invented a way out of it.</p>
+
+      <div class="palette-caption">Drag this in and watch what happens to your program</div>
+      <div class="block-palette">
+        <div class="code-block loopblock" id="loopDemoBlock">🔁 Repeat<small>run the pair 3 times</small></div>
+      </div>
+
+      <div class="callback-box" id="loopReveal" style="display:none;">
+        <b>That is a loop.</b> You wrote the instruction down once and told the computer how many times to run it. Six blocks became one, and the program does exactly the same job — compare the code above with what was there a moment ago.<br><br>
+        Loops are everywhere. Every list that loads, every row of a spreadsheet that recalculates, every frame of every game you have ever played. It is one of the handful of ideas that all software is built from, and you now have it.
+      </div>
+
+      <button class="intro-cta" id="btnLoopNext" disabled>Take it to the next vault →</button>
+    </div>
+    <p class="footer-note">A loop that runs a set number of times is called a counted loop. There is another kind — "keep going until something is true" — and you will meet it in The Cipher Room.</p>
+  </section>
+
   <!-- SHARED HEIST ENGINE: LEVELS 1-3 -->
   <section class="screen" id="screenHeist">
     <div class="stage">
@@ -584,7 +642,7 @@
       <div class="block-palette">
         <div class="code-block mark" id="paletteMark">🎯 Mark<small>flag the treasure</small></div>
         <div class="code-block boost" id="paletteBoost">📈 Boost<small>amplify the odds</small></div>
-        <div class="code-block loopblock locked" id="paletteRepeat" style="display:none;">🔁 Repeat<small>🔒 do a couple by hand first</small></div>
+        <div class="code-block loopblock" id="paletteRepeat" style="display:none;">🔁 Repeat<small>the whole pair, however many times</small></div>
       </div>
       <details class="reveal">
         <summary>Remind me what Mark and Boost actually do</summary>
@@ -622,8 +680,8 @@
         <button id="btnClearVault">Clear program</button>
       </div>
       <div class="row2" id="predictRow" style="display:none;">
-        <button class="primary" id="predictHit">🎯 I think it'll hit</button>
-        <button id="predictMiss">❌ I think it'll miss</button>
+        <button class="primary" id="predictHit">🎯 I reckon that will work</button>
+        <button id="predictMiss">❌ I reckon it will miss</button>
       </div>
       <div class="row2">
         <button id="btnNewVault">New vault (reshuffle)</button>
@@ -730,6 +788,17 @@
         <b>What "square root" actually buys you.</b> Say you are hunting through a million unsorted possibilities. An ordinary computer checks them one at a time — about 500,000 tries on average, and up to a million if it is unlucky. Grover's algorithm, the one you just built, needs roughly <b>1,000</b>. That is the square root of a million, and it is the same maths that took your four-box vault down to a single guess.
       </div>
 
+      <h2 style="margin-top:22px;">Let's check what stuck</h2>
+      <p class="lede">Back to the two aims from the start.</p>
+      <div class="recap-card">
+        <h4>✅ Programming: A sequence, and a loop</h4>
+        <p>Your program was a list of instructions running in order, top to bottom — a <b>sequence</b>. Then the vaults got bigger and you swapped a pile of repeated blocks for one <b>Repeat</b> block with a number on it: a loop. You wrote the instruction once and told the computer how many times to run it. Those two ideas are the foundation of every program ever written, and you now have both.</p>
+      </div>
+      <div class="recap-card">
+        <h4>✅ Quantum: How a quantum search actually works</h4>
+        <p>Mark flips one answer's wave upside-down; Boost then flips everything around the average so the odd one out grows and the rest shrink away. Do that the right number of times and the answer is almost certain to appear. Do it once too often and the odds fall back down — which is why quantum programs have a right number of steps rather than as many as possible.</p>
+      </div>
+
       <h2 style="margin-top:22px;">Quick field test</h2>
       <p class="lede">Three questions. No pressure — just see what stuck.</p>
       <div id="fieldTestArea"></div>
@@ -790,7 +859,8 @@
       <li><b>Intro:</b> the spinning coin, then the boxes. Let someone else press "slap your hand down" — the point lands harder when they do it.</li>
       <li><b>Why it works:</b> the noise-cancelling headphones comparison does most of the work. Let them press Next step themselves rather than narrating it.</li>
       <li><b>Level 1 — 4 boxes, 1 Search Step.</b> Guaranteed 100%. Not "very likely" — certain. Best opening wow in the series. Name the word <i>sequence</i> out loud while their program is on screen.</li>
-      <li><b>Level 2 — 16 boxes, 3 Search Steps.</b> Four times the vault but only three times the steps, and the lede asks them to overshoot deliberately. A fourth step drops them from 96% to 58%. Make sure somebody tries it.</li>
+      <li><b>The Repeat Block.</b> A two-minute stop between Levels 1 and 2. They see six blocks and nine lines of code, drag one block in, and it collapses to one block and four lines. That is the loop taught, and it is the second programming concept of the day. Do not skip it — Level 2 and Level 3 both lean on it.</li>
+      <li><b>Level 2 — 16 boxes, 3 Search Steps.</b> First chance to use the loop for real, and they can still do it by hand if they prefer. Four times the vault but only three times the steps, and the lede asks them to overshoot deliberately: a fourth step drops them from 96% to 58%. Make sure somebody tries it.</li>
       <li><b>Level 3 — 64 boxes, 6 Search Steps, and no readout.</b> This is the teaching level. Two things happen: the meter is switched off so they have to reason rather than optimise against a number, and after two hand-dragged pairs the gold <b>Repeat</b> block unlocks. That is a loop, and the code panel shows it as a real <code>for</code> loop. The readout only appears <i>after</i> they run — then hides again the moment they change anything.</li>
       <li><b>Bonus — Twin Vaults.</b> Optional, off the Level 3 screen. No programming in it; it is there because it is astonishing. Skip it if you are short of time, or if the room is flagging.</li>
     </ul>
@@ -800,7 +870,7 @@
     <p><b>"So it is just faster?"</b> No, and this is worth correcting. It is not doing the same work more quickly — it is doing a different kind of work. The Molecule Lab activity makes this point best if they go on to it.</p>
     <p><b>"Could this break my bank password?"</b> Not today. Machines are nowhere near big enough. The Cipher Room activity covers why banks are changing their locks anyway.</p>
     <p><b>"I don't get the 75% thing."</b> Nor does almost anyone on first pass, which is exactly why it is a bonus rather than part of the lesson. Fall back to: two people in separate rooms, no way to communicate, and no possible arrangement lets them succeed together more than 75% of the time. Entangled equipment manages 85%. Nobody has ever made that feel obvious — it won a Nobel Prize precisely because it is so hard to accept.</p>
-    <p><b>"Why did the meter disappear in Level 3?"</b> On purpose. With a percentage on screen people optimise against the number without thinking. Take it away and they have to reason about the problem, guess, and find out. Let them get it wrong once.</p>
+    <p><b>"Why did the meter disappear in Level 3?"</b> On purpose. With a percentage on screen people optimise against the number without thinking. Take it away and they have to reason, commit to a guess, and find out. Level 3 is also the only place they are asked to call it before running — everywhere else the meter already answers that question, so it would just be an extra click. Let somebody get it wrong once; it is the most useful thing that happens all session.</p>
 
     <h3>If you only say one thing</h3>
     <p>They wrote a real program today. Not a pretend one, not a simplified one for beginners — the actual algorithm, with the actual maths underneath it. That is worth saying at the end, because most people will not believe it unless you tell them.</p>
@@ -861,8 +931,8 @@ document.getElementById('btnCloseVictory').addEventListener('click', ()=>{
 });
 
 /* ================= MISSION / STEPPER ================= */
-const STAGE_ORDER = ['aims','intro','why','level1','level2','level3','level4','plenary'];
-const STAGE_LABELS = { aims:'🎯 Aims', intro:'🧭 Intro', why:'🔬 Why', level1:'1', level2:'2', level3:'3', level4:'🔗 Bonus', plenary:'🏁 Debrief' };
+const STAGE_ORDER = ['aims','intro','why','level1','loop','level2','level3','level4','plenary'];
+const STAGE_LABELS = { aims:'🎯 Aims', intro:'🧭 Intro', why:'🔬 Why', level1:'1', loop:'🔁 Loops', level2:'2', level3:'3', level4:'🔗 Bonus', plenary:'🏁 Debrief' };
 let currentStage = 'intro';
 let unlockedUpTo = 0; // index into STAGE_ORDER
 
@@ -888,7 +958,7 @@ function renderStepper(){
 function goToStage(key){
   currentStage = key;
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  const map = { aims:'screenAims', intro:'screenIntro', why:'screenWhy', level1:'screenHeist', level2:'screenHeist', level3:'screenHeist', level4:'screenTwins', plenary:'screenPlenary' };
+  const map = { aims:'screenAims', intro:'screenIntro', why:'screenWhy', loop:'screenLoop', level1:'screenHeist', level2:'screenHeist', level3:'screenHeist', level4:'screenTwins', plenary:'screenPlenary' };
   document.getElementById(map[key]).classList.add('active');
   if (key.startsWith('level') && key !== 'level4') enterHeistLevel(key);
   if (key === 'plenary'){
@@ -1113,6 +1183,63 @@ document.getElementById('introBeginHeist').addEventListener('click', ()=>{
   goToStage('why');
 });
 
+/* ================= LOOP LESSON ================= */
+/* Show the repetition, let them feel it, then let one block absorb it. */
+function renderLoopDemo(looped){
+  const track = document.getElementById('loopDemoTrack');
+  const code = document.getElementById('loopDemoCode');
+  track.innerHTML = '';
+  if (!looped){
+    for (let i=0;i<3;i++){
+      const m = document.createElement('div');
+      m.className = 'track-chip mark'; m.textContent = '🎯 Mark';
+      const b = document.createElement('div');
+      b.className = 'track-chip boost'; b.textContent = '📈 Boost';
+      track.appendChild(m); track.appendChild(b);
+    }
+    code.innerHTML = [
+      '<span class="cm"># Search Step 1</span>',
+      '<span class="cd">qc.append(oracle(target), range(4))    # 🎯 Mark</span>',
+      '<span class="cd">qc.append(diffuser(), range(4))        # 📈 Boost</span>',
+      '<span class="cm"># Search Step 2</span>',
+      '<span class="cd">qc.append(oracle(target), range(4))    # 🎯 Mark</span>',
+      '<span class="cd">qc.append(diffuser(), range(4))        # 📈 Boost</span>',
+      '<span class="cm"># Search Step 3</span>',
+      '<span class="cd">qc.append(oracle(target), range(4))    # 🎯 Mark</span>',
+      '<span class="cd">qc.append(diffuser(), range(4))        # 📈 Boost</span>'
+    ].join('\n');
+    return;
+  }
+  const chip = document.createElement('div');
+  chip.className = 'loop-chip';
+  chip.innerHTML = '<span>🔁 Repeat <b>Mark + Boost</b></span><span class="loop-count"><span class="n">3</span></span>';
+  track.appendChild(chip);
+  code.innerHTML = [
+    '<span class="cm"># the same three Search Steps, written once</span>',
+    '<span class="cd">for step in range(3):</span>',
+    '<span class="cd">    qc.append(oracle(target), range(4))    # 🎯 Mark</span>',
+    '<span class="cd">    qc.append(diffuser(), range(4))        # 📈 Boost</span>'
+  ].join('\n');
+}
+let loopLessonDone = false;
+makeDraggable(document.getElementById('loopDemoBlock'), ()=>{
+  if (loopLessonDone) return;
+  loopLessonDone = true;
+  renderLoopDemo(true);
+  document.getElementById('loopPrompt').textContent = 'Nine lines became four. Six blocks became one. Nothing else changed.';
+  document.getElementById('loopLede').textContent = 'That is the same program you were looking at a moment ago — still three Search Steps, still the same job. It just does not need writing out three times any more.';
+  document.getElementById('loopReveal').style.display = 'block';
+  document.getElementById('loopDemoBlock').classList.add('locked');
+  document.getElementById('btnLoopNext').disabled = false;
+  spawnSparkles(document.getElementById('loopDemoTrack'));
+  showToast('🔁 That is a loop.');
+}, document.getElementById('loopDemoTrack'));
+renderLoopDemo(false);
+document.getElementById('btnLoopNext').addEventListener('click', ()=>{
+  unlockTo('level2');
+  goToStage('level2');
+});
+
 /* ================= SHARED HEIST ENGINE (Levels 1-3) ================= */
 const LEVEL_CONFIG = {
   level1: { n:4, cols:4, title:'The Warm-Up Vault', tag:'LEVEL 1 · LIVE',
@@ -1120,11 +1247,11 @@ const LEVEL_CONFIG = {
     footer:'Four boxes needs two qubits. A qubit is a quantum computer\'s version of a bit — where an ordinary bit is either a 0 or a 1, a qubit can hold a blend of both while it works.',
     showGauge:true, allowLoop:false },
   level2: { n:16, cols:4, title:'The Standard Vault', tag:'LEVEL 2 · LIVE',
-    lede:'Four times the boxes. So your sequence needs to be longer — but how much longer? Not four times. Find the sweet spot, then deliberately add one Search Step too many and watch what happens to your odds.',
+    lede:'Four times the boxes, and this one needs three Search Steps. Drag six blocks if you like — or use your new Repeat block and do it in one. Then deliberately add one Search Step too many and watch what happens to your odds.',
     footer:'Sixteen boxes, four qubits. Note the trap you just found: past the sweet spot, more steps make things worse. Quantum search is not a case of "more is better".',
     showGauge:true, allowLoop:false },
   level3: { n:64, cols:8, title:'The Big Vault', tag:'LEVEL 3 · LIVE',
-    lede:'Sixteen times the boxes of Level 1 — and this vault has no readout. No percentage, no meter, no hints. Start dragging Search Steps in and you will very quickly wish there were a better way. There is.',
+    lede:'Sixteen times the boxes of Level 1, and this vault has no readout. No percentage, no meter, no hints. You have a loop and you know how it works — now you have to decide how many times to run it, commit, and find out.',
     footer:'Sixty-four boxes, six qubits. Sixteen times the vault of Level 1 but only six times the steps — that gap is the entire point of quantum search.',
     showGauge:false, allowLoop:true }
 };
@@ -1147,24 +1274,7 @@ function currentIterations(){
   const looped = programBlocks.filter(b=>b.type==='loop').reduce((sum,b)=>sum+b.count, 0);
   return Math.min(marks, boosts) + looped;
 }
-/* Twelve blocks dragged by hand is tedious on purpose — that tedium is what
-   makes a loop feel like a relief rather than a new thing to learn. */
-function maybeUnlockLoop(k){
-  const cfg = LEVEL_CONFIG[activeLevel];
-  const el = document.getElementById('paletteRepeat');
-  if (!cfg || !cfg.allowLoop || !el) return;
-  if (k >= 2 && el.classList.contains('locked')){
-    el.classList.remove('locked');
-    el.querySelector('small').textContent = 'drag me — do the rest in one block';
-    showToast('🔁 Repeat block unlocked. Stop dragging, start looping.');
-  }
-}
-function lockLoopBlock(){
-  const el = document.getElementById('paletteRepeat');
-  if (!el) return;
-  el.classList.add('locked');
-  el.querySelector('small').textContent = '🔒 do a couple by hand first';
-}
+
 function currentConfidence(){
   const theta = Math.asin(1/Math.sqrt(activeN));
   const k = currentIterations();
@@ -1231,7 +1341,6 @@ function renderGauge(){
   const optimalK = computeOptimalK(activeN);
   const fill = document.getElementById('gaugeFill');
 
-  maybeUnlockLoop(k);
 
   /* Level 3 hides the readout. Without a meter to optimise against, the only
      way to find out is to predict, run, and see — which is the actual skill. */
@@ -1470,7 +1579,8 @@ function enterHeistLevel(key){
   document.getElementById('roundMsg').textContent = 'Build a program above, then hit Run.';
   document.getElementById('btnContinueLevel').disabled = true;
   document.getElementById('btnContinueLevel').textContent =
-    (key==='level3') ? 'Finish the heist → Debrief 🏁' : 'Continue →';
+    key==='level3' ? 'Finish the heist → Debrief 🏁'
+    : (key==='level1' ? 'Continue → a better way to do this' : 'Continue →');
   document.getElementById('bonusRow').style.display = (key==='level3') ? 'flex' : 'none';
 
   const showGauge = cfg.showGauge !== false;
@@ -1479,7 +1589,8 @@ function enterHeistLevel(key){
     : 'hidden on this vault — you will have to run it to find out';
   const rep = document.getElementById('paletteRepeat');
   rep.style.display = cfg.allowLoop ? 'flex' : 'none';
-  if (cfg.allowLoop) lockLoopBlock();
+  rep.classList.remove('locked');
+  rep.querySelector('small').textContent = 'the whole pair, however many times';
   document.getElementById('predictRow').style.display = 'none';
   document.getElementById('runRow').style.display = 'flex';
   document.getElementById('btnRunVault').disabled = false;
@@ -1493,8 +1604,14 @@ let predictStreak = 0, predictTotal = 0, predictCorrect = 0;
 
 document.getElementById('btnRunVault').addEventListener('click', ()=>{
   if (vaultRunning) return;
-  document.getElementById('runRow').style.display = 'none';
-  document.getElementById('predictRow').style.display = 'flex';
+  /* Asking "will it hit?" while a percentage sits on screen is not a question,
+     it is an extra click. Only the hidden-readout vault earns it. */
+  if (LEVEL_CONFIG[activeLevel].showGauge === false){
+    document.getElementById('runRow').style.display = 'none';
+    document.getElementById('predictRow').style.display = 'flex';
+  } else {
+    executeRun(null);
+  }
 });
 document.getElementById('predictHit').addEventListener('click', ()=> executeRun(true));
 document.getElementById('predictMiss').addEventListener('click', ()=> executeRun(false));
@@ -1543,12 +1660,15 @@ function executeRun(predictedHit){
       showToast('📈 Scale master!');
     }
 
-    predictTotal++;
-    const predictionCorrect = (predictedHit === success);
-    if (predictionCorrect){ predictCorrect++; predictStreak++; } else { predictStreak = 0; }
-    const predictLine = predictionCorrect
-      ? (predictStreak>=3 ? ` You called it — ${predictStreak} in a row! 🔥` : ' You called it right!')
-      : " Your gut said otherwise this time — that's probability for you.";
+    let predictLine = '';
+    if (predictedHit !== null){
+      predictTotal++;
+      const predictionCorrect = (predictedHit === success);
+      if (predictionCorrect){ predictCorrect++; predictStreak++; } else { predictStreak = 0; }
+      predictLine = predictionCorrect
+        ? (predictStreak>=2 ? ` You called it — ${predictStreak} in a row, with no meter to help. 🔥` : ' You called it right, with no meter to help.')
+        : " Your gut said otherwise — and with the readout off, being wrong is how you find the edge.";
+    }
 
     document.getElementById('roundMsg').textContent = (success
       ? `Quantum found it in ONE guess (${(conf*100).toFixed(1)}% confidence) — the classical computer needed ${steps} check${steps===1?'':'s'}.`
@@ -1594,7 +1714,7 @@ document.getElementById('btnNewVault').addEventListener('click', ()=>{
   document.getElementById('roundMsg').textContent = 'New vault ready. Your program stays — hit Run to try it.';
 });
 document.getElementById('btnContinueLevel').addEventListener('click', ()=>{
-  const nextMap = { level1:'level2', level2:'level3', level3:'plenary' };
+  const nextMap = { level1:'loop', level2:'level3', level3:'plenary' };
   const next = nextMap[activeLevel];
   unlockTo(next);
   goToStage(next);
@@ -1726,7 +1846,7 @@ const QUIZ = [
     opts:['A sequence','A spreadsheet','A shortcut'],
     correct:0,
     explain:'A sequence — instructions carried out one after another, in the order you put them. It is the most basic building block there is, and you built one in every vault.' },
-  { q:'In the Big Vault you swapped a pile of repeated blocks for one Repeat block with a number on it. What is that called?',
+  { q:'You replaced a pile of repeated blocks with a single Repeat block and a number. What is that called?',
     opts:['A variable','A loop','A database'],
     correct:1,
     explain:'A loop. You wrote the instruction once and told the computer how many times to run it. Every program you have ever used is full of them — it is how software does big jobs without anyone typing out every step.' },

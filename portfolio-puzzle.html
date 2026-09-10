@@ -250,6 +250,34 @@
   .ladder-row.newest{ background: rgba(124,111,255,0.16); }
   .ladder-row .t{ font-weight:700; }
 
+  /* ---------- the password maker: a function with typed arguments ---------- */
+  .arg-grid{ display:flex; flex-direction:column; gap:10px; margin:16px 0; }
+  .arg-row{ background: var(--panel-2); border-radius:14px; padding:13px 15px; }
+  .arg-head{ display:flex; align-items:baseline; gap:10px; margin-bottom:9px; flex-wrap:wrap; }
+  .arg-name{ font-family:var(--f-mono); font-weight:700; font-size:0.95rem; color: var(--zero); }
+  .type-badge{ font-family:var(--f-mono); font-weight:700; font-size:0.66rem; letter-spacing:0.4px; padding:3px 8px; border-radius:7px; background: rgba(255,255,255,0.09); color: var(--text-dim); }
+  .arg-note{ font-size:0.8rem; color: var(--text-dim); margin-left:auto; }
+  .seg{ display:flex; gap:6px; flex-wrap:wrap; }
+  .seg button{ flex:1 1 auto; min-width:86px; border:none; border-radius:10px; padding:11px 10px; cursor:pointer;
+    font-family:var(--f-display); font-weight:700; font-size:0.86rem; background: var(--bg-deep); color: var(--text-dim); }
+  .seg button.on{ background: var(--zero); color:#0B0E24; }
+  .seg.bool button.on{ background: var(--good); color:#08281c; }
+  .stepper-num{ display:flex; align-items:center; justify-content:center; gap:14px; }
+  .stepper-num button{ width:44px; height:44px; border-radius:12px; border:none; cursor:pointer; background: var(--bg-deep); color: var(--text); font-size:1.3rem; font-weight:700; }
+  .stepper-num .n{ font-family:var(--f-mono); font-weight:700; font-size:1.6rem; color: var(--star); min-width:3rem; text-align:center; }
+  .call-sig{ background:#05060f; border:1px solid rgba(76,214,255,0.28); border-radius:12px; padding:14px; margin:14px 0;
+    font-family:var(--f-mono); font-size:0.86rem; line-height:1.6; color:#B8E6FF; overflow-x:auto; white-space:pre; }
+  .call-sig .fn{ color: var(--star); }
+  .call-sig .str{ color: var(--good); }
+  .call-sig .num{ color: var(--one); }
+  .call-sig .bool{ color: var(--pink); }
+  .pw-display{ background: var(--bg-deep); border:1px dashed rgba(255,255,255,0.2); border-radius:14px;
+    padding:20px 16px; margin:14px 0; text-align:center; font-family:var(--f-mono); font-weight:700;
+    font-size:1.35rem; color:#fff; word-break:break-all; line-height:1.5; min-height:3.6rem;
+    display:flex; align-items:center; justify-content:center; }
+  .pw-display.empty{ color: var(--text-dim); font-size:0.95rem; font-weight:600; }
+  .pw-space{ text-align:center; font-size:0.84rem; color: var(--text-dim); margin:-4px 0 4px; line-height:1.55; }
+
   /* ---------- plenary ---------- */
   .recap-card{ background: var(--panel-2); border-radius: 14px; padding: 15px; margin-bottom: 10px; }
   .recap-card h4{ font-family:var(--f-display); font-size:0.98rem; margin:0 0 5px; color: var(--star); }
@@ -475,8 +503,8 @@
         <div class="ico">💻</div>
         <div>
           <span class="aim-tag prog">PROGRAMMING</span>
-          <h4>What's a conditional check?</h4>
-          <p>You'll build a rule that says "if this breaks a limit, it's invalid" — the if/else logic behind almost every piece of software.</p>
+          <h4>A rule, and a rule inside a loop</h4>
+          <p>First a <b>conditional</b> — a rule that says "if this breaks a limit, it is invalid." That if/else logic sits behind almost every piece of software. Then you will put that rule <i>inside</i> a loop, so the computer applies it to sixty-three things in a row without you asking twice.</p>
         </div>
       </div>
       <div class="aim-card">
@@ -565,6 +593,10 @@
         <pre id="codeOutput1"></pre>
       </div>
 
+      <div class="callback-box">
+        <b>Look at the shape of that.</b> A loop on the outside — "for every combination" — and your conditional tucked <i>inside</i> it, indented. That nesting is how almost all real code is built: a rule that runs over and over, on one thing after another. You wrote a loop in the Vault Heist and a rule in Step 1. This is both at once.
+      </div>
+
       <div class="row2">
         <button class="primary" id="btnRunFullSearch" disabled>🔁 Run the full search (all 63 combos)</button>
       </div>
@@ -650,8 +682,12 @@
       <h2 style="margin-top:22px;">Let's check what stuck</h2>
       <p class="lede">Back to the two aims from the start.</p>
       <div class="recap-card">
-        <h4>✅ Programming: What's a conditional check?</h4>
-        <p>A conditional is a rule that checks something and branches: "if total risk is over the limit, mark it invalid — otherwise, it's fine." You watched that check run live on every combination.</p>
+        <h4>✅ Programming: What's a conditional?</h4>
+        <p>A rule that checks something and branches: "if total risk is over the limit, mark it invalid — otherwise it is fine." You judged five by hand, then watched the same rule run on all sixty-three.</p>
+      </div>
+      <div class="recap-card">
+        <h4>✅ Programming: A rule inside a loop</h4>
+        <p>The search put your conditional <i>inside</i> a loop — one rule, applied to sixty-three things, written once. That nesting is the shape of most real software: loops carrying rules, doing the same careful check over and over without getting bored or making mistakes.</p>
       </div>
       <div class="recap-card">
         <h4>✅ Quantum: Why finding the best combination gets impossible fast</h4>
