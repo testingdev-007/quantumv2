@@ -324,6 +324,20 @@
   .track-chip.mark{ background: var(--zero); color:#0B0E24; }
   .track-chip.boost{ background: var(--pink); color:#fff; }
   .track-hint{ font-size:0.8rem; color: var(--text-dim); margin-bottom:14px; }
+  /* the Repeat block — a real counted loop, introduced at the big vault */
+  .code-block.loopblock{ background: linear-gradient(135deg, var(--star), var(--one)); color:#3A2606; }
+  .code-block.loopblock small{ color: rgba(58,38,6,0.72); }
+  .loop-chip{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; width:100%;
+    background: linear-gradient(135deg, rgba(255,224,102,0.22), rgba(255,178,56,0.16));
+    border:1px solid rgba(255,224,102,0.5); border-radius:12px; padding:10px 13px;
+    font-family:var(--f-display); font-weight:700; font-size:0.86rem; color: var(--text); }
+  .loop-chip b{ color: var(--star); }
+  .loop-count{ display:flex; align-items:center; gap:8px; margin-left:auto; }
+  .loop-count button{ width:32px; height:32px; border-radius:9px; border:none; cursor:pointer;
+    background: rgba(255,255,255,0.14); color: var(--text); font-size:1.05rem; font-weight:700; line-height:1; }
+  .loop-count .n{ font-family:var(--f-mono); font-weight:700; font-size:1.15rem; min-width:1.6rem; text-align:center; color: var(--star); }
+  .loop-chip .loop-x{ border:none; background:none; color: var(--text-dim); cursor:pointer; font-size:0.95rem; padding:4px; }
+  .loop-chip .loop-x:hover{ color: var(--text); }
   .code-note{ font-size:0.78rem; color: var(--text-dim); margin-top:9px; line-height:1.5; }
   .row2 button.continue{ background: linear-gradient(135deg, var(--accent), var(--accent-bright)); color:#fff; box-shadow: 0 0 24px rgba(124,111,255,0.4); }
 

@@ -324,6 +324,20 @@
   .track-chip.mark{ background: var(--zero); color:#0B0E24; }
   .track-chip.boost{ background: var(--pink); color:#fff; }
   .track-hint{ font-size:0.8rem; color: var(--text-dim); margin-bottom:14px; }
+  /* the Repeat block — a real counted loop, introduced at the big vault */
+  .code-block.loopblock{ background: linear-gradient(135deg, var(--star), var(--one)); color:#3A2606; }
+  .code-block.loopblock small{ color: rgba(58,38,6,0.72); }
+  .loop-chip{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; width:100%;
+    background: linear-gradient(135deg, rgba(255,224,102,0.22), rgba(255,178,56,0.16));
+    border:1px solid rgba(255,224,102,0.5); border-radius:12px; padding:10px 13px;
+    font-family:var(--f-display); font-weight:700; font-size:0.86rem; color: var(--text); }
+  .loop-chip b{ color: var(--star); }
+  .loop-count{ display:flex; align-items:center; gap:8px; margin-left:auto; }
+  .loop-count button{ width:32px; height:32px; border-radius:9px; border:none; cursor:pointer;
+    background: rgba(255,255,255,0.14); color: var(--text); font-size:1.05rem; font-weight:700; line-height:1; }
+  .loop-count .n{ font-family:var(--f-mono); font-weight:700; font-size:1.15rem; min-width:1.6rem; text-align:center; color: var(--star); }
+  .loop-chip .loop-x{ border:none; background:none; color: var(--text-dim); cursor:pointer; font-size:0.95rem; padding:4px; }
+  .loop-chip .loop-x:hover{ color: var(--text); }
   .code-note{ font-size:0.78rem; color: var(--text-dim); margin-top:9px; line-height:1.5; }
   .row2 button.continue{ background: linear-gradient(135deg, var(--accent), var(--accent-bright)); color:#fff; box-shadow: 0 0 24px rgba(124,111,255,0.4); }
 
@@ -461,8 +475,8 @@
         <div class="ico">💻</div>
         <div>
           <span class="aim-tag prog">PROGRAMMING</span>
-          <h4>Build a program by dragging blocks in order</h4>
-          <p>You'll drag blocks into a list, top to bottom. That list IS a program — the same idea behind every piece of software ever written.</p>
+          <h4>A sequence, and then a loop</h4>
+          <p>You'll drag blocks into a list that runs top to bottom — that list is a <b>sequence</b>, and it is already a real program. Then the vaults get bigger, dragging blocks gets tedious, and you'll replace a whole pile of them with a single <b>loop</b>. Those two ideas are most of what any program is made of.</p>
         </div>
       </div>
       <div class="aim-card">
@@ -570,6 +584,7 @@
       <div class="block-palette">
         <div class="code-block mark" id="paletteMark">🎯 Mark<small>flag the treasure</small></div>
         <div class="code-block boost" id="paletteBoost">📈 Boost<small>amplify the odds</small></div>
+        <div class="code-block loopblock locked" id="paletteRepeat" style="display:none;">🔁 Repeat<small>🔒 do a couple by hand first</small></div>
       </div>
       <details class="reveal">
         <summary>Remind me what Mark and Boost actually do</summary>
@@ -585,7 +600,7 @@
 
       <div class="gauge-wrap">
         <div class="gauge-val mono" id="gaugeVal">—</div>
-        <div class="gauge-label">chance your program finds it in one guess</div>
+        <div class="gauge-label" id="gaugeLabel">chance your program finds it in one guess</div>
         <div class="gauge-track"><div class="gauge-fill" id="gaugeFill" style="width:0%"></div></div>
         <div class="gauge-hint" id="gaugeHint"></div>
       </div>
@@ -615,7 +630,7 @@
         <button class="continue" id="btnContinueLevel" disabled>Continue →</button>
       </div>
       <div class="row2" id="bonusRow" style="display:none;">
-        <button id="btnBonusVault">🏆 Optional: try the 32-box vault first</button>
+        <button id="btnBonusVault">🔗 Bonus: the Twin Vaults — the strangest thing in physics</button>
       </div>
 
       <details class="reveal">
@@ -641,10 +656,10 @@
   <!-- LEVEL 4: TWIN VAULTS -->
   <section class="screen" id="screenTwins">
     <div class="stage">
-      <div class="live-tag"><span class="pulse-dot"></span>LEVEL 4 · FINAL HEIST</div>
+      <div class="live-tag"><span class="pulse-dot"></span>BONUS · NO CODE REQUIRED</div>
       <h2>The Twin Vaults</h2>
-      <p class="lede">Two vaults. Two agents, in separate rooms, who cannot talk to each other. Each is handed a random instruction and has to answer on their own — and they only win the round if their two answers match up in a particular way.</p>
-      <p class="lede" style="margin-top:10px;">With ordinary equipment, the very best they can ever manage is <b>75%</b>. Not "they weren't clever enough" — 75% is a proven ceiling. Now give each agent one half of an entangled pair and press the button.</p>
+      <p class="lede">No programming in this one — it is here because it is the strangest thing in physics and you have earned it. Two agents crack two linked vaults from separate rooms, with no way to communicate. Each round they either pull it off together or they don't.</p>
+      <p class="lede" style="margin-top:10px;">With ordinary equipment the very best they can <i>ever</i> manage is <b>75%</b> of rounds. Not "they weren't clever enough" — 75% is a mathematically proven ceiling. Now give them entangled equipment and press the button.</p>
 
       <div class="callback-box">
         Remember the spinning coin from the briefing? Imagine two of them. You keep one; a colleague takes the other to Mars. Both are still spinning — neither is heads or tails yet. You stop yours and it lands heads, and at that same instant, millions of miles away, theirs stops on tails. Every single time. No wires, no signal, nothing fast enough to carry the news. Einstein found this so objectionable he called it <i>"spooky action at a distance"</i> and spent years arguing it could not be the whole story. This is the experiment that settled the argument — and you are about to run it.
@@ -677,7 +692,7 @@
       </div>
       <div class="row2">
         <button id="btnTwinReset">Start again</button>
-        <button class="continue" id="btnContinueTwins" disabled>Continue → Debrief 🏁</button>
+        <button class="continue" id="btnContinueTwins" disabled>Back to the debrief 🏁</button>
       </div>
 
       <p class="lede" style="text-align:center; margin-top:16px;">Play 50 rounds and watch the green bar walk past the white line. That line is the limit of what any ordinary strategy can do.</p>
@@ -767,24 +782,25 @@
     <ul>
       <li>Say out loud, once, that nobody is expected to know any of this. It resets the room.</li>
       <li>Blocks can be <b>dragged or just tapped</b>. Mention this early — it is the single most common sticking point, and people assume they are doing it wrong.</li>
-      <li>This is the longest activity in the series and it comes first. If you are short on time, the Level 3 bonus vault is optional and skipping it costs nothing.</li>
+      <li>This is the longest activity in the series and it comes first. The Twin Vaults at the end is optional — skipping it costs you nothing but a nice moment.</li>
     </ul>
 
     <h3>The beat you are aiming for</h3>
     <ul>
-      <li><b>Intro:</b> they tap boxes one at a time, then turn on superposition. Hands busy before any theory arrives.</li>
-      <li><b>Why it works:</b> the noise-cancelling headphones comparison does most of the work here. Let them press Next step themselves rather than narrating it.</li>
-      <li><b>Level 1 (4 boxes):</b> one Search Step gives a guaranteed 100%. Not "very likely" — certain. Best opening wow in the series.</li>
-      <li><b>Level 2 (8 boxes):</b> two steps is the sweet spot; a third crashes it to about 33%. Actively encourage someone to add the third block. Being surprised is the point.</li>
-      <li><b>Level 3 (16 boxes):</b> four times the vault, one extra step. That is the whole argument for quantum computing, on one screen.</li>
-      <li><b>Level 4 (Twin Vaults):</b> get them to press "Play 50 instantly" before explaining anything. The green bar crossing the white line does the teaching; the written explanation is tucked into a panel they can open if they want it.</li>
+      <li><b>Intro:</b> the spinning coin, then the boxes. Let someone else press "slap your hand down" — the point lands harder when they do it.</li>
+      <li><b>Why it works:</b> the noise-cancelling headphones comparison does most of the work. Let them press Next step themselves rather than narrating it.</li>
+      <li><b>Level 1 — 4 boxes, 1 Search Step.</b> Guaranteed 100%. Not "very likely" — certain. Best opening wow in the series. Name the word <i>sequence</i> out loud while their program is on screen.</li>
+      <li><b>Level 2 — 16 boxes, 3 Search Steps.</b> Four times the vault but only three times the steps, and the lede asks them to overshoot deliberately. A fourth step drops them from 96% to 58%. Make sure somebody tries it.</li>
+      <li><b>Level 3 — 64 boxes, 6 Search Steps, and no readout.</b> This is the teaching level. Two things happen: the meter is switched off so they have to reason rather than optimise against a number, and after two hand-dragged pairs the gold <b>Repeat</b> block unlocks. That is a loop, and the code panel shows it as a real <code>for</code> loop. The readout only appears <i>after</i> they run — then hides again the moment they change anything.</li>
+      <li><b>Bonus — Twin Vaults.</b> Optional, off the Level 3 screen. No programming in it; it is there because it is astonishing. Skip it if you are short of time, or if the room is flagging.</li>
     </ul>
 
     <h3>Questions you will actually get</h3>
     <p><b>"Is this a real quantum computer?"</b> No — it is an ordinary computer working out what a quantum one would do. What is real is the physics: every number on screen is what a real machine would produce. Say this plainly; people respect it and it makes everything else more credible.</p>
     <p><b>"So it is just faster?"</b> No, and this is worth correcting. It is not doing the same work more quickly — it is doing a different kind of work. The Molecule Lab activity makes this point best if they go on to it.</p>
     <p><b>"Could this break my bank password?"</b> Not today. Machines are nowhere near big enough. The Cipher Room activity covers why banks are changing their locks anyway.</p>
-    <p><b>"I don't get the 75% thing."</b> Fine — most people do not on first pass. Fall back to: two people in separate rooms, no way to communicate, and no possible arrangement lets them agree more than 75% of the time. Entangled particles manage 85%. Nobody knows how to make that feel obvious, which is why it won a Nobel Prize.</p>
+    <p><b>"I don't get the 75% thing."</b> Nor does almost anyone on first pass, which is exactly why it is a bonus rather than part of the lesson. Fall back to: two people in separate rooms, no way to communicate, and no possible arrangement lets them succeed together more than 75% of the time. Entangled equipment manages 85%. Nobody has ever made that feel obvious — it won a Nobel Prize precisely because it is so hard to accept.</p>
+    <p><b>"Why did the meter disappear in Level 3?"</b> On purpose. With a percentage on screen people optimise against the number without thinking. Take it away and they have to reason about the problem, guess, and find out. Let them get it wrong once.</p>
 
     <h3>If you only say one thing</h3>
     <p>They wrote a real program today. Not a pretend one, not a simplified one for beginners — the actual algorithm, with the actual maths underneath it. That is worth saying at the end, because most people will not believe it unless you tell them.</p>
@@ -845,8 +861,8 @@ document.getElementById('btnCloseVictory').addEventListener('click', ()=>{
 });
 
 /* ================= MISSION / STEPPER ================= */
-const STAGE_ORDER = ['aims','intro','why','level1','level2','level3','level5','level4','plenary'];
-const STAGE_LABELS = { aims:'🎯 Aims', intro:'🧭 Intro', why:'🔬 Why', level1:'1', level2:'2', level3:'3', level4:'4', level5:'🏆', plenary:'🏁 Debrief' };
+const STAGE_ORDER = ['aims','intro','why','level1','level2','level3','level4','plenary'];
+const STAGE_LABELS = { aims:'🎯 Aims', intro:'🧭 Intro', why:'🔬 Why', level1:'1', level2:'2', level3:'3', level4:'🔗 Bonus', plenary:'🏁 Debrief' };
 let currentStage = 'intro';
 let unlockedUpTo = 0; // index into STAGE_ORDER
 
@@ -872,7 +888,7 @@ function renderStepper(){
 function goToStage(key){
   currentStage = key;
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  const map = { aims:'screenAims', intro:'screenIntro', why:'screenWhy', level1:'screenHeist', level2:'screenHeist', level3:'screenHeist', level4:'screenTwins', level5:'screenHeist', plenary:'screenPlenary' };
+  const map = { aims:'screenAims', intro:'screenIntro', why:'screenWhy', level1:'screenHeist', level2:'screenHeist', level3:'screenHeist', level4:'screenTwins', plenary:'screenPlenary' };
   document.getElementById(map[key]).classList.add('active');
   if (key.startsWith('level') && key !== 'level4') enterHeistLevel(key);
   if (key === 'plenary'){
@@ -1100,17 +1116,17 @@ document.getElementById('introBeginHeist').addEventListener('click', ()=>{
 /* ================= SHARED HEIST ENGINE (Levels 1-3) ================= */
 const LEVEL_CONFIG = {
   level1: { n:4, cols:4, title:'The Warm-Up Vault', tag:'LEVEL 1 · LIVE',
-    lede:'A small vault — perfect for your first real quantum program. Watch what happens with just one Search Step.',
-    footer:'Four boxes needs two qubits. A qubit is a quantum computer\'s version of a bit — where an ordinary bit is either a 0 or a 1, a qubit can hold a blend of both while it works. Two of them cover four boxes.' },
-  level2: { n:8, cols:4, title:'The Standard Vault', tag:'LEVEL 2 · LIVE',
-    lede:'Bigger vault, same trick — but this one has a trap. Watch what happens if you add one Search Step too many.',
-    footer:'Eight boxes, three qubits. Quantum search has a sweet spot, and going past it makes things worse — which is not what anyone expects.' },
-  level3: { n:16, cols:4, title:'The Big Vault', tag:'LEVEL 3 · LIVE',
-    lede:'Quadruple the boxes from Level 2. See how little extra work your quantum program needs to keep up.',
-    footer:'Sixteen boxes, four qubits. This is the whole point: double the vault and an ordinary computer doubles its work, while your quantum program adds a single step.' },
-  level5: { n:32, cols:8, title:'The Impossible Vault', tag:'🏆 BONUS · LIVE',
-    lede:'32 boxes. A classical computer would need up to 32 checks. Build the right program and you still only need ONE guess.',
-    footer:'Thirty-two boxes, five qubits. Real machines are reaching for hundreds — and just 300 linked qubits could hold more numbers at once than there are atoms in the observable universe.' }
+    lede:'Four boxes. Your program is a list of instructions that run in order, top to bottom — programmers call that a SEQUENCE, and it is the first thing anyone learns. This vault needs exactly one Search Step.',
+    footer:'Four boxes needs two qubits. A qubit is a quantum computer\'s version of a bit — where an ordinary bit is either a 0 or a 1, a qubit can hold a blend of both while it works.',
+    showGauge:true, allowLoop:false },
+  level2: { n:16, cols:4, title:'The Standard Vault', tag:'LEVEL 2 · LIVE',
+    lede:'Four times the boxes. So your sequence needs to be longer — but how much longer? Not four times. Find the sweet spot, then deliberately add one Search Step too many and watch what happens to your odds.',
+    footer:'Sixteen boxes, four qubits. Note the trap you just found: past the sweet spot, more steps make things worse. Quantum search is not a case of "more is better".',
+    showGauge:true, allowLoop:false },
+  level3: { n:64, cols:8, title:'The Big Vault', tag:'LEVEL 3 · LIVE',
+    lede:'Sixteen times the boxes of Level 1 — and this vault has no readout. No percentage, no meter, no hints. Start dragging Search Steps in and you will very quickly wish there were a better way. There is.',
+    footer:'Sixty-four boxes, six qubits. Sixteen times the vault of Level 1 but only six times the steps — that gap is the entire point of quantum search.',
+    showGauge:false, allowLoop:true }
 };
 
 let activeLevel = 'level1';
@@ -1128,7 +1144,26 @@ let missionLog = {}; // per-level summary for plenary
 function currentIterations(){
   const marks = programBlocks.filter(b=>b.type==='mark').length;
   const boosts = programBlocks.filter(b=>b.type==='boost').length;
-  return Math.min(marks, boosts);
+  const looped = programBlocks.filter(b=>b.type==='loop').reduce((sum,b)=>sum+b.count, 0);
+  return Math.min(marks, boosts) + looped;
+}
+/* Twelve blocks dragged by hand is tedious on purpose — that tedium is what
+   makes a loop feel like a relief rather than a new thing to learn. */
+function maybeUnlockLoop(k){
+  const cfg = LEVEL_CONFIG[activeLevel];
+  const el = document.getElementById('paletteRepeat');
+  if (!cfg || !cfg.allowLoop || !el) return;
+  if (k >= 2 && el.classList.contains('locked')){
+    el.classList.remove('locked');
+    el.querySelector('small').textContent = 'drag me — do the rest in one block';
+    showToast('🔁 Repeat block unlocked. Stop dragging, start looping.');
+  }
+}
+function lockLoopBlock(){
+  const el = document.getElementById('paletteRepeat');
+  if (!el) return;
+  el.classList.add('locked');
+  el.querySelector('small').textContent = '🔒 do a couple by hand first';
 }
 function currentConfidence(){
   const theta = Math.asin(1/Math.sqrt(activeN));
@@ -1149,8 +1184,33 @@ function computeOptimalK(N, maxK){
 
 function renderTrack(){
   const zone = document.getElementById('trackZone');
-  zone.querySelectorAll('.track-chip:not(.fixed)').forEach(el=>el.remove());
+  zone.querySelectorAll('.track-chip:not(.fixed), .loop-chip').forEach(el=>el.remove());
   programBlocks.forEach(b=>{
+    if (b.type === 'loop'){
+      const chip = document.createElement('div');
+      chip.className = 'loop-chip';
+      chip.innerHTML = '<span>🔁 Repeat <b>Mark + Boost</b></span>'
+        + '<span class="loop-count">'
+        + '<button type="button" data-d="-1" aria-label="fewer repeats">−</button>'
+        + '<span class="n">' + b.count + '</span>'
+        + '<button type="button" data-d="1" aria-label="more repeats">+</button>'
+        + '</span>'
+        + '<button type="button" class="loop-x" aria-label="remove the loop">✕</button>';
+      chip.querySelectorAll('[data-d]').forEach(btn=>{
+        btn.addEventListener('click', (e)=>{
+          e.stopPropagation();
+          b.count = Math.max(1, Math.min(12, b.count + parseInt(btn.dataset.d, 10)));
+          renderTrack(); renderGauge();
+        });
+      });
+      chip.querySelector('.loop-x').addEventListener('click', (e)=>{
+        e.stopPropagation();
+        programBlocks = programBlocks.filter(x=>x.id!==b.id);
+        renderTrack(); renderGauge();
+      });
+      zone.appendChild(chip);
+      return;
+    }
     const chip = document.createElement('div');
     chip.className = 'track-chip ' + b.type;
     chip.innerHTML = (b.type==='mark' ? '🎯 Mark' : '📈 Boost') + ' <span class="xx">✕</span>';
@@ -1165,15 +1225,31 @@ function renderTrack(){
 function renderGauge(){
   const k = currentIterations();
   const conf = currentConfidence();
-  const pct = conf*100;
-  document.getElementById('gaugeVal').textContent = pct.toFixed(1)+'%';
-  const fill = document.getElementById('gaugeFill');
-  fill.style.width = pct+'%';
-  fill.style.background = pct>=70 ? 'var(--good)' : (pct>=35 ? 'var(--one)' : 'var(--limit)');
-
+  const cfg = LEVEL_CONFIG[activeLevel] || {};
   const marks = programBlocks.filter(b=>b.type==='mark').length;
   const boosts = programBlocks.filter(b=>b.type==='boost').length;
   const optimalK = computeOptimalK(activeN);
+  const fill = document.getElementById('gaugeFill');
+
+  maybeUnlockLoop(k);
+
+  /* Level 3 hides the readout. Without a meter to optimise against, the only
+     way to find out is to predict, run, and see — which is the actual skill. */
+  if (cfg.showGauge === false){
+    document.getElementById('gaugeVal').textContent = '? ? ?';
+    fill.style.width = '0%';
+    document.getElementById('gaugeHint').textContent = k === 0
+      ? 'No readout on this vault. Build a program, run it, and find out the hard way.'
+      : k + ' Search Step' + (k===1?'':'s') + ' so far. Enough? Too many? Only one way to know.';
+    renderCode();
+    return;
+  }
+
+  const pct = conf*100;
+  document.getElementById('gaugeVal').textContent = pct.toFixed(1)+'%';
+  fill.style.width = pct+'%';
+  fill.style.background = pct>=70 ? 'var(--good)' : (pct>=35 ? 'var(--one)' : 'var(--limit)');
+
   let hint = '';
   if (k===0) hint = 'No complete Search Steps yet — that\'s just a blind guess.';
   else if (k < optimalK) hint = 'Getting stronger. Try adding another full Search Step.';
@@ -1210,6 +1286,16 @@ function renderCode(){
     push('# (drag Mark + Boost blocks above to build a Search Step)', 'cm');
   }
   programBlocks.forEach(b=>{
+    if (b.type==='loop'){
+      if (open){ open = false; stepNum++; push('', 'cd'); }
+      push(`# ${b.count} more Search Steps — written once, run ${b.count} times`, 'cm');
+      push(`for step in range(${b.count}):`, 'cd');
+      push(`    qc.append(oracle(target), range(${nq}))    # 🎯 Mark`, 'cd');
+      push(`    qc.append(diffuser(), range(${nq}))        # 📈 Boost`, 'cd');
+      push('', 'cd');
+      stepNum += b.count;
+      return;
+    }
     if (b.type==='mark'){
       if (!open){ push(`# Search Step ${stepNum}`, 'cm'); open = true; }
       push(`qc.append(oracle(target), range(${nq}))    # 🎯 Mark`, 'cd');
@@ -1287,6 +1373,12 @@ function makeDraggablePalette(el, type){
 }
 makeDraggablePalette(document.getElementById('paletteMark'), 'mark');
 makeDraggablePalette(document.getElementById('paletteBoost'), 'boost');
+makeDraggable(document.getElementById('paletteRepeat'), ()=>{
+  if (programBlocks.some(b=>b.type==='loop')) { showToast('One loop is enough — change its number instead.'); return; }
+  programBlocks.push({type:'loop', count:3, id:'b'+(blockUid++)});
+  renderTrack(); renderGauge();
+  showToast('That is a loop. Set how many times it runs.');
+}, document.getElementById('trackZone'));
 
 function buildGrid(containerId, n, cols){
   const el = document.getElementById(containerId);
@@ -1337,7 +1429,7 @@ function animateClassicalRace(order, cb){
       ? ('Found it after '+idx+' check'+(idx===1?'':'s')+'!')
       : ('Checking box '+idx+' of '+activeN+'...');
     if (isT){ cb(idx); }
-    else { setTimeout(step, activeN>8?150:260); }
+    else { setTimeout(step, activeN>16 ? 40 : (activeN>8 ? 150 : 260)); }
   }
   step();
 }
@@ -1378,8 +1470,16 @@ function enterHeistLevel(key){
   document.getElementById('roundMsg').textContent = 'Build a program above, then hit Run.';
   document.getElementById('btnContinueLevel').disabled = true;
   document.getElementById('btnContinueLevel').textContent =
-    (key==='level3' || key==='level5') ? 'Continue → The Twin Vaults' : 'Continue →';
+    (key==='level3') ? 'Finish the heist → Debrief 🏁' : 'Continue →';
   document.getElementById('bonusRow').style.display = (key==='level3') ? 'flex' : 'none';
+
+  const showGauge = cfg.showGauge !== false;
+  document.getElementById('gaugeLabel').textContent = showGauge
+    ? 'chance your program finds it in one guess'
+    : 'hidden on this vault — you will have to run it to find out';
+  const rep = document.getElementById('paletteRepeat');
+  rep.style.display = cfg.allowLoop ? 'flex' : 'none';
+  if (cfg.allowLoop) lockLoopBlock();
   document.getElementById('predictRow').style.display = 'none';
   document.getElementById('runRow').style.display = 'flex';
   document.getElementById('btnRunVault').disabled = false;
@@ -1460,6 +1560,21 @@ function executeRun(predictedHit){
       predictCorrect, predictTotal
     };
 
+    /* Predict, run, then find out. On Level 3 this is the only feedback there is,
+       and it disappears again the moment they change the program. */
+    if (LEVEL_CONFIG[activeLevel].showGauge === false){
+      const optimalK = computeOptimalK(activeN);
+      const k = currentIterations();
+      document.getElementById('gaugeVal').textContent = (conf*100).toFixed(1)+'%';
+      const gf = document.getElementById('gaugeFill');
+      gf.style.width = (conf*100)+'%';
+      gf.style.background = conf>=0.7 ? 'var(--good)' : (conf>=0.35 ? 'var(--one)' : 'var(--limit)');
+      document.getElementById('gaugeHint').textContent = k===optimalK
+        ? 'That was the sweet spot for '+activeN+' boxes. 🎯 Change anything and the readout hides again.'
+        : (k < optimalK ? 'Under-powered — more Search Steps would have done better. Adjust and run again.'
+                        : 'Overshot. Past the sweet spot the odds fall away again. Try fewer.');
+    }
+
     document.getElementById('btnContinueLevel').disabled = false;
     vaultRunning = false;
     document.getElementById('btnRunVault').disabled = false;
@@ -1479,14 +1594,14 @@ document.getElementById('btnNewVault').addEventListener('click', ()=>{
   document.getElementById('roundMsg').textContent = 'New vault ready. Your program stays — hit Run to try it.';
 });
 document.getElementById('btnContinueLevel').addEventListener('click', ()=>{
-  const nextMap = { level1:'level2', level2:'level3', level3:'level4', level5:'level4' };
+  const nextMap = { level1:'level2', level2:'level3', level3:'plenary' };
   const next = nextMap[activeLevel];
   unlockTo(next);
   goToStage(next);
 });
 document.getElementById('btnBonusVault').addEventListener('click', ()=>{
-  unlockTo('level5');
-  goToStage('level5');
+  unlockTo('level4');
+  goToStage('level4');
 });
 
 /* ================= LEVEL 4: TWIN VAULTS (Bell/CHSH) ================= */
@@ -1607,18 +1722,22 @@ document.getElementById('btnRandomName').addEventListener('click', ()=>{
 });
 
 const QUIZ = [
-  { q:'Why did adding a 3rd Search Step in Level 2 make things worse, not better?',
-    opts:['Just random bad luck that round','Quantum search has an exact sweet spot — overshoot it and the odds swing back down','The app glitched'],
+  { q:'Your program was a list of blocks that ran in order, top to bottom. What do programmers call that?',
+    opts:['A sequence','A spreadsheet','A shortcut'],
+    correct:0,
+    explain:'A sequence — instructions carried out one after another, in the order you put them. It is the most basic building block there is, and you built one in every vault.' },
+  { q:'In the Big Vault you swapped a pile of repeated blocks for one Repeat block with a number on it. What is that called?',
+    opts:['A variable','A loop','A database'],
     correct:1,
-    explain:'Real Grover behaviour: the probability rotates past its peak and starts falling if you keep going. More steps isn\'t always better.' },
-  { q:"What does the Boost block actually do?",
-    opts:['Deletes the wrong answers','Flips every wave around the group average, which makes the one Mark tagged grow','Speeds up the run animation'],
+    explain:'A loop. You wrote the instruction once and told the computer how many times to run it. Every program you have ever used is full of them — it is how software does big jobs without anyone typing out every step.' },
+  { q:'The Warm-Up Vault needed 1 Search Step and the Big Vault needed 6 — but the Big Vault had sixteen times as many boxes. Why so few extra steps?',
+    opts:['The steps get faster in bigger vaults','Steps grow with the square root of the size, not the size itself','It was a lucky guess'],
     correct:1,
-    explain:'Mark flips the treasure\'s wave upside-down; Boost then flips everything around the average, so the upside-down one grows tall and the rest shrink away.' },
-  { q:"Why couldn't classical tools in the Twin Vaults beat 75%?",
-    opts:['They just weren\'t trying hard enough','It\'s a proven mathematical ceiling for any strategy without entanglement','The dials were faulty'],
+    explain:'Sixteen times the boxes, roughly six times the steps. That square-root relationship is exactly what quantum search buys you, and it is why the gap gets more dramatic the bigger the problem is.' },
+  { q:'Why did adding one Search Step past the sweet spot make things WORSE, not better?',
+    opts:['Bad luck on that run','The odds rotate past their peak and start falling again','The program broke'],
     correct:1,
-    explain:"That ceiling has a name — Bell's theorem — and it is a hard mathematical limit for any strategy without entanglement. Beating it is exactly how physicists prove entanglement is real." }
+    explain:'Real behaviour, not a quirk of this demo. The odds swing up to a peak and then back down again — which is why quantum programs have a right number of steps rather than "as many as possible".' }
 ];
 let quizScore = 0, quizAnswered = 0;
 
@@ -1672,11 +1791,10 @@ function renderPlenary(){
   const area = document.getElementById('recapArea');
   area.innerHTML = '';
   const items = [
-    { key:'level1', title:'Level 1 — The Warm-Up Vault (4 boxes)', fallback:'Not attempted.' },
-    { key:'level2', title:'Level 2 — The Standard Vault (8 boxes)', fallback:'Not attempted.' },
-    { key:'level3', title:'Level 3 — The Big Vault (16 boxes)', fallback:'Not attempted.' },
-    { key:'level5', title:'Bonus — The Impossible Vault (32 boxes)', fallback:'Skipped — no shame in that.' },
-    { key:'level4', title:'Level 4 — The Twin Vaults (entanglement)', fallback:'Not attempted.' }
+    { key:'level1', title:'Level 1 — The Warm-Up Vault (4 boxes, a sequence)', fallback:'Not attempted.' },
+    { key:'level2', title:'Level 2 — The Standard Vault (16 boxes, a longer sequence)', fallback:'Not attempted.' },
+    { key:'level3', title:'Level 3 — The Big Vault (64 boxes, a loop)', fallback:'Not attempted.' },
+    { key:'level4', title:'Bonus — The Twin Vaults (entanglement)', fallback:'Skipped — it was optional.' }
   ];
   items.forEach(it=>{
     const card = document.createElement('div');
@@ -1714,7 +1832,7 @@ document.getElementById('btnCopyAgentCard').addEventListener('click', async ()=>
   let lines = [`🕵️ AGENT ${name.toUpperCase()} — MISSION COMPLETE`, ''];
   ['level1','level2','level3'].forEach((k,idx)=>{
     const log = missionLog[k];
-    const n = LEVEL_CONFIG[k].n;
+    const n = LEVEL_CONFIG[k] ? LEVEL_CONFIG[k].n : 0;
     if (log){
       lines.push(`▸ Level ${idx+1} (${n} boxes): ${(log.bestConfidence*100).toFixed(1)}% confidence, ${log.successes}/${log.attempts} one-guess finds`);
     }
