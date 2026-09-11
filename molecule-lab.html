@@ -758,6 +758,218 @@
     .track-zone:empty::after{ animation:none; opacity:.45; }
     .code-panel.open pre::after{ animation:none; }
   }
+
+
+
+
+
+  /* ===================================================================
+     TIGHTEN v4 — stop writing at people.
+     The rule this enforces: nothing on screen is longer than a breath.
+     Anything that needs a paragraph either becomes a picture, becomes a
+     beat that arrives when you act, or goes behind a "more" reveal.
+     =================================================================== */
+
+  /* ---------- PUNCH: one statement, no paragraph ---------- */
+  .punch{
+    font-family:var(--f-display); font-weight:800;
+    font-size:1.15rem; line-height:1.35; margin:10px 0 14px; color:#fff;
+  }
+  .punch .dim{ color: var(--text-dim); font-weight:700; }
+  .punch.big{ font-size:1.5rem; }
+
+  /* ---------- BEATS: lines that arrive when you do something ---------- */
+  .beats{ margin:12px 0; }
+  .beat{
+    display:none; font-size:0.95rem; line-height:1.5; color: var(--text-dim);
+    margin:0 0 8px; padding-left:16px; position:relative;
+  }
+  .beat::before{
+    content:"▸"; position:absolute; left:0; top:0; color: var(--good); font-size:0.8rem;
+  }
+  .beat.on{ display:block; animation: beatIn .38s cubic-bezier(.2,.9,.3,1) both; }
+  .beat b, .beat strong{ color: var(--text); }
+  @keyframes beatIn{ 0%{ opacity:0; transform: translateX(-8px); } 100%{ opacity:1; transform:none; } }
+
+  /* a single beat used as a live status line */
+  .statusline{
+    font-family:var(--f-mono); font-size:0.84rem; color: var(--good);
+    min-height:1.5em; margin:10px 0; letter-spacing:0.2px;
+  }
+  .statusline.warn{ color: var(--star); }
+  .statusline.bad{ color: var(--limit); }
+
+  /* ---------- MORE: the paragraph, for whoever actually wants it ---------- */
+  details.more{
+    margin:10px 0; border-top:1px solid rgba(255,255,255,0.08); padding-top:8px;
+  }
+  details.more > summary{
+    cursor:pointer; list-style:none; font-family:var(--f-mono); font-weight:700;
+    font-size:0.7rem; letter-spacing:1.2px; color: var(--text-dim); padding:3px 0;
+  }
+  details.more > summary::-webkit-details-marker{ display:none; }
+  details.more > summary::before{ content:"▸ "; color: var(--accent-bright); }
+  details.more[open] > summary::before{ content:"▾ "; }
+  details.more > summary:hover{ color: var(--text); }
+  details.more .m-body{ font-size:0.88rem; line-height:1.55; color: var(--text-dim); padding:6px 0 2px; }
+  details.more .m-body p{ margin:0 0 8px; }
+  details.more .m-body p:last-child{ margin-bottom:0; }
+
+  /* ---------- TILES: what you'll learn, in five words each ---------- */
+  .tiles{ display:grid; grid-template-columns:repeat(3,1fr); gap:9px; margin:14px 0; }
+  @media (max-width: 420px){ .tiles{ grid-template-columns:1fr; } }
+  .tile{
+    background: var(--panel-2); border-radius:14px; padding:14px 11px; text-align:center;
+    border-top:3px solid var(--accent); transition: transform .16s ease;
+  }
+  .tile:hover{ transform: translateY(-3px); }
+  .tile.q{ border-top-color: var(--pink); }
+  .tile .t-ico{ font-size:1.7rem; display:block; margin-bottom:6px; }
+  .tile .t-name{
+    font-family:var(--f-mono); font-weight:800; font-size:0.68rem; letter-spacing:1.2px;
+    color: var(--zero); display:block; margin-bottom:4px;
+  }
+  .tile.q .t-name{ color: var(--pink); }
+  .tile .t-say{ font-size:0.84rem; line-height:1.4; color: var(--text); }
+
+  /* ---------- THE RACE: two loops, one lock, four seconds ---------- */
+  .race{ background: var(--bg-deep); border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:14px 13px; margin:14px 0; }
+  .lane{ margin-bottom:16px; padding:11px 11px 9px; border-radius:12px;
+    background: rgba(255,255,255,0.03); border-left:3px solid var(--accent); }
+  .lane.until{ border-left-color: var(--star); }
+  .lane:last-child{ margin-bottom:0; }
+  .lane-head{ display:flex; align-items:baseline; gap:9px; margin-bottom:7px; flex-wrap:wrap; }
+  .lane-name{ font-family:var(--f-mono); font-weight:800; font-size:0.68rem; letter-spacing:1.3px; color: var(--accent-bright); }
+  .lane.until .lane-name{ color: var(--star); }
+  .lane-code{ font-family:var(--f-mono); font-size:0.78rem; color: var(--good); opacity:.9; }
+  .lane-track{ display:flex; gap:5px; flex-wrap:wrap; align-items:center; min-height:30px; }
+  .slot{
+    width:26px; height:26px; border-radius:7px; background: rgba(255,255,255,0.05);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--f-mono); font-weight:700; font-size:0.68rem; color: rgba(255,255,255,0.28);
+    transition: background .18s ease, color .18s ease, transform .18s ease;
+  }
+  .slot.out{ background: rgba(255,255,255,0.02); color: rgba(255,255,255,0.13); }
+  .slot.miss{ background: rgba(255,125,149,0.18); color: var(--limit); }
+  .slot.hit{ background: var(--good); color:#08301F; box-shadow:0 0 16px var(--good); transform:scale(1.15); }
+  .slot.waste{ background: rgba(255,178,56,0.16); color: var(--one); }
+  .lane-verdict{
+    font-family:var(--f-display); font-weight:800; font-size:0.9rem; margin-top:8px; min-height:1.3em;
+  }
+  .lane-verdict.ok{ color: var(--good); }
+  .lane-verdict.bad{ color: var(--limit); }
+  .lane-verdict.warn{ color: var(--one); }
+
+  /* ---------- CODE CARD: the construct, without the essay ---------- */
+  .codecard{
+    background: rgba(6,7,20,0.62); border:1px solid rgba(76,214,255,0.3); border-radius:14px;
+    padding:13px 15px; margin:14px 0;
+  }
+  .codecard .cc-name{
+    font-family:var(--f-mono); font-weight:800; font-size:0.66rem; letter-spacing:1.5px;
+    color: var(--zero); margin-bottom:8px;
+  }
+  .codecard pre{
+    font-family:var(--f-mono); font-size:0.86rem; color: var(--good); margin:0 0 9px;
+    white-space:pre; overflow-x:auto; line-height:1.55;
+  }
+  .codecard .cc-say{ font-size:0.9rem; color: var(--text); line-height:1.45; }
+  .codecard .cc-say b{ color: var(--star); }
+
+  /* ---------- trims to things that already existed ---------- */
+  .stage .lede{ font-size:0.97rem; }
+  .frontier{ padding:11px 13px; font-size:0.86rem; }
+  .dossier p{ margin-bottom:6px; }
+  .aim-card p{ font-size:0.86rem; }
+
+  @media (prefers-reduced-motion: reduce){
+    .beat.on{ animation:none; }
+  }
+
+  /* ===================================================================
+     v5 — ROLE PLAY AND ACTUAL CODING
+     =================================================================== */
+
+  /* ---------- comms: someone is talking to you ---------- */
+  .comms{
+    display:flex; gap:11px; align-items:flex-start;
+    background: rgba(6,7,20,0.5); border-left:3px solid var(--good);
+    border-radius:12px; padding:11px 13px; margin:12px 0;
+  }
+  .comms .av{ font-size:1.5rem; line-height:1; flex-shrink:0; }
+  .comms .say{ font-family:var(--f-mono); font-size:0.84rem; line-height:1.55; color: var(--text); }
+  .comms .say .who{ color: var(--star); font-weight:700; display:block; font-size:0.68rem; letter-spacing:1.2px; margin-bottom:3px; }
+  .comms.you{ border-left-color: var(--zero); }
+  .comms.you .say .who{ color: var(--zero); }
+  .comms.urgent{ border-left-color: var(--limit); }
+  .comms.urgent .say .who{ color: var(--limit); }
+
+  /* a prompt telling you what to actually do next */
+  .do-now{
+    display:flex; gap:9px; align-items:center;
+    background: linear-gradient(100deg, rgba(124,111,255,0.18), rgba(124,111,255,0.04));
+    border:1px solid rgba(156,144,255,0.4); border-radius:12px;
+    padding:11px 14px; margin:12px 0; font-family:var(--f-display); font-weight:700; font-size:0.98rem;
+  }
+  .do-now::before{ content:"\1F449"; font-size:1.15rem; }
+
+  /* ---------- THE CODE BUILDER: assemble a real line of code ---------- */
+  .builder{ background: rgba(6,7,20,0.65); border:1px solid rgba(255,255,255,0.1); border-radius:16px; padding:15px 14px; margin:14px 0; }
+  .builder-label{ font-family:var(--f-mono); font-weight:700; font-size:0.64rem; letter-spacing:1.5px; color: var(--text-dim); margin-bottom:10px; }
+  /* a flex row, not inline text — inline-flex slots inside a tall line box
+     overflowed and stole the clicks from the tray underneath */
+  .codeline{
+    display:flex; flex-wrap:wrap; align-items:center; gap:4px 2px;
+    font-family:var(--f-mono); font-size:0.95rem; line-height:1.6; color: var(--text);
+  }
+  .codeline .fn{ color: var(--star); font-weight:700; }
+  .codeline .var{ color: var(--zero); }
+  .slot-in{
+    display:inline-flex; align-items:center; justify-content:center; min-width:76px; height:32px;
+    padding:0 9px; margin:0 1px; border-radius:8px; vertical-align:middle; cursor:pointer;
+    border:2px dashed rgba(255,255,255,0.3); background: rgba(255,255,255,0.04);
+    font-family:var(--f-mono); font-size:0.84rem; color: var(--text-dim);
+    transition: all .16s ease;
+  }
+  .slot-in .ph{ opacity:.5; font-size:0.72rem; letter-spacing:0.5px; }
+  .slot-in.sel{ border-color: var(--accent-bright); background: rgba(124,111,255,0.22); box-shadow:0 0 14px rgba(124,111,255,0.5); }
+  .slot-in.filled{ border-style:solid; }
+  .slot-in.t-str{ border-color: var(--zero); color: var(--zero); background: rgba(76,214,255,0.12); }
+  .slot-in.t-bool{ border-color: var(--pink); color: var(--pink); background: rgba(255,111,165,0.12); }
+  .slot-in.t-num{ border-color: var(--one); color: var(--one); background: rgba(255,178,56,0.12); }
+  .slot-in.bad{ animation: slotBad .5s ease 1; border-color: var(--limit) !important; }
+  @keyframes slotBad{ 0%,100%{ transform:translateX(0); } 20%{ transform:translateX(-5px); } 40%{ transform:translateX(5px); } 60%{ transform:translateX(-3px); } }
+
+  .tray{ margin-top:14px; }
+  .tray-group{ margin-bottom:10px; }
+  .tray-group .tg-name{ font-family:var(--f-mono); font-weight:700; font-size:0.62rem; letter-spacing:1.3px; color: var(--text-dim); margin-bottom:5px; }
+  .tray-row{ display:flex; gap:7px; flex-wrap:wrap; }
+  .val{
+    font-family:var(--f-mono); font-size:0.82rem; font-weight:700; padding:7px 11px; border-radius:9px;
+    cursor:pointer; user-select:none; border:1px solid transparent; transition: transform .12s ease, filter .15s ease;
+  }
+  .val:hover{ transform: translateY(-2px); filter:brightness(1.15); }
+  .val:active{ transform: scale(.96); }
+  .val.t-str{ background: rgba(76,214,255,0.16); color: var(--zero); border-color: rgba(76,214,255,0.45); }
+  .val.t-bool{ background: rgba(255,111,165,0.16); color: var(--pink); border-color: rgba(255,111,165,0.45); }
+  .val.t-num{ background: rgba(255,178,56,0.16); color: var(--one); border-color: rgba(255,178,56,0.45); }
+  .val.used{ opacity:.3; pointer-events:none; }
+
+  .console-out{
+    font-family:var(--f-mono); font-size:0.8rem; line-height:1.6; margin-top:12px;
+    background: rgba(0,0,0,0.4); border-radius:10px; padding:10px 12px; min-height:2.6em;
+    color: var(--text-dim); border-left:3px solid rgba(255,255,255,0.12);
+  }
+  .console-out .err{ color: var(--limit); }
+  .console-out .hint{ color: var(--star); }
+  .console-out .ok{ color: var(--good); }
+
+  /* ---------- what a role-play step looks like ---------- */
+  .scene-tag{
+    display:inline-block; font-family:var(--f-mono); font-weight:800; font-size:0.64rem;
+    letter-spacing:1.6px; color: var(--star); background: rgba(255,224,102,0.12);
+    border:1px solid rgba(255,224,102,0.32); border-radius:20px; padding:4px 12px; margin-bottom:10px;
+  }
 </style>
 </head>
 <body>
@@ -770,8 +982,8 @@
   <header>
     <div class="hero-icon"><div class="hero-orb"></div><div class="hero-orb b"></div></div>
     <h1>The Molecule Lab</h1>
-    <p>You can't calculate a molecule. But you can build one.</p>
-    <div class="fine">Part of the Quantum Programming series.</div>
+    <p>Build a molecule. Watch an ordinary computer give up.</p>
+    <div class="fine">Real memory arithmetic, real quantum simulation — the job quantum computers were invented for.</div>
   </header>
 
   <div class="stepper" id="stepper"></div>
@@ -828,7 +1040,7 @@
     <div class="stage">
       <div class="live-tag"><span class="pulse-dot"></span>STEP 1 · COMPOSE A MOLECULE</div>
       <h2>Build something complex from simple pieces</h2>
-      <p class="lede">Drag the atom block in, again and again. Each one bonds onto the last — that's composition: build a small piece, then build on top of it.</p>
+      <p class="lede">Drag the atom block in, again and again.</p><details class="more"><summary>more on this</summary><div class="m-body"><p>Each one bonds onto the last — that's composition: build a small piece, then build on top of it.</p></div></details>
 
       <div class="palette-caption">Drag this in to add an atom</div>
       <div class="block-palette">
@@ -848,6 +1060,12 @@
         <pre id="codeOutput0"></pre>
       </div>
 
+      <div class="beats" data-trigger="#paletteAtom">
+        <div class="beat">Each atom is one small thing added to a bigger one. That is <b>composition</b>.</div>
+        <div class="beat">Every atom you add multiplies the possible states. Not adds &mdash; multiplies.</div>
+        <div class="beat">Keep going. Watch where the memory number ends up.</div>
+      </div>
+
       <button class="cta" id="btnToScale" disabled>See what it costs to simulate this exactly →</button>
     </div>
     <p class="footer-note">Real drug candidates are molecules exactly like this — built the same way, atom bonded to atom.</p>
@@ -859,7 +1077,7 @@
       <div class="scan-sweep"></div>
       <div class="live-tag"><span class="pulse-dot"></span>STEP 2 · WHY THIS GETS IMPOSSIBLE</div>
       <h2>Simulating this exactly, bond by bond</h2>
-      <p class="lede">To simulate a molecule's quantum behaviour exactly, a classical computer must track every possible combination of every bond's state at once — and that number doubles with every single bond you add. (A chain of N atoms has N−1 bonds, so the slider starts where your molecule left off.) Drag the slider.</p>
+      <p class="lede">To simulate a molecule's quantum behaviour exactly, a classical computer must track every possible combination of every bond's state at once — and that number doubles with every single bond you add.</p><details class="more"><summary>more on this</summary><div class="m-body"><p>(A chain of N atoms has N−1 bonds, so the slider starts where your molecule left off.) Drag the slider.</p></div></details>
 
       <div class="bits-slider">
         <div class="bits-label"><span id="bondsVal">8</span> bonds — <span class="mono" id="combosCount">256</span> combinations to track</div>
@@ -887,7 +1105,7 @@
     <div class="stage">
       <div class="live-tag"><span class="pulse-dot"></span>STEP 3 · REAL QUANTUM CODE</div>
       <h2>Let nature find its own shape</h2>
-      <p class="lede">A simplified example — 8 possible molecular shapes, one is the true, lowest-energy, most stable shape. A real molecule doesn't check every shape one by one — it just settles into this one, naturally. Build the same nudge with real quantum code.</p>
+      <p class="lede">A simplified example — 8 possible molecular shapes, one is the true, lowest-energy, most stable shape. Build the same nudge with real quantum code.</p><details class="more"><summary>more on this</summary><div class="m-body"><p>A real molecule doesn't check every shape one by one — it just settles into this one, naturally.</p></div></details>
 
       <div class="vault-grid" id="qGrid" style="grid-template-columns:repeat(4,1fr); max-width:260px; margin:14px auto;"></div>
 
@@ -945,21 +1163,19 @@
       <h2 style="margin-top:22px;">Let's check what stuck</h2>
       <div class="frontier">
         <div class="ico">🛰️</div>
-        <div><span class="tagline">THE ONE THEY BUILT QUANTUM COMPUTERS FOR</span>Richard Feynman’s argument in 1981 was simply that nature is quantum, so if you want to simulate nature properly you need a quantum machine. Molecular simulation is that original idea, and it is still the job most experts expect quantum computers to change first — new medicines, better batteries, cleaner fertiliser.</div>
+        <div><span class="tagline">THE ONE THEY BUILT QUANTUM COMPUTERS FOR</span>Feynman&rsquo;s 1981 point: nature is quantum, so simulating it needs a quantum machine. New medicines, better batteries.</div>
       </div>
-      <p class="lede">Back to the two aims from the start.</p>
+      
       <div class="recap-card">
         <h4>✅ Programming: What's composition?</h4>
-        <p>Building something complicated by combining small, repeated, reusable pieces — one atom bonded to the last, over and over. It scales without limit, and it is the same move every programmer makes: build a small thing that works, then build on top of it. That is the sixth and last idea of the series, and between them they are most of what software is.</p>
+        <p>Building something complicated by combining small, repeated, reusable pieces — one atom bonded to the last, over and over.</p><details class="more"><summary>the rest of it</summary><div class="m-body"><p>It scales without limit, and it is the same move every programmer makes: build a small thing that works, then build on top of it. That is the sixth and last idea of the series, and between them they are most of what software is.</p></div></details>
       </div>
       <div class="recap-card">
         <h4>✅ Quantum: Why simulating nature needs nature's own rules</h4>
-        <p>Classical memory to simulate a quantum system exactly doubles with every added piece — it doesn't just get slow, it becomes physically impossible to store. A quantum computer doesn't calculate an approximation of a molecule; with one qubit per bond, it can directly represent the same space nature already occupies.</p>
+        <p>Classical memory to simulate a quantum system exactly doubles with every added piece — it doesn't just get slow, it becomes physically impossible to store.</p><details class="more"><summary>the rest of it</summary><div class="m-body"><p>A quantum computer doesn't calculate an approximation of a molecule; with one qubit per bond, it can directly represent the same space nature already occupies.</p></div></details>
       </div>
 
-      <div class="callback-box">
-        <b>One real example, happening now.</b> Almost all the world's fertiliser is made by the Haber-Bosch process, which needs enormous heat and pressure and burns through <b>1 to 2% of all the energy humanity uses</b>. Meanwhile bacteria in ordinary soil do the same chemistry at room temperature, using a molecule called nitrogenase, and nobody has ever managed to work out how. It is a quantum problem — exactly the kind you just watched explode past every classical computer. Solving it would change how the world is fed.
-      </div>
+      <div class="callback-box"><details class="more"><summary>one real example, happening now</summary><div class="m-body"><b>One real example, happening now.</b> Almost all the world's fertiliser is made by the Haber-Bosch process, which needs enormous heat and pressure and burns through <b>1 to 2% of all the energy humanity uses</b>. Meanwhile bacteria in ordinary soil do the same chemistry at room temperature, using a molecule called nitrogenase, and nobody has ever managed to work out how. It is a quantum problem — exactly the kind you just watched explode past every classical computer. Solving it would change how the world is fed.</div></details></div>
 
       <details class="reveal">
         <summary>So will a quantum computer replace my laptop?</summary>
@@ -1137,6 +1353,27 @@ async function copyReport(txt, btn){
   ta.classList.add('show');
   ta.focus(); ta.select();
   showToast('Here it is — select it and copy.');
+}
+
+/* Beats: lines of explanation that arrive because you did something, not
+   because the page loaded. Declarative — a .beats box names the control that
+   advances it, and each click reveals the next line. No per-screen wiring. */
+function armBeats(){
+  document.querySelectorAll('.beats[data-trigger]').forEach(box=>{
+    if (box.dataset.armed) return;
+    box.dataset.armed = '1';
+    const step = ()=>{
+      const next = box.querySelector('.beat:not(.on)');
+      if (next) next.classList.add('on');
+    };
+    box.dataset.trigger.split(',').forEach(sel=>{
+      document.querySelectorAll(sel.trim()).forEach(el=> el.addEventListener('click', step, true));
+    });
+  });
+}
+function showBeat(id){
+  const el = document.getElementById(id);
+  if (el) el.classList.add('on');
 }
 
 
@@ -1479,6 +1716,7 @@ document.getElementById('btnCopyAgentCard').addEventListener('click', async ()=>
 
 renderStepper();
 addTapHints();
+armBeats();
 </script>
 
 </body>

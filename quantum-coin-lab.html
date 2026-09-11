@@ -758,6 +758,218 @@
     .track-zone:empty::after{ animation:none; opacity:.45; }
     .code-panel.open pre::after{ animation:none; }
   }
+
+
+
+
+
+  /* ===================================================================
+     TIGHTEN v4 — stop writing at people.
+     The rule this enforces: nothing on screen is longer than a breath.
+     Anything that needs a paragraph either becomes a picture, becomes a
+     beat that arrives when you act, or goes behind a "more" reveal.
+     =================================================================== */
+
+  /* ---------- PUNCH: one statement, no paragraph ---------- */
+  .punch{
+    font-family:var(--f-display); font-weight:800;
+    font-size:1.15rem; line-height:1.35; margin:10px 0 14px; color:#fff;
+  }
+  .punch .dim{ color: var(--text-dim); font-weight:700; }
+  .punch.big{ font-size:1.5rem; }
+
+  /* ---------- BEATS: lines that arrive when you do something ---------- */
+  .beats{ margin:12px 0; }
+  .beat{
+    display:none; font-size:0.95rem; line-height:1.5; color: var(--text-dim);
+    margin:0 0 8px; padding-left:16px; position:relative;
+  }
+  .beat::before{
+    content:"▸"; position:absolute; left:0; top:0; color: var(--good); font-size:0.8rem;
+  }
+  .beat.on{ display:block; animation: beatIn .38s cubic-bezier(.2,.9,.3,1) both; }
+  .beat b, .beat strong{ color: var(--text); }
+  @keyframes beatIn{ 0%{ opacity:0; transform: translateX(-8px); } 100%{ opacity:1; transform:none; } }
+
+  /* a single beat used as a live status line */
+  .statusline{
+    font-family:var(--f-mono); font-size:0.84rem; color: var(--good);
+    min-height:1.5em; margin:10px 0; letter-spacing:0.2px;
+  }
+  .statusline.warn{ color: var(--star); }
+  .statusline.bad{ color: var(--limit); }
+
+  /* ---------- MORE: the paragraph, for whoever actually wants it ---------- */
+  details.more{
+    margin:10px 0; border-top:1px solid rgba(255,255,255,0.08); padding-top:8px;
+  }
+  details.more > summary{
+    cursor:pointer; list-style:none; font-family:var(--f-mono); font-weight:700;
+    font-size:0.7rem; letter-spacing:1.2px; color: var(--text-dim); padding:3px 0;
+  }
+  details.more > summary::-webkit-details-marker{ display:none; }
+  details.more > summary::before{ content:"▸ "; color: var(--accent-bright); }
+  details.more[open] > summary::before{ content:"▾ "; }
+  details.more > summary:hover{ color: var(--text); }
+  details.more .m-body{ font-size:0.88rem; line-height:1.55; color: var(--text-dim); padding:6px 0 2px; }
+  details.more .m-body p{ margin:0 0 8px; }
+  details.more .m-body p:last-child{ margin-bottom:0; }
+
+  /* ---------- TILES: what you'll learn, in five words each ---------- */
+  .tiles{ display:grid; grid-template-columns:repeat(3,1fr); gap:9px; margin:14px 0; }
+  @media (max-width: 420px){ .tiles{ grid-template-columns:1fr; } }
+  .tile{
+    background: var(--panel-2); border-radius:14px; padding:14px 11px; text-align:center;
+    border-top:3px solid var(--accent); transition: transform .16s ease;
+  }
+  .tile:hover{ transform: translateY(-3px); }
+  .tile.q{ border-top-color: var(--pink); }
+  .tile .t-ico{ font-size:1.7rem; display:block; margin-bottom:6px; }
+  .tile .t-name{
+    font-family:var(--f-mono); font-weight:800; font-size:0.68rem; letter-spacing:1.2px;
+    color: var(--zero); display:block; margin-bottom:4px;
+  }
+  .tile.q .t-name{ color: var(--pink); }
+  .tile .t-say{ font-size:0.84rem; line-height:1.4; color: var(--text); }
+
+  /* ---------- THE RACE: two loops, one lock, four seconds ---------- */
+  .race{ background: var(--bg-deep); border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:14px 13px; margin:14px 0; }
+  .lane{ margin-bottom:16px; padding:11px 11px 9px; border-radius:12px;
+    background: rgba(255,255,255,0.03); border-left:3px solid var(--accent); }
+  .lane.until{ border-left-color: var(--star); }
+  .lane:last-child{ margin-bottom:0; }
+  .lane-head{ display:flex; align-items:baseline; gap:9px; margin-bottom:7px; flex-wrap:wrap; }
+  .lane-name{ font-family:var(--f-mono); font-weight:800; font-size:0.68rem; letter-spacing:1.3px; color: var(--accent-bright); }
+  .lane.until .lane-name{ color: var(--star); }
+  .lane-code{ font-family:var(--f-mono); font-size:0.78rem; color: var(--good); opacity:.9; }
+  .lane-track{ display:flex; gap:5px; flex-wrap:wrap; align-items:center; min-height:30px; }
+  .slot{
+    width:26px; height:26px; border-radius:7px; background: rgba(255,255,255,0.05);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--f-mono); font-weight:700; font-size:0.68rem; color: rgba(255,255,255,0.28);
+    transition: background .18s ease, color .18s ease, transform .18s ease;
+  }
+  .slot.out{ background: rgba(255,255,255,0.02); color: rgba(255,255,255,0.13); }
+  .slot.miss{ background: rgba(255,125,149,0.18); color: var(--limit); }
+  .slot.hit{ background: var(--good); color:#08301F; box-shadow:0 0 16px var(--good); transform:scale(1.15); }
+  .slot.waste{ background: rgba(255,178,56,0.16); color: var(--one); }
+  .lane-verdict{
+    font-family:var(--f-display); font-weight:800; font-size:0.9rem; margin-top:8px; min-height:1.3em;
+  }
+  .lane-verdict.ok{ color: var(--good); }
+  .lane-verdict.bad{ color: var(--limit); }
+  .lane-verdict.warn{ color: var(--one); }
+
+  /* ---------- CODE CARD: the construct, without the essay ---------- */
+  .codecard{
+    background: rgba(6,7,20,0.62); border:1px solid rgba(76,214,255,0.3); border-radius:14px;
+    padding:13px 15px; margin:14px 0;
+  }
+  .codecard .cc-name{
+    font-family:var(--f-mono); font-weight:800; font-size:0.66rem; letter-spacing:1.5px;
+    color: var(--zero); margin-bottom:8px;
+  }
+  .codecard pre{
+    font-family:var(--f-mono); font-size:0.86rem; color: var(--good); margin:0 0 9px;
+    white-space:pre; overflow-x:auto; line-height:1.55;
+  }
+  .codecard .cc-say{ font-size:0.9rem; color: var(--text); line-height:1.45; }
+  .codecard .cc-say b{ color: var(--star); }
+
+  /* ---------- trims to things that already existed ---------- */
+  .stage .lede{ font-size:0.97rem; }
+  .frontier{ padding:11px 13px; font-size:0.86rem; }
+  .dossier p{ margin-bottom:6px; }
+  .aim-card p{ font-size:0.86rem; }
+
+  @media (prefers-reduced-motion: reduce){
+    .beat.on{ animation:none; }
+  }
+
+  /* ===================================================================
+     v5 — ROLE PLAY AND ACTUAL CODING
+     =================================================================== */
+
+  /* ---------- comms: someone is talking to you ---------- */
+  .comms{
+    display:flex; gap:11px; align-items:flex-start;
+    background: rgba(6,7,20,0.5); border-left:3px solid var(--good);
+    border-radius:12px; padding:11px 13px; margin:12px 0;
+  }
+  .comms .av{ font-size:1.5rem; line-height:1; flex-shrink:0; }
+  .comms .say{ font-family:var(--f-mono); font-size:0.84rem; line-height:1.55; color: var(--text); }
+  .comms .say .who{ color: var(--star); font-weight:700; display:block; font-size:0.68rem; letter-spacing:1.2px; margin-bottom:3px; }
+  .comms.you{ border-left-color: var(--zero); }
+  .comms.you .say .who{ color: var(--zero); }
+  .comms.urgent{ border-left-color: var(--limit); }
+  .comms.urgent .say .who{ color: var(--limit); }
+
+  /* a prompt telling you what to actually do next */
+  .do-now{
+    display:flex; gap:9px; align-items:center;
+    background: linear-gradient(100deg, rgba(124,111,255,0.18), rgba(124,111,255,0.04));
+    border:1px solid rgba(156,144,255,0.4); border-radius:12px;
+    padding:11px 14px; margin:12px 0; font-family:var(--f-display); font-weight:700; font-size:0.98rem;
+  }
+  .do-now::before{ content:"\1F449"; font-size:1.15rem; }
+
+  /* ---------- THE CODE BUILDER: assemble a real line of code ---------- */
+  .builder{ background: rgba(6,7,20,0.65); border:1px solid rgba(255,255,255,0.1); border-radius:16px; padding:15px 14px; margin:14px 0; }
+  .builder-label{ font-family:var(--f-mono); font-weight:700; font-size:0.64rem; letter-spacing:1.5px; color: var(--text-dim); margin-bottom:10px; }
+  /* a flex row, not inline text — inline-flex slots inside a tall line box
+     overflowed and stole the clicks from the tray underneath */
+  .codeline{
+    display:flex; flex-wrap:wrap; align-items:center; gap:4px 2px;
+    font-family:var(--f-mono); font-size:0.95rem; line-height:1.6; color: var(--text);
+  }
+  .codeline .fn{ color: var(--star); font-weight:700; }
+  .codeline .var{ color: var(--zero); }
+  .slot-in{
+    display:inline-flex; align-items:center; justify-content:center; min-width:76px; height:32px;
+    padding:0 9px; margin:0 1px; border-radius:8px; vertical-align:middle; cursor:pointer;
+    border:2px dashed rgba(255,255,255,0.3); background: rgba(255,255,255,0.04);
+    font-family:var(--f-mono); font-size:0.84rem; color: var(--text-dim);
+    transition: all .16s ease;
+  }
+  .slot-in .ph{ opacity:.5; font-size:0.72rem; letter-spacing:0.5px; }
+  .slot-in.sel{ border-color: var(--accent-bright); background: rgba(124,111,255,0.22); box-shadow:0 0 14px rgba(124,111,255,0.5); }
+  .slot-in.filled{ border-style:solid; }
+  .slot-in.t-str{ border-color: var(--zero); color: var(--zero); background: rgba(76,214,255,0.12); }
+  .slot-in.t-bool{ border-color: var(--pink); color: var(--pink); background: rgba(255,111,165,0.12); }
+  .slot-in.t-num{ border-color: var(--one); color: var(--one); background: rgba(255,178,56,0.12); }
+  .slot-in.bad{ animation: slotBad .5s ease 1; border-color: var(--limit) !important; }
+  @keyframes slotBad{ 0%,100%{ transform:translateX(0); } 20%{ transform:translateX(-5px); } 40%{ transform:translateX(5px); } 60%{ transform:translateX(-3px); } }
+
+  .tray{ margin-top:14px; }
+  .tray-group{ margin-bottom:10px; }
+  .tray-group .tg-name{ font-family:var(--f-mono); font-weight:700; font-size:0.62rem; letter-spacing:1.3px; color: var(--text-dim); margin-bottom:5px; }
+  .tray-row{ display:flex; gap:7px; flex-wrap:wrap; }
+  .val{
+    font-family:var(--f-mono); font-size:0.82rem; font-weight:700; padding:7px 11px; border-radius:9px;
+    cursor:pointer; user-select:none; border:1px solid transparent; transition: transform .12s ease, filter .15s ease;
+  }
+  .val:hover{ transform: translateY(-2px); filter:brightness(1.15); }
+  .val:active{ transform: scale(.96); }
+  .val.t-str{ background: rgba(76,214,255,0.16); color: var(--zero); border-color: rgba(76,214,255,0.45); }
+  .val.t-bool{ background: rgba(255,111,165,0.16); color: var(--pink); border-color: rgba(255,111,165,0.45); }
+  .val.t-num{ background: rgba(255,178,56,0.16); color: var(--one); border-color: rgba(255,178,56,0.45); }
+  .val.used{ opacity:.3; pointer-events:none; }
+
+  .console-out{
+    font-family:var(--f-mono); font-size:0.8rem; line-height:1.6; margin-top:12px;
+    background: rgba(0,0,0,0.4); border-radius:10px; padding:10px 12px; min-height:2.6em;
+    color: var(--text-dim); border-left:3px solid rgba(255,255,255,0.12);
+  }
+  .console-out .err{ color: var(--limit); }
+  .console-out .hint{ color: var(--star); }
+  .console-out .ok{ color: var(--good); }
+
+  /* ---------- what a role-play step looks like ---------- */
+  .scene-tag{
+    display:inline-block; font-family:var(--f-mono); font-weight:800; font-size:0.64rem;
+    letter-spacing:1.6px; color: var(--star); background: rgba(255,224,102,0.12);
+    border:1px solid rgba(255,224,102,0.32); border-radius:20px; padding:4px 12px; margin-bottom:10px;
+  }
 </style>
 </head>
 <body>
@@ -770,8 +982,8 @@
   <header>
     <div class="hero-icon"><div class="hero-orb"></div><div class="hero-orb b"></div></div>
     <h1>Quantum Heist</h1>
-    <p>One night. Three vaults. A crew that cannot get in without you.</p>
-    <div class="fine">The story is made up. Everything under it is not — every vault runs the real mathematics of quantum mechanics, live, on this device, with nothing faked for effect.</div>
+    <p>Three doors. One night. You open them.</p>
+    <div class="fine">Real quantum mathematics, run live on this device. The story is the only invented part.</div>
   </header>
 
   <div class="stepper" id="stepper"></div>
@@ -780,43 +992,34 @@
   <section class="screen active" id="screenAims">
     <div class="stage">
       <h2>The job</h2>
-      <p class="lede">Three vaults, one night, and a crew that is very good at everything except the part that actually opens the doors. That part is yours.</p>
+      <p class="punch big">Three doors. One night. <span class="dim">You open them.</span></p>
+
       <div class="dossier">
-        <div class="d-label">OPERATION — BRIEFING</div>
-        <h4>The Meridian vault floor</h4>
-        <p>Three doors, one after another, each bigger than the last. Every door has a combination hidden in a wall of identical boxes, and only one box in each wall holds it.</p>
-        <p>The house computer can check those boxes too. One at a time, from the top. If it gets to the right box before you do, the floor locks down and the night is over. You do not beat it by being faster at checking. You beat it by not checking one at a time.</p>
+        <div class="d-label">MERIDIAN &mdash; VAULT FLOOR</div>
+        <p>Each door hides its combination in a wall of identical boxes. The house computer checks them one at a
+        time. Get there first, or the floor locks down.</p>
         <div class="d-row">
           <div class="d-fact"><b>3</b>doors</div>
-          <div class="d-fact"><b>4 → 64</b>boxes per wall</div>
-          <div class="d-fact"><b>0</b>lines of code you have written before</div>
+          <div class="d-fact"><b>4 &rarr; 64</b>boxes per wall</div>
+          <div class="d-fact"><b>0</b>code you have written</div>
         </div>
       </div>
+
       <div class="crew">
-        <div class="member"><span class="av">🕶️</span><div><div class="nm">Vale</div><div class="rl">gets you in the building</div></div></div>
-        <div class="member"><span class="av">🛻</span><div><div class="nm">Okonjo</div><div class="rl">gets you out of it</div></div></div>
+        <div class="member"><span class="av">🕶️</span><div><div class="nm">Vale</div><div class="rl">gets you in</div></div></div>
+        <div class="member"><span class="av">🛻</span><div><div class="nm">Okonjo</div><div class="rl">gets you out</div></div></div>
         <div class="member you"><span class="av">💻</span><div><div class="nm">You</div><div class="rl">open the doors</div></div></div>
       </div>
-      <p class="lede" style="margin-top:16px;">Here is what you will actually be learning while you do it. Both halves in plain English, no background assumed.</p>
-      <div class="aim-card">
-        <div class="ico">💻</div>
-        <div>
-          <span class="aim-tag prog">PROGRAMMING</span>
-          <h4>A sequence, and then a loop</h4>
-          <p>You'll drag blocks into a list that runs top to bottom — that list is a <b>sequence</b>, and it is already a real program. Then the vaults get bigger, dragging blocks gets tedious, and you'll replace a whole pile of them with a single <b>loop</b>. Those two ideas are most of what any program is made of.</p>
-        </div>
+
+      <div class="tiles">
+        <div class="tile"><span class="t-ico">📋</span><span class="t-name">SEQUENCE</span><span class="t-say">Instructions, in order</span></div>
+        <div class="tile"><span class="t-ico">🔁</span><span class="t-name">LOOP</span><span class="t-say">Do it again, n times</span></div>
+        <div class="tile q"><span class="t-ico">⚛️</span><span class="t-name">QUANTUM</span><span class="t-say">Check every box at once</span></div>
       </div>
-      <div class="aim-card">
-        <div class="ico">⚛️</div>
-        <div>
-          <span class="aim-tag quantum">QUANTUM</span>
-          <h4>Watch a quantum trick beat a normal computer</h4>
-          <p>Picture a maze: a normal computer is one runner, trying path after path, backtracking from every dead end. A quantum computer sends a wave through every path at once. You'll build that wave yourself — then prove two linked tools can do something that should be impossible.</p>
-        </div>
-      </div>
+
       <div class="frontier">
         <div class="ico">🛰️</div>
-        <div><span class="tagline">THIS IS NOT A SIMULATION OF SOMETHING OLD</span>The method you are about to use was invented in <b>1996</b> and there are still only a few hundred quantum computers on Earth that can run it. It is about as new as a piece of computing gets. In the next twenty minutes you will write it by hand — having, this morning, never written any code at all.</div>
+        <div><span class="tagline">THIS IS NOT A SIMULATION OF SOMETHING OLD</span>Invented <b>1996</b>. Only a few hundred machines on Earth can run it. You will write it by hand in twenty minutes.</div>
       </div>
       <button class="intro-cta" id="btnStartAims">Take the job →</button>
     </div>
@@ -825,20 +1028,34 @@
   <!-- INTRO -->
   <section class="screen" id="screenIntro">
     <div class="stage">
+
       <div class="intro-step active" id="introStep0">
-        <div class="intro-tag">MISSION BRIEFING · 1 OF 3</div>
-        <h2>Every computer on Earth searches like this</h2>
-        <p class="lede">Somewhere in these 4 boxes is a treasure. A normal computer checks boxes one at a time. Try it yourself.</p>
+        <div class="scene-tag">THE VAN &middot; 40 MINUTES OUT</div>
+        <h2>Vale has a box of keys</h2>
+        <div class="comms">
+          <span class="av">🕶️</span>
+          <div class="say"><span class="who">VALE</span>Four boxes. One has the key to the service cage.
+          Find it the way the house computer would &mdash; one at a time. Go on.</div>
+        </div>
         <div class="vault-grid" id="introGrid1" style="grid-template-columns:repeat(4,1fr); max-width:260px; margin:14px auto;"></div>
         <div class="intro-tries" id="introTries">Tries: 0</div>
-        <button class="intro-cta" id="introNext0">See the quantum fix →</button>
+        <div class="beats" id="introBeats0" data-trigger="#introGrid1">
+          <div class="beat">That is a <b>linear search</b>. Every computer on Earth does this.</div>
+          <div class="beat">Four boxes is fine. The last door tonight has <b>sixty-four</b>.</div>
+          <div class="beat">Vale: <i>"Right. Now the reason you are here."</i></div>
+        </div>
+        <button class="intro-cta" id="introNext0">Show me the trick →</button>
       </div>
 
       <div class="intro-step" id="introStep1">
-        <div class="intro-tag">MISSION BRIEFING · 2 OF 3</div>
-        <h2>First, a coin</h2>
-        <p class="lede">A coin lying flat on a table is heads or tails. Nothing else. That is exactly what an ordinary computer is made of — billions of tiny switches, each one either off or on. But spin the coin, and ask the question again. Is it heads, or is it tails?</p>
-
+        <div class="scene-tag">THE VAN &middot; 35 MINUTES OUT</div>
+        <h2>Okonjo flicks you a coin</h2>
+        <div class="comms">
+          <span class="av">🛻</span>
+          <div class="say"><span class="who">OKONJO</span>Flat on the table it is heads or tails. That is an
+          ordinary computer &mdash; billions of switches, each one off or on. Now watch it spin.
+          <b>Slap your hand down on it.</b></div>
+        </div>
         <div class="coin-stage">
           <div class="coin spinning" id="introCoin"><span id="coinFace">? ?</span></div>
         </div>
@@ -848,29 +1065,43 @@
         </div>
         <p class="super-explain" id="coinExplain"></p>
 
-        <h2 style="margin-top:26px;">Now the same trick, with boxes</h2>
-        <p class="lede">Instead of checking boxes one at a time, a quantum computer sets them all spinning at once — genuinely holding every possibility together.</p>
-        <div class="vault-grid" id="introGrid2" style="grid-template-columns:repeat(4,1fr); max-width:260px; margin:14px auto;"></div>
-        <p class="super-explain" id="superExplain">Each box is now a genuine <b>blend</b> of "still hidden" and "could be the treasure" — not a secret answer waiting to be revealed, an actual mix of both, in every box, at the same time.</p>
-        <div class="stat-callout" id="introSuperCallout" style="display:none;">
-          <div class="stat-item limit"><div class="num mono">4</div><div class="lbl">separate looks<br>— classical, one at a time</div></div>
-          <div class="stat-vs">VS</div>
-          <div class="stat-item quantum"><div class="num mono">1</div><div class="lbl">single look<br>— quantum, all at once</div></div>
+        <div class="beats" id="introBeats1" data-trigger="#btnSlapCoin, #btnSpinAgain">
+          <div class="beat">While it spun it was not secretly one of them. It was <b>genuinely both</b>.</div>
+          <div class="beat">Slap it again. Same coin, and you cannot predict which way it lands.</div>
+          <div class="beat">Now do that to all four boxes at once.</div>
         </div>
-        <button class="intro-cta" id="btnSuperposition">Activate superposition ✨</button>
-        <button class="intro-cta" id="introNext1" style="display:none; margin-top:8px;">Learn to code it →</button>
+
+        <h2 style="margin-top:24px;">Same trick, four boxes</h2>
+        <div class="do-now">Set every box spinning at the same time.</div>
+        <div class="vault-grid" id="introGrid2" style="grid-template-columns:repeat(4,1fr); max-width:260px; margin:14px auto;"></div>
+        <p class="super-explain" id="superExplain">Every box is a real <b>blend</b> of "empty" and "the key" &mdash; not a hidden answer, an actual mix, in all four at once.</p>
+        <div class="stat-callout" id="introSuperCallout" style="display:none;">
+          <div class="stat-item limit"><div class="num mono">4</div><div class="lbl">separate looks<br>&mdash; one at a time</div></div>
+          <div class="stat-vs">VS</div>
+          <div class="stat-item quantum"><div class="num mono">1</div><div class="lbl">single look<br>&mdash; all at once</div></div>
+        </div>
+        <button class="intro-cta" id="btnSuperposition">Set them spinning ✨</button>
+        <button class="intro-cta" id="introNext1" style="display:none; margin-top:8px;">So how do I aim it? →</button>
       </div>
 
       <div class="intro-step" id="introStep2">
-        <div class="intro-tag">MISSION BRIEFING · 3 OF 3</div>
-        <h2>Write your first line of quantum code</h2>
-        <p class="lede">Drag the block below into the track. This is a real quantum gate, not a demo — the same one you'll use in every vault ahead.</p>
+        <div class="scene-tag">THE VAN &middot; 30 MINUTES OUT</div>
+        <h2>Write the first line</h2>
+        <div class="comms urgent">
+          <span class="av">🕶️</span>
+          <div class="say"><span class="who">VALE</span>Spinning is not enough &mdash; a spinning box is still
+          a one-in-four guess. You have to <b>tip the odds</b>. That takes an instruction. Drag it in.</div>
+        </div>
         <div class="block-palette">
           <div class="code-block mark" id="introPaletteMark">🎯 Mark<small>flag the treasure</small></div>
         </div>
         <div class="track-zone" id="introTrackZone"></div>
         <div class="tutorial-check" id="tutorialCheck"></div>
-        <button class="intro-cta" id="introBeginHeist" disabled>Begin the Heist →</button>
+        <div class="beats" id="introBeats2" data-trigger="#introPaletteMark">
+          <div class="beat">That is a real quantum gate. Not a picture of one.</div>
+          <div class="beat">You will use it on every door tonight.</div>
+        </div>
+        <button class="intro-cta" id="introBeginHeist" disabled>Go. →</button>
       </div>
     </div>
   </section>
@@ -880,8 +1111,8 @@
     <div class="stage">
       <div class="live-tag"><span class="pulse-dot"></span>BEFORE YOU CRACK A REAL VAULT</div>
       <h2>Why Mark + Boost actually works</h2>
-      <p class="lede">A practice vault — 8 boxes, one of them the one we want. Nothing here counts, so poke at it freely. Each bar below is one box, and its height is how strongly that box is "in play". Press Next step and watch what Mark and Boost actually do.</p>
-      <div class="callback-box">You already know this trick from real life. Noise-cancelling headphones play an <i>inverted</i> copy of the noise around you — when the two waves meet, they cancel out into silence. Mark does the same thing to one box's wave. Boost is what happens next.</div>
+      <p class="lede">A practice vault — 8 boxes, one of them the one we want. Nothing here counts, so poke at it freely.</p><details class="more"><summary>more on this</summary><div class="m-body"><p>Each bar below is one box, and its height is how strongly that box is "in play". Press Next step and watch what Mark and Boost actually do.</p></div></details>
+      <div class="callback-box"><details class="more"><summary>why this works</summary><div class="m-body">You already know this trick from real life. Noise-cancelling headphones play an <i>inverted</i> copy of the noise around you — when the two waves meet, they cancel out into silence. Mark does the same thing to one box's wave. Boost is what happens next.</div></details></div>
 
       <div class="amp-bars" id="ampBars"></div>
       <div class="amp-sides"><span>▲ above the line = pointing up</span><span>pointing down = below the line ▼</span></div>
@@ -902,7 +1133,7 @@
     <div class="stage">
       <div class="live-tag"><span class="pulse-dot"></span>NEW TOOL · THE REPEAT BLOCK</div>
       <h2>Six blocks, or one?</h2>
-      <p class="lede" id="loopLede">The next vault is four times bigger, and it needs three Search Steps instead of one. That is six blocks to drag across, one at a time. Here is what that program would look like.</p>
+      <p class="lede" id="loopLede">The next vault is four times bigger, and it needs three Search Steps instead of one. Here is what that program would look like.</p><details class="more"><summary>more on this</summary><div class="m-body"><p>That is six blocks to drag across, one at a time.</p></div></details>
 
       <div class="track-zone" id="loopDemoTrack"></div>
 
@@ -910,17 +1141,15 @@
         <pre id="loopDemoCode"></pre>
       </div>
 
-      <p class="lede" id="loopPrompt" style="margin-top:14px;">Look at what you just wrote out: the same two instructions, three times over. Programmers came up against this almost immediately, and invented a way out of it.</p>
+      <p class="lede" id="loopPrompt" style="margin-top:14px;">Look at what you just wrote out: the same two instructions, three times over.</p><details class="more"><summary>more on this</summary><div class="m-body"><p>Programmers came up against this almost immediately, and invented a way out of it.</p></div></details>
 
       <div class="palette-caption">Drag this in and watch what happens to your program</div>
       <div class="block-palette">
         <div class="code-block loopblock" id="loopDemoBlock">🔁 Repeat<small>run the pair 3 times</small></div>
       </div>
 
-      <div class="callback-box" id="loopReveal" style="display:none;">
-        <b>That is a loop.</b> You wrote the instruction down once and told the computer how many times to run it. Six blocks became one, and the program does exactly the same job — compare the code above with what was there a moment ago.<br><br>
-        Loops are everywhere. Every list that loads, every row of a spreadsheet that recalculates, every frame of every game you have ever played. It is one of the handful of ideas that all software is built from, and you now have it.
-      </div>
+      <div class="callback-box" id="loopReveal" style="display:none;"><details class="more"><summary>that is a loop</summary><div class="m-body"><b>That is a loop.</b> You wrote the instruction down once and told the computer how many times to run it. Six blocks became one, and the program does exactly the same job — compare the code above with what was there a moment ago.<br><br>
+        Loops are everywhere. Every list that loads, every row of a spreadsheet that recalculates, every frame of every game you have ever played. It is one of the handful of ideas that all software is built from, and you now have it.</div></details></div>
 
       <div class="construct" id="loopConstruct" style="display:none;">
         <div class="c-kicker">NEW CONSTRUCT · THE COUNTED LOOP</div>
@@ -928,15 +1157,15 @@
         <div class="c-code">repeat 3 times:
     mark the box
     boost the odds</div>
-        <p>Two parts: a <b>number</b> of times, and the <b>work</b> to repeat. Python spells it
+        <p>Two parts: a <b>number</b> of times, and the <b>work</b> to repeat.</p><details class="more"><summary>how it is written in real code</summary><div class="m-body"><p>Python spells it
         <span class="mono">for i in range(3):</span>, and the indented lines underneath are the work — which
-        is exactly what the code panel above is now showing you.</p>
-        <p>This is the loop for when you already know the number. There is a second kind, for when you do
-        not, and it is the one that gets you into things. You will build it in <b>Breach</b>.</p>
+        is exactly what the code panel above is now showing you.</p></div></details>
+        <p>This is the loop for when you already know the number. You will build it in <b>Breach</b>.</p><details class="more"><summary>how it is written in real code</summary><div class="m-body"><p>There is a second kind, for when you do
+        not, and it is the one that gets you into things.</p></div></details>
       </div>
       <button class="intro-cta" id="btnLoopNext" disabled>Take it to the last two doors →</button>
     </div>
-    <p class="footer-note">A loop that runs a set number of times is called a counted loop. There is another kind — "keep going until something is true" — and you will meet it in The Cipher Room.</p>
+    <p class="footer-note">A loop that runs a set number of times is called a counted loop.</p>
   </section>
 
   <!-- SHARED HEIST ENGINE: LEVELS 1-3 -->
@@ -970,6 +1199,12 @@
 
       <div class="track-zone" id="trackZone">
         <div class="track-chip fixed">① Look at all boxes at once</div>
+      </div>
+
+      <div class="beats" data-trigger="#paletteMark, #paletteBoost, #paletteRepeat">
+        <div class="beat">Your program runs <b>top to bottom</b>. That order is the whole idea of a sequence.</div>
+        <div class="beat"><b>Mark</b> flips the right answer upside-down. <b>Boost</b> pulls everything toward the average.</div>
+        <div class="beat">Watch the bar. There is a right number of steps &mdash; and going past it makes things worse.</div>
       </div>
 
       <div class="gauge-wrap">
@@ -1032,12 +1267,10 @@
     <div class="stage">
       <div class="live-tag"><span class="pulse-dot"></span>BONUS · NO CODE REQUIRED</div>
       <h2>The Twin Vaults</h2>
-      <p class="lede">No programming in this one — it is here because it is the strangest thing in physics and you have earned it. Two agents crack two linked vaults from separate rooms, with no way to communicate. Each round they either pull it off together or they don't.</p>
-      <p class="lede" style="margin-top:10px;">With ordinary equipment the very best they can <i>ever</i> manage is <b>75%</b> of rounds. Not "they weren't clever enough" — 75% is a mathematically proven ceiling. Now give them entangled equipment and press the button.</p>
+      <p class="lede">No programming in this one — it is here because it is the strangest thing in physics and you have earned it.</p><details class="more"><summary>more on this</summary><div class="m-body"><p>Two agents crack two linked vaults from separate rooms, with no way to communicate. Each round they either pull it off together or they don't.</p></div></details>
+      <p class="lede" style="margin-top:10px;">With ordinary equipment the very best they can <i>ever</i> manage is <b>75%</b> of rounds. Not "they weren't clever enough" — 75% is a mathematically proven ceiling.</p><details class="more"><summary>more on this</summary><div class="m-body"><p>Now give them entangled equipment and press the button.</p></div></details>
 
-      <div class="callback-box">
-        Remember the spinning coin from the briefing? Imagine two of them. You keep one; a colleague takes the other to Mars. Both are still spinning — neither is heads or tails yet. You stop yours and it lands heads, and at that same instant, millions of miles away, theirs stops on tails. Every single time. No wires, no signal, nothing fast enough to carry the news. Einstein found this so objectionable he called it <i>"spooky action at a distance"</i> and spent years arguing it could not be the whole story. This is the experiment that settled the argument — and you are about to run it.
-      </div>
+      <div class="callback-box"><details class="more"><summary>why this works</summary><div class="m-body">Remember the spinning coin from the briefing? Imagine two of them. You keep one; a colleague takes the other to Mars. Both are still spinning — neither is heads or tails yet. You stop yours and it lands heads, and at that same instant, millions of miles away, theirs stops on tails. Every single time. No wires, no signal, nothing fast enough to carry the news. Einstein found this so objectionable he called it <i>"spooky action at a distance"</i> and spent years arguing it could not be the whole story. This is the experiment that settled the argument — and you are about to run it.</div></details></div>
 
       <div class="stat-callout">
         <div class="stat-item limit"><div class="num mono">75%</div><div class="lbl">Ordinary tools<br>— the proven ceiling</div></div>
@@ -1088,7 +1321,7 @@
         <button id="btnCopyTwinResult">Copy result text</button>
       </div>
     </div>
-    <p class="footer-note">This is the real experiment physicists use to prove entanglement exists — Bell's test. You just ran it, in a vault.</p>
+    <p class="footer-note">This is the real experiment physicists use to prove entanglement exists — Bell's test.</p>
   </section>
 
   <!-- PLENARY / DEBRIEF -->
@@ -1096,31 +1329,29 @@
     <div class="stage">
       <div class="live-tag"><span class="pulse-dot"></span>MISSION DEBRIEF</div>
       <h2>Out of the building</h2>
-      <p class="lede">Three doors, and every one of them opened by a program you wrote yourself. The story was invented. The computer science was not — here is the case file.</p>
+      <p class="lede">Three doors, and every one of them opened by a program you wrote yourself. The story was invented.</p><details class="more"><summary>more on this</summary><div class="m-body"><p>The computer science was not — here is the case file.</p></div></details>
 
       <div id="recapArea"></div>
 
-      <div class="callback-box" style="margin-top:14px;">
-        <b>What "square root" actually buys you.</b> Say you are hunting through a million unsorted possibilities. An ordinary computer checks them one at a time — about 500,000 tries on average, and up to a million if it is unlucky. Grover's algorithm, the one you just built, needs roughly <b>1,000</b>. That is the square root of a million, and it is the same maths that took your four-box vault down to a single guess.
-      </div>
+      <div class="callback-box" style="margin-top:14px;"><details class="more"><summary>what "square root" actually buys you</summary><div class="m-body"><b>What "square root" actually buys you.</b> Say you are hunting through a million unsorted possibilities. An ordinary computer checks them one at a time — about 500,000 tries on average, and up to a million if it is unlucky. Grover's algorithm, the one you just built, needs roughly <b>1,000</b>. That is the square root of a million, and it is the same maths that took your four-box vault down to a single guess.</div></details></div>
 
       <h2 style="margin-top:22px;">Let's check what stuck</h2>
       <div class="frontier">
         <div class="ico">🛰️</div>
-        <div><span class="tagline">KEEP SOME PERSPECTIVE ON WHAT JUST HAPPENED</span>Grover’s algorithm is thirty years old and still near the front edge of computing, because the hardware has only just started catching up with it. There are more people who have climbed Everest than have written a quantum search program by hand. You did it before lunch, with no experience, using nothing but a browser.</div>
+        <div><span class="tagline">KEEP SOME PERSPECTIVE ON WHAT JUST HAPPENED</span>More people have climbed Everest than have written a quantum search program by hand. You just did, in a browser.</div>
       </div>
-      <p class="lede">Back to the two aims from the start.</p>
+      
       <div class="recap-card">
         <h4>✅ Programming: A sequence, and a loop</h4>
-        <p>Your program was a list of instructions running in order, top to bottom — a <b>sequence</b>. Then the vaults got bigger and you swapped a pile of repeated blocks for one <b>Repeat</b> block with a number on it: a loop. You wrote the instruction once and told the computer how many times to run it. Those two ideas are the foundation of every program ever written, and you now have both.</p>
+        <p>Your program was a list of instructions running in order, top to bottom — a <b>sequence</b>.</p><details class="more"><summary>the rest of it</summary><div class="m-body"><p>Then the vaults got bigger and you swapped a pile of repeated blocks for one <b>Repeat</b> block with a number on it: a loop. You wrote the instruction once and told the computer how many times to run it. Those two ideas are the foundation of every program ever written, and you now have both.</p></div></details>
       </div>
       <div class="recap-card">
         <h4>✅ Quantum: How a quantum search actually works</h4>
-        <p>Mark flips one answer's wave upside-down; Boost then flips everything around the average so the odd one out grows and the rest shrink away. Do that the right number of times and the answer is almost certain to appear. Do it once too often and the odds fall back down — which is why quantum programs have a right number of steps rather than as many as possible.</p>
+        <p>Mark flips one answer's wave upside-down; Boost then flips everything around the average so the odd one out grows and the rest shrink away.</p><details class="more"><summary>the rest of it</summary><div class="m-body"><p>Do that the right number of times and the answer is almost certain to appear. Do it once too often and the odds fall back down — which is why quantum programs have a right number of steps rather than as many as possible.</p></div></details>
       </div>
 
       <h2 style="margin-top:22px;">Quick field test</h2>
-      <p class="lede">Three questions. No pressure — just see what stuck.</p>
+      
       <div id="fieldTestArea"></div>
       <div class="round-msg" id="fieldTestResult" style="display:none;"></div>
 
@@ -1476,6 +1707,27 @@ async function copyReport(txt, btn){
   ta.classList.add('show');
   ta.focus(); ta.select();
   showToast('Here it is — select it and copy.');
+}
+
+/* Beats: lines of explanation that arrive because you did something, not
+   because the page loaded. Declarative — a .beats box names the control that
+   advances it, and each click reveals the next line. No per-screen wiring. */
+function armBeats(){
+  document.querySelectorAll('.beats[data-trigger]').forEach(box=>{
+    if (box.dataset.armed) return;
+    box.dataset.armed = '1';
+    const step = ()=>{
+      const next = box.querySelector('.beat:not(.on)');
+      if (next) next.classList.add('on');
+    };
+    box.dataset.trigger.split(',').forEach(sel=>{
+      document.querySelectorAll(sel.trim()).forEach(el=> el.addEventListener('click', step, true));
+    });
+  });
+}
+function showBeat(id){
+  const el = document.getElementById(id);
+  if (el) el.classList.add('on');
 }
 
 
@@ -2298,6 +2550,7 @@ document.getElementById('btnCopyAgentCard').addEventListener('click', async ()=>
 /* ================= INIT ================= */
 enterHeistLevel('level1');
 renderStepper();
+armBeats();
 addTapHints();
 
 /* ================= HOST MODAL ================= */

@@ -758,6 +758,218 @@
     .track-zone:empty::after{ animation:none; opacity:.45; }
     .code-panel.open pre::after{ animation:none; }
   }
+
+
+
+
+
+  /* ===================================================================
+     TIGHTEN v4 — stop writing at people.
+     The rule this enforces: nothing on screen is longer than a breath.
+     Anything that needs a paragraph either becomes a picture, becomes a
+     beat that arrives when you act, or goes behind a "more" reveal.
+     =================================================================== */
+
+  /* ---------- PUNCH: one statement, no paragraph ---------- */
+  .punch{
+    font-family:var(--f-display); font-weight:800;
+    font-size:1.15rem; line-height:1.35; margin:10px 0 14px; color:#fff;
+  }
+  .punch .dim{ color: var(--text-dim); font-weight:700; }
+  .punch.big{ font-size:1.5rem; }
+
+  /* ---------- BEATS: lines that arrive when you do something ---------- */
+  .beats{ margin:12px 0; }
+  .beat{
+    display:none; font-size:0.95rem; line-height:1.5; color: var(--text-dim);
+    margin:0 0 8px; padding-left:16px; position:relative;
+  }
+  .beat::before{
+    content:"▸"; position:absolute; left:0; top:0; color: var(--good); font-size:0.8rem;
+  }
+  .beat.on{ display:block; animation: beatIn .38s cubic-bezier(.2,.9,.3,1) both; }
+  .beat b, .beat strong{ color: var(--text); }
+  @keyframes beatIn{ 0%{ opacity:0; transform: translateX(-8px); } 100%{ opacity:1; transform:none; } }
+
+  /* a single beat used as a live status line */
+  .statusline{
+    font-family:var(--f-mono); font-size:0.84rem; color: var(--good);
+    min-height:1.5em; margin:10px 0; letter-spacing:0.2px;
+  }
+  .statusline.warn{ color: var(--star); }
+  .statusline.bad{ color: var(--limit); }
+
+  /* ---------- MORE: the paragraph, for whoever actually wants it ---------- */
+  details.more{
+    margin:10px 0; border-top:1px solid rgba(255,255,255,0.08); padding-top:8px;
+  }
+  details.more > summary{
+    cursor:pointer; list-style:none; font-family:var(--f-mono); font-weight:700;
+    font-size:0.7rem; letter-spacing:1.2px; color: var(--text-dim); padding:3px 0;
+  }
+  details.more > summary::-webkit-details-marker{ display:none; }
+  details.more > summary::before{ content:"▸ "; color: var(--accent-bright); }
+  details.more[open] > summary::before{ content:"▾ "; }
+  details.more > summary:hover{ color: var(--text); }
+  details.more .m-body{ font-size:0.88rem; line-height:1.55; color: var(--text-dim); padding:6px 0 2px; }
+  details.more .m-body p{ margin:0 0 8px; }
+  details.more .m-body p:last-child{ margin-bottom:0; }
+
+  /* ---------- TILES: what you'll learn, in five words each ---------- */
+  .tiles{ display:grid; grid-template-columns:repeat(3,1fr); gap:9px; margin:14px 0; }
+  @media (max-width: 420px){ .tiles{ grid-template-columns:1fr; } }
+  .tile{
+    background: var(--panel-2); border-radius:14px; padding:14px 11px; text-align:center;
+    border-top:3px solid var(--accent); transition: transform .16s ease;
+  }
+  .tile:hover{ transform: translateY(-3px); }
+  .tile.q{ border-top-color: var(--pink); }
+  .tile .t-ico{ font-size:1.7rem; display:block; margin-bottom:6px; }
+  .tile .t-name{
+    font-family:var(--f-mono); font-weight:800; font-size:0.68rem; letter-spacing:1.2px;
+    color: var(--zero); display:block; margin-bottom:4px;
+  }
+  .tile.q .t-name{ color: var(--pink); }
+  .tile .t-say{ font-size:0.84rem; line-height:1.4; color: var(--text); }
+
+  /* ---------- THE RACE: two loops, one lock, four seconds ---------- */
+  .race{ background: var(--bg-deep); border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:14px 13px; margin:14px 0; }
+  .lane{ margin-bottom:16px; padding:11px 11px 9px; border-radius:12px;
+    background: rgba(255,255,255,0.03); border-left:3px solid var(--accent); }
+  .lane.until{ border-left-color: var(--star); }
+  .lane:last-child{ margin-bottom:0; }
+  .lane-head{ display:flex; align-items:baseline; gap:9px; margin-bottom:7px; flex-wrap:wrap; }
+  .lane-name{ font-family:var(--f-mono); font-weight:800; font-size:0.68rem; letter-spacing:1.3px; color: var(--accent-bright); }
+  .lane.until .lane-name{ color: var(--star); }
+  .lane-code{ font-family:var(--f-mono); font-size:0.78rem; color: var(--good); opacity:.9; }
+  .lane-track{ display:flex; gap:5px; flex-wrap:wrap; align-items:center; min-height:30px; }
+  .slot{
+    width:26px; height:26px; border-radius:7px; background: rgba(255,255,255,0.05);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--f-mono); font-weight:700; font-size:0.68rem; color: rgba(255,255,255,0.28);
+    transition: background .18s ease, color .18s ease, transform .18s ease;
+  }
+  .slot.out{ background: rgba(255,255,255,0.02); color: rgba(255,255,255,0.13); }
+  .slot.miss{ background: rgba(255,125,149,0.18); color: var(--limit); }
+  .slot.hit{ background: var(--good); color:#08301F; box-shadow:0 0 16px var(--good); transform:scale(1.15); }
+  .slot.waste{ background: rgba(255,178,56,0.16); color: var(--one); }
+  .lane-verdict{
+    font-family:var(--f-display); font-weight:800; font-size:0.9rem; margin-top:8px; min-height:1.3em;
+  }
+  .lane-verdict.ok{ color: var(--good); }
+  .lane-verdict.bad{ color: var(--limit); }
+  .lane-verdict.warn{ color: var(--one); }
+
+  /* ---------- CODE CARD: the construct, without the essay ---------- */
+  .codecard{
+    background: rgba(6,7,20,0.62); border:1px solid rgba(76,214,255,0.3); border-radius:14px;
+    padding:13px 15px; margin:14px 0;
+  }
+  .codecard .cc-name{
+    font-family:var(--f-mono); font-weight:800; font-size:0.66rem; letter-spacing:1.5px;
+    color: var(--zero); margin-bottom:8px;
+  }
+  .codecard pre{
+    font-family:var(--f-mono); font-size:0.86rem; color: var(--good); margin:0 0 9px;
+    white-space:pre; overflow-x:auto; line-height:1.55;
+  }
+  .codecard .cc-say{ font-size:0.9rem; color: var(--text); line-height:1.45; }
+  .codecard .cc-say b{ color: var(--star); }
+
+  /* ---------- trims to things that already existed ---------- */
+  .stage .lede{ font-size:0.97rem; }
+  .frontier{ padding:11px 13px; font-size:0.86rem; }
+  .dossier p{ margin-bottom:6px; }
+  .aim-card p{ font-size:0.86rem; }
+
+  @media (prefers-reduced-motion: reduce){
+    .beat.on{ animation:none; }
+  }
+
+  /* ===================================================================
+     v5 — ROLE PLAY AND ACTUAL CODING
+     =================================================================== */
+
+  /* ---------- comms: someone is talking to you ---------- */
+  .comms{
+    display:flex; gap:11px; align-items:flex-start;
+    background: rgba(6,7,20,0.5); border-left:3px solid var(--good);
+    border-radius:12px; padding:11px 13px; margin:12px 0;
+  }
+  .comms .av{ font-size:1.5rem; line-height:1; flex-shrink:0; }
+  .comms .say{ font-family:var(--f-mono); font-size:0.84rem; line-height:1.55; color: var(--text); }
+  .comms .say .who{ color: var(--star); font-weight:700; display:block; font-size:0.68rem; letter-spacing:1.2px; margin-bottom:3px; }
+  .comms.you{ border-left-color: var(--zero); }
+  .comms.you .say .who{ color: var(--zero); }
+  .comms.urgent{ border-left-color: var(--limit); }
+  .comms.urgent .say .who{ color: var(--limit); }
+
+  /* a prompt telling you what to actually do next */
+  .do-now{
+    display:flex; gap:9px; align-items:center;
+    background: linear-gradient(100deg, rgba(124,111,255,0.18), rgba(124,111,255,0.04));
+    border:1px solid rgba(156,144,255,0.4); border-radius:12px;
+    padding:11px 14px; margin:12px 0; font-family:var(--f-display); font-weight:700; font-size:0.98rem;
+  }
+  .do-now::before{ content:"\1F449"; font-size:1.15rem; }
+
+  /* ---------- THE CODE BUILDER: assemble a real line of code ---------- */
+  .builder{ background: rgba(6,7,20,0.65); border:1px solid rgba(255,255,255,0.1); border-radius:16px; padding:15px 14px; margin:14px 0; }
+  .builder-label{ font-family:var(--f-mono); font-weight:700; font-size:0.64rem; letter-spacing:1.5px; color: var(--text-dim); margin-bottom:10px; }
+  /* a flex row, not inline text — inline-flex slots inside a tall line box
+     overflowed and stole the clicks from the tray underneath */
+  .codeline{
+    display:flex; flex-wrap:wrap; align-items:center; gap:4px 2px;
+    font-family:var(--f-mono); font-size:0.95rem; line-height:1.6; color: var(--text);
+  }
+  .codeline .fn{ color: var(--star); font-weight:700; }
+  .codeline .var{ color: var(--zero); }
+  .slot-in{
+    display:inline-flex; align-items:center; justify-content:center; min-width:76px; height:32px;
+    padding:0 9px; margin:0 1px; border-radius:8px; vertical-align:middle; cursor:pointer;
+    border:2px dashed rgba(255,255,255,0.3); background: rgba(255,255,255,0.04);
+    font-family:var(--f-mono); font-size:0.84rem; color: var(--text-dim);
+    transition: all .16s ease;
+  }
+  .slot-in .ph{ opacity:.5; font-size:0.72rem; letter-spacing:0.5px; }
+  .slot-in.sel{ border-color: var(--accent-bright); background: rgba(124,111,255,0.22); box-shadow:0 0 14px rgba(124,111,255,0.5); }
+  .slot-in.filled{ border-style:solid; }
+  .slot-in.t-str{ border-color: var(--zero); color: var(--zero); background: rgba(76,214,255,0.12); }
+  .slot-in.t-bool{ border-color: var(--pink); color: var(--pink); background: rgba(255,111,165,0.12); }
+  .slot-in.t-num{ border-color: var(--one); color: var(--one); background: rgba(255,178,56,0.12); }
+  .slot-in.bad{ animation: slotBad .5s ease 1; border-color: var(--limit) !important; }
+  @keyframes slotBad{ 0%,100%{ transform:translateX(0); } 20%{ transform:translateX(-5px); } 40%{ transform:translateX(5px); } 60%{ transform:translateX(-3px); } }
+
+  .tray{ margin-top:14px; }
+  .tray-group{ margin-bottom:10px; }
+  .tray-group .tg-name{ font-family:var(--f-mono); font-weight:700; font-size:0.62rem; letter-spacing:1.3px; color: var(--text-dim); margin-bottom:5px; }
+  .tray-row{ display:flex; gap:7px; flex-wrap:wrap; }
+  .val{
+    font-family:var(--f-mono); font-size:0.82rem; font-weight:700; padding:7px 11px; border-radius:9px;
+    cursor:pointer; user-select:none; border:1px solid transparent; transition: transform .12s ease, filter .15s ease;
+  }
+  .val:hover{ transform: translateY(-2px); filter:brightness(1.15); }
+  .val:active{ transform: scale(.96); }
+  .val.t-str{ background: rgba(76,214,255,0.16); color: var(--zero); border-color: rgba(76,214,255,0.45); }
+  .val.t-bool{ background: rgba(255,111,165,0.16); color: var(--pink); border-color: rgba(255,111,165,0.45); }
+  .val.t-num{ background: rgba(255,178,56,0.16); color: var(--one); border-color: rgba(255,178,56,0.45); }
+  .val.used{ opacity:.3; pointer-events:none; }
+
+  .console-out{
+    font-family:var(--f-mono); font-size:0.8rem; line-height:1.6; margin-top:12px;
+    background: rgba(0,0,0,0.4); border-radius:10px; padding:10px 12px; min-height:2.6em;
+    color: var(--text-dim); border-left:3px solid rgba(255,255,255,0.12);
+  }
+  .console-out .err{ color: var(--limit); }
+  .console-out .hint{ color: var(--star); }
+  .console-out .ok{ color: var(--good); }
+
+  /* ---------- what a role-play step looks like ---------- */
+  .scene-tag{
+    display:inline-block; font-family:var(--f-mono); font-weight:800; font-size:0.64rem;
+    letter-spacing:1.6px; color: var(--star); background: rgba(255,224,102,0.12);
+    border:1px solid rgba(255,224,102,0.32); border-radius:20px; padding:4px 12px; margin-bottom:10px;
+  }
 </style>
 </head>
 <body>
@@ -770,8 +982,8 @@
   <header>
     <div class="hero-icon"><div class="hero-orb"></div><div class="hero-orb b"></div></div>
     <h1>The Investment Puzzle</h1>
-    <p>Build a portfolio by hand. Then find out if a computer can beat your instincts.</p>
-    <div class="fine">Part of the Quantum Programming series.</div>
+    <p>Pick well. Then find out how many choices you never checked.</p>
+    <div class="fine">Real constraints, real combinatorics, real quantum search.</div>
   </header>
 
   <div class="stepper" id="stepper"></div>
@@ -847,6 +1059,12 @@
         <pre id="codeOutput0"></pre>
       </div>
 
+      <div class="beats" data-trigger=".invest-card">
+        <div class="beat">Each pick is a <b>condition</b> being checked: does this still fit the risk limit?</div>
+        <div class="beat">That check is an <span class="mono">if</span> &mdash; the third thing every program is built from.</div>
+        <div class="beat">Now find out how many combinations you never looked at.</div>
+      </div>
+
       <button class="cta" id="btnToProveNext" disabled>Lock it in — prove it's the best →</button>
     </div>
     <p class="footer-note">Each investment has a return (the reward) and a risk score (how much it eats into your limit).</p>
@@ -875,9 +1093,7 @@
         <pre id="codeOutput1"></pre>
       </div>
 
-      <div class="callback-box">
-        <b>Look at the shape of that.</b> A loop on the outside — "for every combination" — and your conditional tucked <i>inside</i> it, indented. That nesting is how almost all real code is built: a rule that runs over and over, on one thing after another. You wrote a loop in the Vault Heist and a rule in Step 1. This is both at once.
-      </div>
+      <div class="callback-box"><details class="more"><summary>look at the shape of that</summary><div class="m-body"><b>Look at the shape of that.</b> A loop on the outside — "for every combination" — and your conditional tucked <i>inside</i> it, indented. That nesting is how almost all real code is built: a rule that runs over and over, on one thing after another. You wrote a loop in the Vault Heist and a rule in Step 1. This is both at once.</div></details></div>
 
       <div class="row2">
         <button class="primary" id="btnRunFullSearch" disabled>🔁 Run the full search (all 63 combos)</button>
@@ -894,7 +1110,7 @@
     <div class="stage">
       <div class="live-tag"><span class="pulse-dot"></span>STEP 3 · WHY THIS GETS HARD FAST</div>
       <h2>Add one more investment. Then another.</h2>
-      <p class="lede">Six options gave you 63 combinations and the computer chewed through them instantly. So let us add more. Press the button once for each new option you offer the fund manager — one press, one new row.</p>
+      <p class="lede">Six options gave you 63 combinations and the computer chewed through them instantly. So let us add more.</p><details class="more"><summary>more on this</summary><div class="m-body"><p>Press the button once for each new option you offer the fund manager — one press, one new row.</p></div></details>
 
       <div class="ladder-head"><span>options</span><span>combinations</span><span>time to check them all</span></div>
       <div class="ladder" id="ladder"></div>
@@ -923,7 +1139,7 @@
       <div class="scan-sweep"></div>
       <div class="live-tag"><span class="pulse-dot"></span>STEP 4 · REAL QUANTUM CODE</div>
       <h2>Search your actual 63 combinations, quantumly</h2>
-      <p class="lede">Not a simplified example this time — these are the exact same 63 combinations from your own portfolio, with the exact same best answer marked. Build a real Grover search to find it.</p>
+      <p class="lede">Not a simplified example this time — these are the exact same 63 combinations from your own portfolio, with the exact same best answer marked.</p><details class="more"><summary>more on this</summary><div class="m-body"><p>Build a real Grover search to find it.</p></div></details>
 
       <div class="palette-caption">Drag blocks to build a real quantum search program</div>
       <div class="block-palette">
@@ -964,20 +1180,20 @@
       <h2 style="margin-top:22px;">Let's check what stuck</h2>
       <div class="frontier">
         <div class="ico">🛰️</div>
-        <div><span class="tagline">WHY BANKS ARE WATCHING THIS ONE</span>Portfolio search is one of the first jobs quantum computers are expected to be genuinely useful for, and several of the largest banks on Earth already have teams working on nothing else. The method is real, the money behind it is real, and you have just built a working version of it.</div>
+        <div><span class="tagline">WHY BANKS ARE WATCHING THIS ONE</span>Several of the largest banks on Earth have teams working on nothing but this. You just built a working version.</div>
       </div>
-      <p class="lede">Back to the two aims from the start.</p>
+      
       <div class="recap-card">
         <h4>✅ Programming: What's a conditional?</h4>
         <p>A rule that checks something and branches: "if total risk is over the limit, mark it invalid — otherwise it is fine." You judged five by hand, then watched the same rule run on all sixty-three.</p>
       </div>
       <div class="recap-card">
         <h4>✅ Programming: A rule inside a loop</h4>
-        <p>The search put your conditional <i>inside</i> a loop — one rule, applied to sixty-three things, written once. That nesting is the shape of most real software: loops carrying rules, doing the same careful check over and over without getting bored or making mistakes.</p>
+        <p>The search put your conditional <i>inside</i> a loop — one rule, applied to sixty-three things, written once.</p><details class="more"><summary>the rest of it</summary><div class="m-body"><p>That nesting is the shape of most real software: loops carrying rules, doing the same careful check over and over without getting bored or making mistakes.</p></div></details>
       </div>
       <div class="recap-card">
         <h4>✅ Quantum: Why finding the best combination gets impossible fast</h4>
-        <p>Each extra option DOUBLES the number of combinations — you added them one at a time and watched it happen. That doubling is exponential growth, the same shape as password length in the Cipher Room. Quantum computers explore many combinations at once using superposition, the same trick as the Vault Heist.</p>
+        <p>Each extra option DOUBLES the number of combinations — you added them one at a time and watched it happen.</p><details class="more"><summary>the rest of it</summary><div class="m-body"><p>That doubling is exponential growth, the same shape as password length in the Cipher Room. Quantum computers explore many combinations at once using superposition, the same trick as the Vault Heist.</p></div></details>
       </div>
 
       <h2 style="margin-top:20px;">Quick field test</h2>
@@ -1147,6 +1363,27 @@ async function copyReport(txt, btn){
   ta.classList.add('show');
   ta.focus(); ta.select();
   showToast('Here it is — select it and copy.');
+}
+
+/* Beats: lines of explanation that arrive because you did something, not
+   because the page loaded. Declarative — a .beats box names the control that
+   advances it, and each click reveals the next line. No per-screen wiring. */
+function armBeats(){
+  document.querySelectorAll('.beats[data-trigger]').forEach(box=>{
+    if (box.dataset.armed) return;
+    box.dataset.armed = '1';
+    const step = ()=>{
+      const next = box.querySelector('.beat:not(.on)');
+      if (next) next.classList.add('on');
+    };
+    box.dataset.trigger.split(',').forEach(sel=>{
+      document.querySelectorAll(sel.trim()).forEach(el=> el.addEventListener('click', step, true));
+    });
+  });
+}
+function showBeat(id){
+  const el = document.getElementById(id);
+  if (el) el.classList.add('on');
 }
 
 
@@ -1687,6 +1924,7 @@ document.getElementById('btnCopyAgentCard').addEventListener('click', async ()=>
 
 renderStepper();
 addTapHints();
+armBeats();
 </script>
 
 </body>
