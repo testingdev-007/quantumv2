@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Cipher Room</title>
+<title>Breach — The Cipher Room</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -476,6 +476,288 @@
     *, *::before, *::after{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
     .stars, .scan-sweep, .confetti-piece{ display:none !important; }
   }
+
+  /* ===================================================================
+     DESIGN PASS v3 — motion, depth and drama.
+     Everything below is additive: it layers on top of the rules above
+     rather than replacing them, so nothing that already worked breaks.
+     Every animation here is switched off by the reduced-motion block
+     at the foot of this stylesheet.
+     =================================================================== */
+
+  /* ---------- ambient: a slow aurora behind the whole page ---------- */
+  body::before{
+    content:""; position:fixed; inset:-20%; z-index:0; pointer-events:none;
+    background:
+      radial-gradient(circle at 25% 25%, rgba(124,111,255,0.22), transparent 42%),
+      radial-gradient(circle at 78% 65%, rgba(76,214,255,0.16), transparent 40%),
+      radial-gradient(circle at 55% 92%, rgba(255,111,165,0.12), transparent 38%);
+    filter: blur(28px);
+    animation: aurora 34s ease-in-out infinite alternate;
+  }
+  @keyframes aurora{
+    0%  { transform: translate3d(-3%,-2%,0) scale(1);    opacity:.85; }
+    50% { transform: translate3d(3%,2%,0)   scale(1.08); opacity:1; }
+    100%{ transform: translate3d(-2%,3%,0)  scale(1.02); opacity:.9; }
+  }
+
+  /* ---------- every screen arrives, it does not just appear ---------- */
+  section.screen.active > .stage{ animation: stageIn .48s cubic-bezier(.18,.9,.28,1) both; }
+  @keyframes stageIn{
+    0%  { opacity:0; transform: translateY(16px) scale(.985); }
+    100%{ opacity:1; transform: none; }
+  }
+  section.screen.active > .stage > *{ animation: riseIn .42s cubic-bezier(.2,.85,.3,1) both; }
+  section.screen.active > .stage > *:nth-child(1){ animation-delay:.04s }
+  section.screen.active > .stage > *:nth-child(2){ animation-delay:.09s }
+  section.screen.active > .stage > *:nth-child(3){ animation-delay:.14s }
+  section.screen.active > .stage > *:nth-child(4){ animation-delay:.19s }
+  section.screen.active > .stage > *:nth-child(5){ animation-delay:.23s }
+  section.screen.active > .stage > *:nth-child(6){ animation-delay:.27s }
+  section.screen.active > .stage > *:nth-child(7){ animation-delay:.30s }
+  section.screen.active > .stage > *:nth-child(n+8){ animation-delay:.33s }
+  @keyframes riseIn{ 0%{ opacity:0; transform: translateY(10px); } 100%{ opacity:1; transform:none; } }
+
+  /* the stage itself gets a live top edge */
+  .stage{ border-top: 1px solid rgba(255,255,255,0.10); }
+  .stage::after{
+    content:""; position:absolute; top:0; left:0; right:0; height:2px; pointer-events:none;
+    background: linear-gradient(90deg, transparent, var(--zero), var(--accent-bright), var(--one), transparent);
+    background-size: 220% 100%;
+    animation: edgeRun 7s linear infinite;
+    opacity:.75;
+  }
+  @keyframes edgeRun{ 0%{ background-position: 120% 0; } 100%{ background-position:-120% 0; } }
+
+  /* ---------- headings get a drawn underline ---------- */
+  .stage h2{ position:relative; display:block; width:fit-content; max-width:100%; padding-bottom:7px; }
+  .stage h2::after{
+    content:""; position:absolute; left:0; bottom:0; height:3px; border-radius:3px;
+    background: linear-gradient(90deg, var(--accent-bright), var(--zero));
+    width:100%; transform-origin:left; animation: drawLine .6s .22s cubic-bezier(.2,.9,.3,1) both;
+  }
+  @keyframes drawLine{ 0%{ transform: scaleX(0); } 100%{ transform: scaleX(1); } }
+
+  /* ---------- the main button should look like the next thing to do ---------- */
+  .cta{ position:relative; overflow:hidden; transition: transform .14s ease, box-shadow .2s ease, filter .2s ease; }
+  .cta:not(:disabled){ animation: ctaBreathe 3.4s ease-in-out infinite; }
+  .cta:not(:disabled):hover{ transform: translateY(-2px); filter: brightness(1.08); box-shadow: 0 8px 30px rgba(124,111,255,0.55); }
+  .cta:not(:disabled):active{ transform: translateY(0) scale(.985); }
+  .cta::after{
+    content:""; position:absolute; top:0; bottom:0; width:38%; left:-50%; pointer-events:none;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,0.30), transparent);
+    animation: ctaSheen 3.6s ease-in-out infinite;
+  }
+  .cta:disabled::after{ display:none; }
+  @keyframes ctaSheen{ 0%{ left:-50%; } 55%{ left:115%; } 100%{ left:115%; } }
+  @keyframes ctaBreathe{
+    0%,100%{ box-shadow: 0 0 20px rgba(124,111,255,0.35); }
+    50%    { box-shadow: 0 0 34px rgba(124,111,255,0.62); }
+  }
+
+  /* ---------- blocks you are meant to drag should look alive ---------- */
+  .code-block{ transition: opacity .2s ease, transform .14s ease, box-shadow .2s ease, filter .2s ease; }
+  /* A glow, not a wobble. Moving a click target is cruel on a trackpad —
+     so the invitation is light, and the block itself stays exactly still. */
+  .code-block:not(.locked):not(.placed){ animation: blockGlow 2.9s ease-in-out infinite; }
+  .block-palette .code-block:nth-child(2){ animation-delay:.5s; }
+  .block-palette .code-block:nth-child(3){ animation-delay:1s; }
+  @keyframes blockGlow{
+    0%,100%{ box-shadow: 0 6px 18px rgba(0,0,0,0.30); }
+    50%    { box-shadow: 0 6px 18px rgba(0,0,0,0.30), 0 0 22px rgba(255,255,255,0.34); }
+  }
+  .code-block:not(.locked):hover{ transform: translateY(-3px) scale(1.02); box-shadow: 0 12px 26px rgba(0,0,0,0.42); filter: brightness(1.06); }
+  @keyframes blockFloat{ 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(-4px); } }
+  /* a soft ring so it reads as "pick me up" */
+  .code-block:not(.locked):not(.placed)::before{
+    content:""; position:absolute; inset:-3px; border-radius:15px; pointer-events:none;
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.20);
+    animation: ringPulse 2.6s ease-in-out infinite;
+  }
+  @keyframes ringPulse{ 0%,100%{ opacity:.25; } 50%{ opacity:.75; } }
+  .code-block.locked{ animation:none; }
+  /* when a block unlocks, announce it */
+  .code-block.just-unlocked{ animation: unlockPop .7s cubic-bezier(.2,1.2,.3,1) 1; }
+  @keyframes unlockPop{
+    0%  { transform: scale(.85); filter: brightness(2); }
+    45% { transform: scale(1.09); }
+    100%{ transform: scale(1); filter:none; }
+  }
+
+  /* ---------- the drop zone should ask for the block ---------- */
+  .track-zone{ position:relative; transition: border-color .2s ease, background .2s ease, transform .18s ease, box-shadow .2s ease; }
+  .track-zone:empty::after{
+    content:"drop a block here";
+    font-family:var(--f-mono); font-size:0.68rem; letter-spacing:1px; color: var(--text-dim);
+    opacity:.45; margin-left:auto; margin-right:6px; animation: hintFade 2.6s ease-in-out infinite;
+  }
+  /* the zones all start with one fixed chip, so :empty never fires — this does */
+  .track-zone:has(> .track-chip.fixed:only-child)::after{
+    content:"drop a block here";
+    font-family:var(--f-mono); font-size:0.68rem; letter-spacing:1px; color: var(--text-dim);
+    opacity:.45; margin-left:auto; margin-right:6px; animation: hintFade 2.6s ease-in-out infinite;
+  }
+  @keyframes hintFade{ 0%,100%{ opacity:.22; } 50%{ opacity:.6; } }
+  .track-zone.drag-over{ transform: scale(1.015); box-shadow: 0 0 0 3px rgba(124,111,255,0.35), 0 0 26px rgba(124,111,255,0.30); }
+  .track-chip{ animation: chipIn .34s cubic-bezier(.2,1.1,.3,1) both; }
+  @keyframes chipIn{ 0%{ opacity:0; transform: translateY(-8px) scale(.9); } 100%{ opacity:1; transform:none; } }
+
+  /* ---------- gauges: give the bar a current ---------- */
+  .gauge-fill{ position:relative; overflow:hidden; }
+  .gauge-fill::after{
+    content:""; position:absolute; inset:0;
+    background: repeating-linear-gradient(115deg, rgba(255,255,255,0.22) 0 10px, transparent 10px 22px);
+    animation: gaugeFlow 1.1s linear infinite; opacity:.65;
+  }
+  @keyframes gaugeFlow{ 0%{ transform: translateX(0); } 100%{ transform: translateX(22px); } }
+  .gauge-val{ transition: color .25s ease; }
+  .gauge-val.bump{ animation: numberBump .42s cubic-bezier(.2,1.3,.3,1) 1; }
+  @keyframes numberBump{ 0%{ transform:scale(1);} 40%{ transform:scale(1.22);} 100%{ transform:scale(1);} }
+
+  /* ---------- code panels read as a live terminal ---------- */
+  .code-panel{ position:relative; }
+  .code-panel.open pre::after{
+    content:"▋"; color: var(--good); opacity:.85; animation: caretBlink 1.05s steps(1) infinite; margin-left:2px;
+  }
+  @keyframes caretBlink{ 0%,49%{ opacity:.85; } 50%,100%{ opacity:0; } }
+
+  /* ---------- explanation boxes get an accent spine ---------- */
+  .callback-box{ border-left: 3px solid var(--star); position:relative; }
+
+  /* ---------- aim cards lift ---------- */
+  .aim-card{ transition: transform .18s ease, box-shadow .18s ease; }
+  .aim-card:hover{ transform: translateY(-2px); box-shadow: 0 12px 26px rgba(0,0,0,0.32); }
+  .aim-card .ico{ animation: blockFloat 4.2s ease-in-out infinite; }
+  .aim-card:nth-of-type(2) .ico{ animation-delay:.6s; }
+
+  /* ===================================================================
+     NEW COMPONENTS
+     =================================================================== */
+
+  /* ---------- FRONTIER NOTE: how new this really is ---------- */
+  .frontier{
+    display:flex; gap:12px; align-items:flex-start;
+    background: linear-gradient(135deg, rgba(255,224,102,0.10), rgba(255,111,165,0.08));
+    border:1px solid rgba(255,224,102,0.35);
+    border-radius:14px; padding:13px 15px; margin:14px 0;
+    font-size:0.88rem; line-height:1.55; color: var(--text);
+  }
+  .frontier .ico{ font-size:1.35rem; flex-shrink:0; animation: blockFloat 3.6s ease-in-out infinite; }
+  .frontier b{ color: var(--star); }
+  .frontier .tagline{
+    display:block; font-family:var(--f-mono); font-weight:700; font-size:0.66rem;
+    letter-spacing:1.4px; color: var(--star); opacity:.9; margin-bottom:5px;
+  }
+
+  /* ---------- MISSION / DOSSIER card (the Heist) ---------- */
+  .dossier{
+    background: linear-gradient(160deg, rgba(255,255,255,0.05), rgba(0,0,0,0.18));
+    border:1px solid rgba(255,255,255,0.10);
+    border-left:4px solid var(--limit);
+    border-radius:14px; padding:15px 17px; margin:14px 0; position:relative; overflow:hidden;
+  }
+  .dossier::after{
+    content:"CLASSIFIED"; position:absolute; right:14px; bottom:12px;
+    transform: rotate(-9deg); font-family:var(--f-mono); font-weight:800; font-size:0.6rem;
+    letter-spacing:2px; color: rgba(255,125,149,0.34); border:2px solid rgba(255,125,149,0.24);
+    border-radius:4px; padding:3px 12px; pointer-events:none;
+  }
+  @media (max-width: 560px){ .dossier::after{ display:none; } }
+  .dossier .d-label{ font-family:var(--f-mono); font-weight:700; font-size:0.64rem; letter-spacing:1.6px; color: var(--limit); margin-bottom:7px; }
+  .dossier h4{ font-family:var(--f-display); font-weight:800; font-size:1.02rem; margin:0 0 6px; }
+  .dossier p{ margin:0 0 8px; font-size:0.9rem; color: var(--text-dim); line-height:1.55; }
+  .dossier p:last-child{ margin-bottom:0; }
+  .dossier .d-row{ display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; }
+  .dossier .d-fact{ background: rgba(0,0,0,0.28); border-radius:9px; padding:7px 11px; font-size:0.78rem; }
+  .dossier .d-fact b{ display:block; font-family:var(--f-mono); color: var(--star); font-size:0.86rem; }
+
+  /* ---------- ALARM / HEAT: tension the learner can see ---------- */
+  .heat-wrap{ margin:14px 0 6px; }
+  .heat-head{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:6px; }
+  .heat-head .lbl{ font-family:var(--f-mono); font-weight:700; font-size:0.68rem; letter-spacing:1.2px; color: var(--text-dim); }
+  .heat-head .val{ font-family:var(--f-mono); font-weight:800; font-size:0.92rem; color: var(--good); }
+  .heat-track{ height:10px; border-radius:8px; background: rgba(0,0,0,0.38); overflow:hidden; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.07); }
+  .heat-fill{ height:100%; width:0%; border-radius:8px; background: linear-gradient(90deg, var(--good), var(--star)); transition: width .5s ease, background .5s ease; }
+  .heat-wrap.hot .heat-head .val{ color: var(--limit); }
+  .heat-wrap.hot .heat-fill{ background: linear-gradient(90deg, var(--star), var(--limit)); }
+  .heat-wrap.hot .heat-track{ animation: heatPulse 1s ease-in-out infinite; }
+  @keyframes heatPulse{ 0%,100%{ box-shadow: inset 0 0 0 1px rgba(255,255,255,0.07); } 50%{ box-shadow: inset 0 0 0 1px rgba(255,125,149,0.8), 0 0 16px rgba(255,125,149,0.45); } }
+  .heat-note{ font-size:0.78rem; color: var(--text-dim); margin-top:6px; line-height:1.5; }
+
+  /* a whole stage can go red when things get tense */
+  .stage.alarm{ box-shadow: 0 0 0 1px rgba(255,125,149,0.35), 0 20px 50px rgba(0,0,0,0.4), inset 0 0 70px rgba(255,125,149,0.10); }
+  .stage.alarm::after{ background: linear-gradient(90deg, transparent, var(--limit), var(--star), var(--limit), transparent); background-size:220% 100%; animation-duration:2.2s; }
+
+  /* ---------- CONSTRUCT CARD: naming the thing they just learned ---------- */
+  .construct{
+    background: linear-gradient(150deg, rgba(76,214,255,0.12), rgba(124,111,255,0.10));
+    border:1px solid rgba(76,214,255,0.34); border-radius:16px;
+    padding:16px 17px; margin:16px 0; position:relative;
+  }
+  .construct .c-kicker{ font-family:var(--f-mono); font-weight:700; font-size:0.64rem; letter-spacing:1.6px; color: var(--zero); margin-bottom:6px; }
+  .construct h4{ font-family:var(--f-display); font-weight:800; font-size:1.1rem; margin:0 0 7px; color: #fff; }
+  .construct p{ margin:0 0 9px; font-size:0.9rem; line-height:1.58; color: var(--text-dim); }
+  .construct p:last-child{ margin-bottom:0; }
+  .construct .c-code{
+    font-family:var(--f-mono); font-size:0.84rem; background: rgba(6,7,20,0.62);
+    border-radius:10px; padding:11px 13px; margin:10px 0; color: var(--good); white-space:pre; overflow-x:auto;
+  }
+
+  /* ---------- LOOP COMPARISON: counted vs until ---------- */
+  .loop-compare{ display:grid; grid-template-columns:1fr; gap:12px; margin:16px 0; }
+  @media (min-width: 640px){ .loop-compare{ grid-template-columns:1fr 1fr; } }
+  .lc-card{ background: var(--panel-2); border-radius:14px; padding:14px 15px; border-top:3px solid var(--accent); position:relative; overflow:hidden; }
+  .lc-card.until{ border-top-color: var(--star); }
+  .lc-card .lc-tag{ font-family:var(--f-mono); font-weight:700; font-size:0.62rem; letter-spacing:1.4px; color: var(--accent-bright); margin-bottom:5px; }
+  .lc-card.until .lc-tag{ color: var(--star); }
+  .lc-card h5{ font-family:var(--f-display); font-weight:800; font-size:0.98rem; margin:0 0 6px; }
+  .lc-card p{ margin:0; font-size:0.84rem; color: var(--text-dim); line-height:1.5; }
+  .lc-card .lc-code{ font-family:var(--f-mono); font-size:0.78rem; color: var(--good); background: rgba(6,7,20,0.55); border-radius:9px; padding:9px 11px; margin:9px 0 8px; white-space:pre; overflow-x:auto; }
+  .lc-card .lc-verdict{ font-size:0.8rem; font-weight:700; margin-top:8px; }
+  .lc-card .lc-verdict.ok{ color: var(--good); }
+  .lc-card .lc-verdict.bad{ color: var(--limit); }
+
+  /* the little until-loop demo */
+  .until-demo{ background: var(--bg-deep); border-radius:14px; padding:14px; margin:14px 0; border:1px solid rgba(255,255,255,0.08); }
+  .until-demo .ud-row{ display:flex; gap:7px; flex-wrap:wrap; justify-content:center; margin-bottom:11px; min-height:38px; }
+  .ud-key{
+    width:34px; height:34px; border-radius:9px; background: var(--panel-2); display:flex;
+    align-items:center; justify-content:center; font-family:var(--f-mono); font-weight:700; font-size:0.78rem;
+    color: var(--text-dim); animation: chipIn .3s ease both;
+  }
+  .ud-key.miss{ background: rgba(255,125,149,0.16); color: var(--limit); }
+  .ud-key.hit{ background: var(--good); color:#08301F; box-shadow:0 0 18px var(--good); animation: unlockPop .6s cubic-bezier(.2,1.2,.3,1) 1; }
+  .ud-key.skipped{ opacity:.25; }
+  .until-demo .ud-verdict{ text-align:center; font-family:var(--f-display); font-weight:800; font-size:0.95rem; min-height:1.3em; }
+  .until-demo .ud-verdict.ok{ color: var(--good); }
+  .until-demo .ud-verdict.bad{ color: var(--limit); }
+  .until-demo .ud-sub{ text-align:center; font-size:0.8rem; color: var(--text-dim); margin-top:5px; line-height:1.5; }
+
+  /* ---------- CREW STRIP (the Heist narrative) ---------- */
+  .crew{ display:flex; gap:9px; flex-wrap:wrap; margin:12px 0 4px; }
+  .crew .member{ flex:1 1 120px; background: var(--panel-2); border-radius:12px; padding:10px 11px; display:flex; gap:9px; align-items:center; }
+  .crew .member .av{ font-size:1.5rem; }
+  .crew .member .nm{ font-family:var(--f-display); font-weight:800; font-size:0.84rem; }
+  .crew .member .rl{ font-size:0.72rem; color: var(--text-dim); }
+  .crew .member.you{ box-shadow: 0 0 0 2px var(--star) inset; }
+  .crew .member.you .nm{ color: var(--star); }
+
+  /* ---------- typed narration line ---------- */
+  .narration{
+    font-family:var(--f-mono); font-size:0.82rem; color: var(--good);
+    background: rgba(6,7,20,0.55); border-radius:10px; padding:11px 13px; margin:12px 0;
+    border-left:3px solid var(--good); line-height:1.6;
+  }
+  .narration .who{ color: var(--star); font-weight:700; }
+
+  /* ---------- reduced motion: everything above goes still ---------- */
+  @media (prefers-reduced-motion: reduce){
+    body::before{ animation:none; }
+    .stage::after, .cta::after, .gauge-fill::after{ animation:none; }
+    .code-block:not(.locked):not(.placed)::before{ animation:none; opacity:.4; }
+    .track-zone:empty::after{ animation:none; opacity:.45; }
+    .code-panel.open pre::after{ animation:none; }
+  }
 </style>
 </head>
 <body>
@@ -487,9 +769,9 @@
 <div class="app">
   <header>
     <div class="hero-icon"><div class="hero-orb"></div><div class="hero-orb b"></div></div>
-    <h1>The Cipher Room</h1>
-    <p>Write your first loop. Then find out why it can't crack every code forever.</p>
-    <div class="fine">Part of the Quantum Programming series — a companion to the Vault Heist.</div>
+    <h1>Breach</h1>
+    <p>Today you are on the wrong side of the lock — and you are going to write the code that gets in.</p>
+    <div class="fine">Everything you break in here, you break for real. The cipher is real, the maths is real, and the cracking times are calculated live from the password you make.</div>
   </header>
 
   <div class="stepper" id="stepper"></div>
@@ -497,15 +779,16 @@
   <!-- AIMS -->
   <section class="screen active" id="screenAims">
     <div class="stage">
-      <h2>Today's aims</h2>
-      <p class="lede">Two things, both explained in plain English — no coding background needed.</p>
+      <h2>Your first job as a hacker</h2>
+      <p class="lede">Companies pay people to break into their own systems — to find the holes before somebody less friendly does. It is a real job, it is called penetration testing, and for the next quarter of an hour it is yours. No coding background needed.</p>
+      <div class="narration"><span class="who">BRIEF:</span> One intercepted message. One password. You are going to crack the first, then build the second — and then find out how long yours would survive the machine that is coming.</div>
 
       <div class="aim-card">
         <div class="ico">💻</div>
         <div>
           <span class="aim-tag prog">PROGRAMMING</span>
-          <h4>A variable, a loop, and your first function</h4>
-          <p>Three things, and between them they are most of what any program is made of. A <b>variable</b> — a named box holding a value you can change. A <b>loop</b> that keeps going until it succeeds, unlike the counted one you used in the Vault Heist. And a <b>function</b>: a named recipe you hand some information to, which does a job and hands something back. You will write one that builds passwords.</p>
+          <h4>A variable, two kinds of loop, and your first function</h4>
+          <p>A <b>variable</b> — a named box holding a value you can change. Then the <b>until loop</b>, the second of the two loops every programmer uses: the Vault Heist gave you one that counts, and this one keeps going until something becomes true. Breaking in is exactly the job it was invented for, because you never know how many tries it will take. Then a <b>function</b>: a named recipe you hand some information to, which does a job and hands something back. You will write one that builds passwords.</p>
         </div>
       </div>
 
@@ -518,6 +801,10 @@
         </div>
       </div>
 
+      <div class="frontier">
+        <div class="ico">🛰️</div>
+        <div><span class="tagline">YOU ARE EARLIER THAN YOU THINK</span>The attack in Step 5 is called <b>Grover’s algorithm</b>. It was published in 1996, and the machines big enough to run it on a real password <b>do not exist yet</b>. Governments are already replacing their encryption anyway, because the day they do exist, everything recorded today becomes readable. You are about to write the thing they are preparing for.</div>
+      </div>
       <button class="cta" id="btnStartAims">Start →</button>
     </div>
 
@@ -528,9 +815,10 @@
       <h5>The beat you are aiming for</h5>
       <ul>
         <li><b>Step 1</b> — they drag one block and a word turns into gibberish. Let them play with the +/− dial; that dial is a variable, and saying so out loud lands better than the code panel does.</li>
-        <li><b>Step 2</b> — they crack it by hand three times, and it is deliberately tedious. Do not rescue them. The loop block only unlocks after the third try, and the relief is the whole point.</li>
-        <li><b>Step 3</b> — the slider. Ask someone to guess before they drag it. The gap between "days" and "longer than the universe" is where the room goes quiet.</li>
-        <li><b>Step 4</b> — this is the moment they write quantum code. Two blocks, and the confidence bar climbs. Two Mark+Boost pairs is the sweet spot for 8 keys; a third makes it <i>worse</i>, which surprises people and is worth letting them discover.</li>
+        <li><b>Step 2</b> — the until loop, taught before they need it. Make them run "repeat 4 times" first and fail. The point that lands is the one on the card: a counted loop cannot tell whether it has finished.</li>
+        <li><b>Step 3</b> — two guesses by hand, then the block unlocks. Watch the risk meter climb while they type; it is doing the persuading for you.</li>
+        <li><b>Step 4</b> — the password maker. Ask someone to guess the two cracking times before the buttons are pressed. The gap between them is where the room goes quiet.</li>
+        <li><b>Step 5</b> — this is the moment they write quantum code. Two blocks, and the confidence bar climbs. Two Mark+Boost pairs is the sweet spot for 8 keys; a third makes it <i>worse</i>, which surprises people and is worth letting them discover.</li>
       </ul>
       <h5>Where people get stuck</h5>
       <ul>
@@ -539,7 +827,7 @@
         <li>Someone will ask whether quantum computers can already break bank encryption. Honest answer: not yet, and that is why the QKD panel in Step 3 is worth opening.</li>
       </ul>
       <h5>If you only say one thing</h5>
-      <p style="margin-bottom:0;">A loop is "do this again until it works". That is it. Everything else today is that idea, made faster.</p>
+      <p style="margin-bottom:0;">There are two loops: one that counts, and one that keeps going until something is true. Between them they cover nearly every repeat any program has ever had to do. Everything else today is those two ideas, made faster.</p>
     </div>
   </details>
   </section>
@@ -547,9 +835,9 @@
   <!-- STEP 1: ENCODE -->
   <section class="screen" id="screenEncode">
     <div class="stage">
-      <div class="live-tag"><span class="pulse-dot"></span>STEP 1 · SCRAMBLE A MESSAGE</div>
-      <h2>Turn a word into a secret code</h2>
-      <p class="lede">Drag the block below into your program. It's a real instruction: "shift every letter forward by a chosen amount." That's what a program actually is — a rule, applied to data.</p>
+      <div class="live-tag"><span class="pulse-dot"></span>STEP 1 · KNOW THE LOCK</div>
+      <h2>First, build the lock yourself</h2>
+      <p class="lede">No safecracker starts at the safe. They start with the same model of lock, taken apart on a bench. So: drag the block below into your program. It is a real instruction — "shift every letter forward by a chosen amount" — and that is genuinely all a program is. A rule, applied to data.</p>
 
       <div class="msg-box">
         <div class="word" id="plainWord">CODE</div>
@@ -582,25 +870,99 @@
         <b>That dial has a name.</b> The number it holds is a <b>variable</b> — a named box with a value in it that you are allowed to change. Yours is called <span class="mono">shift_amount</span>, and you can see it sitting in the code above, changing every time you press + or −.<br><br>You have already used one, in fact: the number on your Repeat block in the Vault Heist was a variable too. Every program you have ever used is full of them. That is genuinely all a variable is.
       </div>
 
-      <button class="cta" id="btnToEncodeNext" disabled>Now be the codebreaker →</button>
+      <button class="cta" id="btnToEncodeNext" disabled>Lock understood — now the way in →</button>
     </div>
     <p class="footer-note">This is called a Caesar shift — one of the oldest ciphers in history, still a perfect example of "a program is a rule applied to data."</p>
   </section>
 
-  <!-- STEP 2: CRACK (LOOP) -->
+
+  <!-- STEP 2: THE UNTIL LOOP -->
+  <section class="screen" id="screenUntil">
+    <div class="stage">
+      <div class="live-tag"><span class="pulse-dot"></span>STEP 2 · A SECOND KIND OF LOOP</div>
+      <h2>The loop that does not count</h2>
+      <p class="lede">In the Vault Heist you wrote a loop that repeated <b>exactly three times</b>, because you knew
+      the number before you started. Breaking in is never like that. You have no idea how many tries a lock will
+      take — so counting is the wrong tool, and programmers built a second kind of loop for exactly this.</p>
+
+      <div class="loop-compare">
+        <div class="lc-card">
+          <div class="lc-tag">LOOP 1 · COUNTED</div>
+          <h5>Repeat a set number of times</h5>
+          <div class="lc-code">repeat 3 times:
+    try the door</div>
+          <p>You fix the number up front. Ideal when you know it — three search steps, twelve letters to post,
+          five rounds of a game.</p>
+        </div>
+        <div class="lc-card until">
+          <div class="lc-tag">LOOP 2 · UNTIL</div>
+          <h5>Repeat until something is true</h5>
+          <div class="lc-code">until the door opens:
+    try the door</div>
+          <p>You fix the <i>finish line</i> instead of the number. It runs as long as it needs to, and stops the
+          moment it succeeds.</p>
+        </div>
+      </div>
+
+      <p class="lede" style="margin-top:18px;"><b>Try both on the same lock.</b> This padlock takes one of twelve
+      keys and only one fits. You do not know which one — and neither does your program.</p>
+
+      <div class="until-demo">
+        <div class="ud-row" id="udRow"></div>
+        <div class="ud-verdict" id="udVerdict">Run both loops and compare.</div>
+        <div class="ud-sub" id="udSub">The counted loop needs a number from you. The until loop does not.</div>
+      </div>
+
+      <div class="arg-row" style="display:flex; align-items:center; justify-content:center; gap:12px; margin:4px 0 12px;">
+        <span class="mono" style="font-size:0.86rem; color:var(--text-dim);">repeat</span>
+        <div class="stepper-num">
+          <button type="button" id="udMinus" aria-label="fewer repeats">−</button>
+          <span class="n mono" id="udN">4</span>
+          <button type="button" id="udPlus" aria-label="more repeats">+</button>
+        </div>
+        <span class="mono" style="font-size:0.86rem; color:var(--text-dim);">times</span>
+      </div>
+
+      <div class="row2">
+        <button class="primary" id="btnRunCounted">▸ repeat N times</button>
+        <button id="btnRunUntil">▸ until it opens</button>
+      </div>
+
+      <div class="construct">
+        <div class="c-kicker">NEW CONSTRUCT · THE UNTIL LOOP</div>
+        <h4>until — keep going while something is not yet true</h4>
+        <div class="c-code">key = 1
+until lock_opens:
+    try(key)
+    key = key + 1</div>
+        <p>Three parts, and that is the whole thing: something that <b>changes</b> each time round, a <b>test</b>
+        that decides when to stop, and the <b>work</b> in the middle. Python spells it
+        <span class="mono">while not lock_opens:</span> and some languages spell it
+        <span class="mono">repeat ... until</span>, but it is the same construct in every one of them.</p>
+        <p><b>One warning, and it is the classic beginner bug.</b> If the test never becomes true, the loop never
+        stops. It is called an infinite loop, and every programmer alive has written one — usually by forgetting
+        the line that changes something.</p>
+      </div>
+
+      <button class="cta" id="btnToCrackNext" disabled>Now pick a real lock →</button>
+    </div>
+    <p class="footer-note">Counted and until are the two loops you will meet in every programming language there is. You have now used both.</p>
+  </section>
+
+  <!-- STEP 3: CRACK (THE UNTIL LOOP, FOR REAL) -->
   <section class="screen" id="screenCrack">
     <div class="stage">
       <div class="scan-sweep"></div>
-      <div class="live-tag"><span class="pulse-dot"></span>STEP 2 · A LOOP THAT RUNS UNTIL IT WORKS</div>
-      <h2>A loop that does not know when to stop</h2>
-      <p class="lede">A friend's computer only sees <span class="mono" id="crackCipherLabel">HTIJ</span> and knows it's looking for the word <span class="mono">CODE</span>. It doesn't know the shift. Try cracking it by hand first — drag the block below, once per guess.</p>
+      <div class="live-tag"><span class="pulse-dot"></span>STEP 3 · LIVE TARGET</div>
+      <h2>Someone else's message</h2>
+      <p class="lede">This one is not yours. All you have is <span class="mono" id="crackCipherLabel">HTIJ</span> and a tip-off that the word inside is <span class="mono">CODE</span>. You do not have the shift. Try it by hand first — one drag, one guess — and watch the clock while you do.</p>
 
       <div class="lock-display"><span class="icon" id="lockIcon">🔒</span></div>
 
       <div class="palette-caption">Drag this in to try the next key — one drag, one guess</div>
       <div class="block-palette">
         <div class="code-block try" id="paletteTryKey">🔑 Try Next Key<small>one guess per drag</small></div>
-        <div class="code-block loop locked" id="paletteLoop">🔁 Repeat Until Found<small>🔒 unlocks after a few tries</small></div>
+        <div class="code-block loop locked" id="paletteLoop">🔁 until cracked<small>🔒 do it the slow way first</small></div>
       </div>
       <div class="track-zone" id="crackTrackZone">
         <div class="track-chip fixed">① Look at the secret code</div>
@@ -610,13 +972,18 @@
         <div class="num mono" id="loopCount">0</div>
         <div class="lbl">keys tried so far</div>
       </div>
+      <div class="heat-wrap" id="heatWrap">
+        <div class="heat-head"><span class="lbl">TIME ON THEIR SYSTEM</span><span class="val" id="heatVal">CLEAR</span></div>
+        <div class="heat-track"><div class="heat-fill" id="heatFill" style="width:4%"></div></div>
+        <div class="heat-note" id="heatNote">Guessing by hand is slow, and slow is how people get caught.</div>
+      </div>
       <div class="loop-log" id="loopLog"></div>
 
       <div class="code-panel open" id="codePanel1">
         <pre id="codeOutput1"></pre>
       </div>
 
-      <button class="cta" id="btnToScaleNext" disabled>See what happens with a longer key →</button>
+      <button class="cta" id="btnToScaleNext" disabled>You are in. Now switch sides →</button>
     </div>
     <p class="footer-note">Real codebreaking checks whether decoded text makes sense using a dictionary. We simplified that to "does it match CODE?" — same loop, easier to see.</p>
   </section>
@@ -624,9 +991,9 @@
   <!-- STEP 3: THE PASSWORD MAKER -->
   <section class="screen" id="screenScale">
     <div class="stage">
-      <div class="live-tag"><span class="pulse-dot"></span>STEP 3 · WRITE A FUNCTION</div>
-      <h2>Build a password maker</h2>
-      <p class="lede">A <b>function</b> is a named recipe you can run whenever you like. You give it some information, it does the work, and it hands something back. This one is called <span class="mono">password_maker</span> and it wants four things. Set them however you like.</p>
+      <div class="live-tag"><span class="pulse-dot"></span>STEP 4 · SWITCH SIDES</div>
+      <h2>Now build one nobody can do that to</h2>
+      <p class="lede">Every good hacker is also the person who builds the defence. A <b>function</b> is a named recipe you can run whenever you like: you give it some information, it does the work, and it hands something back. This one is called <span class="mono">password_maker</span> and it wants four things. Set them however you like — then we will attack what you made.</p>
 
       <div class="arg-grid">
         <div class="arg-row">
@@ -710,7 +1077,7 @@
   <section class="screen" id="screenQCrack">
     <div class="stage">
       <div class="scan-sweep"></div>
-      <div class="live-tag"><span class="pulse-dot"></span>STEP 4 · REAL QUANTUM CODE</div>
+      <div class="live-tag"><span class="pulse-dot"></span>STEP 5 · THE TOOL THEY DO NOT HAVE YET</div>
       <h2>Build the quantum version of your own loop</h2>
       <p class="lede">This is a separate, simplified example — 8 possible keys instead of 25, so the numbers stay clean — but the code you're about to drag is the actual algorithm real quantum computers use: <b>Grover's algorithm</b>. Same trick as the Vault Heist, applied to cracking a key.</p>
 
@@ -739,6 +1106,10 @@
       <button class="cta" id="qcMeasureBtn">Measure it! 🎲</button>
       <div class="year-result"><div class="num mono" id="qcResult">—</div></div>
 
+      <div class="frontier">
+        <div class="ico">🛰️</div>
+        <div><span class="tagline">WHAT YOU JUST DID</span>That loop you dragged is not a picture of Grover’s algorithm. It is Grover’s algorithm, running the real arithmetic, on your device. Perhaps a few thousand people alive have written one by hand. As of this morning you are one of them.</div>
+      </div>
       <button class="cta" id="btnToPlenary" disabled>Finish up →</button>
     </div>
     <p class="footer-note">You just wrote the same class of quantum program used for real password auditing research — this isn't a metaphor for Grover's algorithm, it IS Grover's algorithm, at small scale.</p>
@@ -839,8 +1210,8 @@ function showToast(msg){
 }
 
 /* ================= STEPPER ================= */
-const STAGE_ORDER = ['aims','encode','crack','scale','qcrack','plenary'];
-const STAGE_LABELS = { aims:'🎯 Aims', encode:'1', crack:'2', scale:'3', qcrack:'⚛️', plenary:'🏁 Debrief' };
+const STAGE_ORDER = ['aims','encode','until','crack','scale','qcrack','plenary'];
+const STAGE_LABELS = { aims:'🎯 Aims', encode:'1', until:'2', crack:'3', scale:'4', qcrack:'⚛️', plenary:'🏁 Debrief' };
 let currentStage = 'aims';
 let unlockedUpTo = 0;
 
@@ -862,7 +1233,7 @@ function renderStepper(){
 function goToStage(key){
   currentStage = key;
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  const map = { aims:'screenAims', encode:'screenEncode', crack:'screenCrack', scale:'screenScale', qcrack:'screenQCrack', plenary:'screenPlenary' };
+  const map = { aims:'screenAims', encode:'screenEncode', until:'screenUntil', crack:'screenCrack', scale:'screenScale', qcrack:'screenQCrack', plenary:'screenPlenary' };
   document.getElementById(map[key]).classList.add('active');
   if (key==='plenary'){
     renderPlenary();
@@ -1052,16 +1423,129 @@ document.getElementById('shiftDown').addEventListener('click', ()=>{ shiftKey = 
 document.getElementById('btnToEncodeNext').addEventListener('click', ()=>{
   document.getElementById('crackCipherLabel').textContent = shiftText(PLAINTEXT, shiftKey);
   unlockNext('encode');
+  goToStage('until');
+});
+/* ================= STEP 2: COUNTED vs UNTIL ================= */
+const UD_N = 12;
+let udSecret = 5 + Math.floor(Math.random() * 5);   /* 5..9, so "repeat 4" always falls short */
+let udCount = 4;
+let udBusy = false;
+let udTriedCounted = false, udTriedUntil = false;
+
+function udRender(states){
+  const row = document.getElementById('udRow');
+  row.innerHTML = '';
+  for (let i = 1; i <= UD_N; i++){
+    const d = document.createElement('div');
+    d.className = 'ud-key' + (states[i] ? ' ' + states[i] : '');
+    d.textContent = i;
+    row.appendChild(d);
+  }
+}
+function udSetN(v){
+  udCount = Math.max(1, Math.min(UD_N, v));
+  document.getElementById('udN').textContent = udCount;
+}
+function udGate(){
+  if (udTriedCounted && udTriedUntil){
+    document.getElementById('btnToCrackNext').disabled = false;
+  }
+}
+function udRun(mode){
+  if (udBusy) return;
+  udBusy = true;
+  const states = {};
+  const limit = (mode === 'counted') ? udCount : UD_N;
+  let i = 1, found = 0, wasted = 0;
+  udRender(states);
+  const verdict = document.getElementById('udVerdict');
+  const sub = document.getElementById('udSub');
+  verdict.className = 'ud-verdict';
+  verdict.textContent = (mode === 'counted') ? ('repeat ' + udCount + ' times...') : 'until lock_opens...';
+  sub.textContent = 'trying keys, one at a time';
+
+  function finish(){
+    udBusy = false;
+    if (mode === 'counted'){
+      udTriedCounted = true;
+      if (!found){
+        verdict.className = 'ud-verdict bad';
+        verdict.textContent = 'Out of tries. Still locked.';
+        sub.textContent = 'You told it to stop after ' + udCount + ' and it obeyed exactly. The key was ' +
+          udSecret + '. A counted loop cannot notice that it has not finished.';
+      } else if (wasted > 0){
+        verdict.className = 'ud-verdict ok';
+        verdict.textContent = 'Open — then ' + wasted + ' pointless tries after that.';
+        sub.textContent = 'It opened on key ' + udSecret + ' and carried on, because you said ' + udCount +
+          '. A counted loop cannot notice that it has finished either.';
+      } else {
+        verdict.className = 'ud-verdict ok';
+        verdict.textContent = 'Open, exactly on the last try.';
+        sub.textContent = 'You happened to pick the right number. Change the lock and you would be guessing again — that is the problem.';
+      }
+    } else {
+      udTriedUntil = true;
+      verdict.className = 'ud-verdict ok';
+      verdict.textContent = 'Open. ' + udSecret + ' tries, no guessing.';
+      sub.textContent = 'It stopped the instant the lock opened. You never had to know the number was ' + udSecret +
+        ' — and it would have worked just as well if the answer had been 2, or 11.';
+    }
+    udGate();
+  }
+
+  function step(){
+    if (i > limit){ finish(); return; }
+    if (i === udSecret){ states[i] = 'hit'; found = i; }
+    else if (found){ states[i] = 'skipped'; wasted++; }
+    else { states[i] = 'miss'; }
+    udRender(states);
+    if (mode === 'until' && found){ finish(); return; }
+    i++;
+    setTimeout(step, 170);
+  }
+  step();
+}
+document.getElementById('udMinus').addEventListener('click', ()=> udSetN(udCount - 1));
+document.getElementById('udPlus').addEventListener('click', ()=> udSetN(udCount + 1));
+document.getElementById('btnRunCounted').addEventListener('click', ()=> udRun('counted'));
+document.getElementById('btnRunUntil').addEventListener('click', ()=> udRun('until'));
+udRender({});
+
+document.getElementById('btnToCrackNext').addEventListener('click', ()=>{
+  unlockNext('until');
   goToStage('crack');
   resetLoop();
 });
+
+/* ---- time-on-their-system meter, Step 3 ---- */
+let crackHeat = 4;
+function bumpHeat(amount, note){
+  crackHeat = Math.min(100, crackHeat + amount);
+  const wrap = document.getElementById('heatWrap');
+  document.getElementById('heatFill').style.width = crackHeat + '%';
+  const val = document.getElementById('heatVal');
+  if (crackHeat >= 55){ val.textContent = 'THEY CAN SEE YOU'; wrap.classList.add('hot'); }
+  else if (crackHeat >= 25){ val.textContent = 'RISING'; wrap.classList.add('hot'); }
+  else { val.textContent = 'CLEAR'; wrap.classList.remove('hot'); }
+  if (note) document.getElementById('heatNote').textContent = note;
+}
+function resetHeat(){
+  crackHeat = 4;
+  const wrap = document.getElementById('heatWrap');
+  if (!wrap) return;
+  wrap.classList.remove('hot');
+  document.getElementById('heatFill').style.width = '4%';
+  document.getElementById('heatVal').textContent = 'CLEAR';
+  document.getElementById('heatNote').textContent = 'Guessing by hand is slow, and slow is how people get caught.';
+}
+
 
 /* ================= STEP 2: CRACK (manual, then automate with a loop) ================= */
 let manualTries = 0;
 let currentTryKey = 0;
 let loopFound = false;
 let loopRunning = false;
-const MANUAL_LIMIT = 3;
+const MANUAL_LIMIT = 2;
 
 function resetLoop(){
   manualTries = 0; currentTryKey = 0; loopFound = false; loopRunning = false;
@@ -1073,8 +1557,9 @@ function resetLoop(){
   document.getElementById('lockIcon').classList.remove('cracked');
   const loopBlock = document.getElementById('paletteLoop');
   loopBlock.classList.add('locked');
-  loopBlock.querySelector('small').textContent = '🔒 unlocks after a few tries';
+  loopBlock.querySelector('small').textContent = '🔒 do it the slow way first';
   renderCode1();
+  resetHeat();
 }
 function renderCode1(){
   const cipher = shiftText(PLAINTEXT, shiftKey);
@@ -1129,12 +1614,14 @@ makeDraggable(document.getElementById('paletteTryKey'), ()=>{
   const result = checkKey(currentTryKey);
   if (result){ crackSuccess(currentTryKey); return; }
   logLine(`Trying key ${currentTryKey}... nope.`, 'try');
+  bumpHeat(17, 'Another hand-typed guess. They log every one of them.');
 
   if (manualTries >= MANUAL_LIMIT && !loopFound){
     const loopBlock = document.getElementById('paletteLoop');
     loopBlock.classList.remove('locked');
-    loopBlock.querySelector('small').textContent = 'drag me — automate the rest';
-    showToast('Imagine doing that up to 22 more times by hand...');
+    loopBlock.classList.add('just-unlocked');
+    loopBlock.querySelector('small').textContent = 'drag me — let it run until it opens';
+    showToast('You have the until loop. Use it.');
   }
 }, document.getElementById('crackTrackZone'));
 
@@ -1144,9 +1631,10 @@ makeDraggable(document.getElementById('paletteLoop'), ()=>{
   const zone = document.getElementById('crackTrackZone');
   const chip = document.createElement('div');
   chip.className = 'track-chip loop';
-  chip.textContent = '🔁 Repeat Until Found';
+  chip.textContent = '🔁 until cracked';
   zone.appendChild(chip);
 
+  bumpHeat(-2, 'The loop is running at machine speed — in and out before anyone looks.');
   let key = manualTries + 1;
   function step(){
     document.getElementById('loopCount').textContent = key;
@@ -1446,9 +1934,9 @@ const QUIZ = [
   { q:'In Step 1 you turned a dial and the coded word changed. What is the name for a named box holding a value you can change like that?',
     opts:['A loop','A variable','A password'], correct:1,
     explain:'Yours was called shift_amount. Change what is in the box and everything that uses it changes too — which is why the secret word updated as you turned the dial.' },
-  { q:'What do we call a step in a program that repeats until something is true?',
-    opts:['A variable','A loop','A function'], correct:1,
-    explain:'A loop repeats an action — exactly what "try key 1, try key 2..." was doing.' },
+  { q:'You are writing a program to try keys on a lock. You have no idea how many it will take. Which loop do you reach for?',
+    opts:['A counted loop — repeat a set number of times','An UNTIL loop — repeat until it opens','Either one works just as well'], correct:1,
+    explain:'An UNTIL loop is for exactly this: you set the finish line instead of the number, so it runs as long as it needs to and stops the moment it succeeds. A counted loop would either run out early or carry on pointlessly, because it cannot tell whether it has finished.' },
   { q:"Why does adding just a few more characters to a key make cracking it MUCH harder, not just a little harder?",
     opts:["Every extra character doubles (at least) the number of possible keys","Computers get slower with longer keys","It doesn't really change much"], correct:0,
     explain:'The number of possible passwords grows exponentially with length — which is why two more characters moved your crack time from minutes to millennia.' },
@@ -1560,7 +2048,7 @@ document.getElementById('btnCopyAgentCard').addEventListener('click', async ()=>
   const cipher = shiftText(PLAINTEXT, shiftKey);
   const lines = [
     `🔓 CODEBREAKER ${name.toUpperCase()} — MISSION COMPLETE`, '',
-    `▸ Wrote my first real loop — cracked "${cipher}" back to "CODE" by trying every key`,
+    `▸ Used both kinds of loop — a counted one, then an UNTIL loop that cracked "${cipher}" back to "CODE" on its own`,
     `▸ Saw why a 128-bit key would take a classical computer 780+ billion times the age of the universe to crack`,
     qcRuns
       ? `▸ Built and ran a real quantum program (Grover's algorithm) — tuned it to ${(qcBestConf*100).toFixed(1)}% confidence, and it found the key ${qcHits} time${qcHits===1?'':'s'} in ${qcRuns} run${qcRuns===1?'':'s'}`
