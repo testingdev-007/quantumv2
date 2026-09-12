@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Simulation Room</title>
+<title>The 9am Number</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -763,6 +763,9 @@
 
 
 
+
+
+
   /* ===================================================================
      TIGHTEN v4 — stop writing at people.
      The rule this enforces: nothing on screen is longer than a breath.
@@ -970,6 +973,85 @@
     letter-spacing:1.6px; color: var(--star); background: rgba(255,224,102,0.12);
     border:1px solid rgba(255,224,102,0.32); border-radius:20px; padding:4px 12px; margin-bottom:10px;
   }
+
+  /* operators and variable names are types too, as far as the builder cares */
+  .val.t-op,  .slot-in.t-op { color: var(--accent-bright); }
+  .val.t-op  { background: rgba(156,144,255,0.16); border-color: rgba(156,144,255,0.45); }
+  .slot-in.t-op { border-color: var(--accent-bright); background: rgba(156,144,255,0.12); }
+  .val.t-var, .slot-in.t-var{ color: var(--good); }
+  .val.t-var { background: rgba(76,255,192,0.14); border-color: rgba(76,255,192,0.45); }
+  .slot-in.t-var{ border-color: var(--good); background: rgba(76,255,192,0.10); }
+  /* an indented code line inside the builder */
+  .codeline.indent{ padding-left: 2.2em; }
+  .codeline + .codeline{ margin-top:2px; }
+  /* the live result of running what they assembled */
+  .run-out{
+    display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px;
+  }
+  @media (max-width:460px){ .run-out{ grid-template-columns:1fr; } }
+  .run-cell{ background: rgba(255,255,255,0.04); border-radius:12px; padding:11px; text-align:center; }
+  .run-cell .n{ font-family:var(--f-mono); font-weight:800; font-size:1.4rem; }
+  .run-cell .k{ font-size:0.74rem; color: var(--text-dim); line-height:1.35; margin-top:3px; }
+  .run-cell.good .n{ color: var(--good); }
+  .run-cell.bad  .n{ color: var(--limit); }
+  .run-cell.warn .n{ color: var(--one); }
+
+  /* ===================================================================
+     v7 — THE CLOCK. One job, three rooms, police on the way.
+     =================================================================== */
+  .clock{
+    display:flex; align-items:center; gap:13px; margin:0 0 14px;
+    background: rgba(6,7,20,0.6); border:1px solid rgba(255,255,255,0.1);
+    border-left:4px solid var(--good); border-radius:14px; padding:11px 14px;
+  }
+  .clock .t{ font-family:var(--f-mono); font-weight:800; font-size:1.5rem; color: var(--good); line-height:1; min-width:4.4em; }
+  .clock .mid{ flex:1; min-width:0; }
+  .clock .lbl{ font-family:var(--f-mono); font-weight:700; font-size:0.62rem; letter-spacing:1.3px; color: var(--text-dim); margin-bottom:5px; }
+  .clock .bar{ height:8px; border-radius:6px; background: rgba(0,0,0,0.45); overflow:hidden; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06); }
+  .clock .bar i{ display:block; height:100%; width:100%; border-radius:6px; background: linear-gradient(90deg, var(--good), var(--star)); transition: width .5s ease; }
+  .clock.warn{ border-left-color: var(--star); }
+  .clock.warn .t{ color: var(--star); }
+  .clock.danger{ border-left-color: var(--limit); }
+  .clock.danger .t{ color: var(--limit); }
+  .clock.danger .bar i{ background: var(--limit); }
+  .clock.danger{ animation: heatPulse 1s ease-in-out infinite; }
+  .clock .cost{ font-family:var(--f-mono); font-size:0.68rem; color: var(--text-dim); margin-top:5px; }
+  .clock .cost b{ color: var(--star); }
+
+  /* what the house computer would be spending, alongside */
+  .vs-house{
+    display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
+    font-family:var(--f-mono); font-size:0.72rem; color: var(--text-dim);
+    background: rgba(255,255,255,0.03); border-radius:10px; padding:8px 12px; margin-bottom:12px;
+  }
+  .vs-house b{ color: var(--text); }
+  .vs-house .over{ color: var(--limit); }
+
+  /* the average line on the amplitude demo — you cannot explain "flip about
+     the average" without drawing the average */
+  .amp-wrap{ position:relative; }
+  .amp-mean{
+    position:absolute; left:0; right:0; height:0; border-top:2px dashed var(--star);
+    pointer-events:none; transition: top .45s ease; z-index:2;
+  }
+  .amp-mean span{
+    position:absolute; right:0; top:-1.35em; font-family:var(--f-mono); font-weight:700;
+    font-size:0.62rem; letter-spacing:0.8px; color: var(--star); background: rgba(11,14,36,0.85);
+    padding:1px 6px; border-radius:5px;
+  }
+
+  /* the builder points at the answer after three wrong tries */
+  .val.hintme{ animation: hintFlash 1s ease-in-out infinite; }
+  @keyframes hintFlash{
+    0%,100%{ box-shadow: 0 0 0 0 rgba(76,255,192,0); }
+    50%    { box-shadow: 0 0 0 3px rgba(76,255,192,0.8), 0 0 18px rgba(76,255,192,0.6); }
+  }
+  /* a gate that is shut should look shut */
+  .locked-note{
+    font-family:var(--f-mono); font-size:0.72rem; color: var(--star);
+    background: rgba(255,224,102,0.1); border:1px solid rgba(255,224,102,0.3);
+    border-radius:10px; padding:8px 11px; margin-top:10px; text-align:center;
+  }
 </style>
 </head>
 <body>
@@ -981,8 +1063,8 @@
 <div class="app">
   <header>
     <div class="hero-icon"><div class="hero-orb"></div><div class="hero-orb b"></div></div>
-    <h1>The Simulation Room</h1>
-    <p>Roll the future a thousand times. Then buy precision.</p>
+    <h1>The 9am Number</h1>
+    <p>The board wants a probability by morning. Nobody can tell you the future, so you roll it.</p>
     <div class="fine">Real Monte Carlo simulation, run live, then the quantum version of it.</div>
   </header>
 
@@ -991,8 +1073,12 @@
   <!-- AIMS -->
   <section class="screen active" id="screenAims">
     <div class="stage">
-      <h2>Today's aims</h2>
+      <h2>It is 11pm and the board meets at nine</h2>
       <p class="lede">Two things, both explained in plain English.</p>
+      <div class="comms urgent">
+        <span class="av">📞</span>
+        <div class="say"><span class="who">HEAD OF RISK</span>They want one number: the chance this fund loses money next year. I do not want a guess. I want it simulated, and I want to know how far off it could be.</div>
+      </div>
       <div class="aim-card">
         <div class="ico">💻</div>
         <div>
@@ -1013,7 +1099,7 @@
     </div>
 
   <details class="host-notes">
-    <summary>Host notes — The Simulation Room</summary>
+    <summary>Host notes — The 9am Number (Simulation Room)</summary>
     <div class="hn-body">
       <p style="margin-top:0;"><b>Runs about 12–15 minutes.</b> This is the randomness activity, and the one with the most counter-intuitive moment in the whole series. Do not rush Step 4.</p>
       <h5>The beat you are aiming for</h5>
@@ -1074,11 +1160,69 @@
     <div class="stage">
       <div class="scan-sweep"></div>
       <div class="live-tag"><span class="pulse-dot"></span>STEP 2 · AUTOMATE WITH A LOOP</div>
-      <h2>Run a thousand possible years</h2>
-      <p class="lede">Drag the loop block below to simulate 1,000 years automatically.</p><details class="more"><summary>more on this</summary><div class="m-body"><p>Each simulated year adds one bar to the chart below, in the range that year's return falls into — watch the shape emerge as they pile up.</p></div></details>
+      <h2>Write the loop that does it properly</h2>
+      <p class="lede">Write it first. The block below unlocks when the program is right.</p><details class="more"><summary>more on this</summary><div class="m-body"><p>Each simulated year adds one bar to the chart below, in the range that year's return falls into — watch the shape emerge as they pile up.</p></div></details>
+
+      <div class="comms">
+        <span class="av">📞</span>
+        <div class="say"><span class="who">HEAD OF RISK</span>Three rolls tells me nothing. Write me the loop
+        that does it properly &mdash; and be careful with the counter.</div>
+      </div>
+
+      <div class="do-now">Build the loop. Pick a gap, then pick a value.</div>
+
+      <div class="builder" id="loopBuilder">
+        <div class="builder-label">THE PROGRAM YOU ARE WRITING</div>
+        <div class="codeline">
+          <span class="var">losses</span> =
+          <span class="slot-in sel" id="slotStart" data-arg="start"><span class="ph">start</span></span>
+        </div>
+        <div class="codeline">
+          <span class="fn">for</span> <span class="var">year</span> <span class="fn">in</span> range(<wbr>
+          <span class="slot-in" id="slotRuns" data-arg="runs"><span class="ph">runs</span></span>):
+        </div>
+        <div class="codeline indent">
+          <span class="fn">if</span> simulate()
+          <span class="slot-in" id="slotCmp" data-arg="test"><span class="ph">test</span></span> 0:
+        </div>
+        <div class="codeline indent" style="padding-left:4.4em;">
+          <span class="var">losses</span> = <span class="var">losses</span> +
+          <span class="slot-in" id="slotStep" data-arg="step"><span class="ph">step</span></span>
+        </div>
+
+        <div class="tray" id="loopTray">
+          <div class="tray-group">
+            <div class="tg-name">NUMBERS</div>
+            <div class="tray-row">
+              <span class="val t-num" data-t="num" data-v="0">0</span>
+              <span class="val t-num" data-t="num" data-v="1">1</span>
+              <span class="val t-num" data-t="num" data-v="10">10</span>
+              <span class="val t-num" data-t="num" data-v="1000">1000</span>
+            </div>
+          </div>
+          <div class="tray-group">
+            <div class="tg-name">OPERATORS</div>
+            <div class="tray-row">
+              <span class="val t-op" data-t="op" data-v="&lt;">&lt;</span>
+              <span class="val t-op" data-t="op" data-v="&gt;">&gt;</span>
+              <span class="val t-op" data-t="op" data-v="==">==</span>
+            </div>
+          </div>
+        </div>
+        <div class="console-out"></div>
+      </div>
+
+      <div class="beats" id="loopBeats">
+        <div class="beat" id="beatOffByOne">Starting a counter at 1 makes every answer one too high.
+          Programmers call it an <b>off-by-one</b>, and it is the most common bug there is.</div>
+        <div class="beat" id="beatNoMove">A counter that adds 0 never moves. The loop runs a thousand times
+          and changes nothing.</div>
+        <div class="beat" id="beatLoopDone">A <b>counter</b> and a <b>loop</b>. That pair is how every total,
+          average and percentage you have ever seen was worked out.</div>
+      </div>
 
       <div class="block-palette">
-        <div class="code-block loop" id="paletteSim1000">🔁 Simulate 1,000 Years<small>drag me — automate it</small></div>
+        <div class="code-block loop locked" id="paletteSim1000">🔁 Simulate 1,000 Years<small>🔒 write the loop first</small></div>
       </div>
       <div class="track-zone" id="autoTrackZone">
         <div class="track-empty">Drag the loop block here</div>
@@ -1398,6 +1542,82 @@ function showBeat(id){
   if (el) el.classList.add('on');
 }
 
+/* A reusable "assemble a real line of code" widget. The learner picks a gap,
+   then picks a literal. A value of the wrong TYPE is refused with the error a
+   real interpreter would give — which is the whole point of the exercise.
+   Byte-identical in every activity; each screen just supplies its own spec. */
+var BUILDER_TYPE = { str:'text', bool:'true/false', num:'a number', op:'an operator', var:'a variable' };
+function makeBuilder(spec){
+  var root = document.querySelector(spec.root);
+  if (!root) return null;
+  var chosen = {}, sel = spec.order[0], missed = {};
+  var out = root.querySelector('.console-out');
+  function say(html, cls){ if (out) out.innerHTML = cls ? '<span class="'+cls+'">'+html+'</span>' : html; }
+  function vals(){ var o={}; spec.order.forEach(function(k){ o[k] = chosen[k] ? chosen[k].v : null; }); return o; }
+  function complete(){ return spec.order.every(function(k){ return chosen[k]; }); }
+  function select(arg){
+    sel = arg;
+    root.querySelectorAll('.slot-in').forEach(function(s){ s.classList.toggle('sel', s.dataset.arg === arg); });
+  }
+  function shake(slot){ slot.classList.remove('bad'); void slot.offsetWidth; slot.classList.add('bad'); }
+  /* Three wrong tries on the same gap and we stop being coy about it. A learner
+     who cannot find the answer must never be able to get stuck here. */
+  function nudge(arg){
+    missed[arg] = (missed[arg] || 0) + 1;
+    if (missed[arg] < 3) return '';
+    var a = spec.args[arg];
+    if (!a.ok) return '';
+    var shown = false;
+    root.querySelectorAll('.val').forEach(function(v){
+      if (a.ok.indexOf(v.dataset.v) !== -1 && v.dataset.t === a.want){
+        v.classList.add('hintme'); shown = true;
+      }
+    });
+    return shown ? '<br><span class="ok">Try the one that is flashing.</span>' : '';
+  }
+  function clearNudge(){ root.querySelectorAll('.hintme').forEach(function(v){ v.classList.remove('hintme'); }); }
+  function place(tile){
+    var arg = sel, a = spec.args[arg];
+    var t = tile.dataset.t, v = tile.dataset.v;
+    var slot = root.querySelector('.slot-in[data-arg="'+arg+'"]');
+    if (!slot || !a) return;
+    if (t !== a.want){
+      shake(slot);
+      say('TypeError: <b>'+arg+'</b> expects '+BUILDER_TYPE[a.want]+', got '+BUILDER_TYPE[t]+' '+tile.textContent
+          + (a.hint ? '<br><span class="hint">'+a.hint+'</span>' : '') + nudge(arg), 'err');
+      return;
+    }
+    if (a.ok && a.ok.indexOf(v) === -1){
+      shake(slot);
+      var w = a.wrong && a.wrong[v];
+      say((w && w.name ? w.name : (a.errName || 'ValueError')) + ': <b>'+arg+'</b> will not take '+tile.textContent
+          + '<br><span class="hint">' + (w ? (w.say || w) : 'It accepts '+a.note+'.') + '</span>'
+          + nudge(arg), 'err');
+      return;
+    }
+    clearNudge();
+    if (chosen[arg]) chosen[arg].tile.classList.remove('used');
+    chosen[arg] = { v:v, t:t, tile:tile };
+    tile.classList.add('used');
+    slot.innerHTML = tile.textContent;
+    slot.className = 'slot-in filled t-'+t;
+    if (spec.onChange) spec.onChange(vals());
+    var nxt = spec.order.find(function(k){ return !chosen[k]; });
+    if (nxt){ select(nxt); say('<span class="ok">'+arg+' ✓</span> &mdash; now <b>'+nxt+'</b>: '+spec.args[nxt].note); }
+    else { say(spec.doneMsg || 'Every gap filled, every type correct. Run it.', 'ok');
+           if (spec.onComplete) spec.onComplete(vals()); }
+  }
+  root.querySelectorAll('.slot-in').forEach(function(s){
+    s.addEventListener('click', function(){ select(s.dataset.arg); });
+  });
+  root.querySelectorAll('.val').forEach(function(tile){
+    tile.addEventListener('click', function(){ place(tile); });
+  });
+  select(spec.order[0]);
+  say(spec.startMsg || ('Start with <b>'+spec.order[0]+'</b>: '+spec.args[spec.order[0]].note));
+  return { values: vals, complete: complete, say: say };
+}
+
 
 /* ================= STEPPER ================= */
 const STAGE_ORDER = ['aims','manual','auto','precision','qcount','plenary'];
@@ -1489,6 +1709,49 @@ makeDraggable(document.getElementById('paletteSimOne'), ()=>{
 }, document.getElementById('manualTrackZone'));
 
 document.getElementById('btnToAutoNext').addEventListener('click', ()=>{ unlockNext('manual'); goToStage('auto'); });
+
+
+/* ---- Step 2: write the counting loop, including the two classic bugs ---- */
+var loopBuilder = makeBuilder({
+  root: '#loopBuilder',
+  order: ['start', 'runs', 'test', 'step'],
+  startMsg: 'Start with <b>start</b>: how many losses have you counted before the loop begins?',
+  doneMsg: 'Counter at zero, a thousand runs, adding one each time it loses. Run it.',
+  args: {
+    start: { want:'num', ok:['0'], note:'the count before anything has happened',
+             hint:'A counter holds a number.',
+             wrong:{ '1':'You have not counted anything yet. Starting at 1 makes every answer one too high.',
+                     '10':'You have not counted anything yet.',
+                     '1000':'That is the number of runs, not the number of losses.' } },
+    runs:  { want:'num', ok:['1000'], note:'how many possible years to roll',
+             hint:'range() takes a number.',
+             wrong:{ '0':'Zero runs. The loop body never happens.',
+                     '1':'One year tells you nothing. That is the problem we started with.',
+                     '10':'Ten is still noise. The Head of Risk will not accept it.' } },
+    test:  { want:'op', ok:['<'], note:'what counts as a loss',
+             hint:'You are comparing the year against zero.',
+             wrong:{ '>':'That counts the years that made money — the opposite question.',
+                     '==':'Exactly zero, to the penny. That will basically never happen.' } },
+    step:  { want:'num', ok:['1'], note:'how much to add each time it loses',
+             hint:'You are adding a number to the counter.',
+             wrong:{ '0':'Add zero and the counter never moves. A thousand runs, nothing counted.',
+                     '10':'Ten losses per loss year. Your answer comes out ten times too big.',
+                     '1000':'One loss counted as a thousand.' } }
+  },
+  onChange: function(v){
+    if (v.start === '1') showBeat('beatOffByOne');
+    if (v.step === '0') showBeat('beatNoMove');
+  },
+  onComplete: function(){
+    showBeat('beatLoopDone');
+    var pal = document.getElementById('paletteSim1000');
+    if (pal){
+      pal.classList.remove('locked');
+      pal.classList.add('just-unlocked');
+      pal.querySelector('small').textContent = 'drag me \u2014 run it a thousand times';
+    }
+  }
+});
 
 /* ================= STEP 2: AUTOMATE ================= */
 const HIST_BUCKETS = 14; // -30 to +40 in 5% steps

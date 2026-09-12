@@ -763,6 +763,9 @@
 
 
 
+
+
+
   /* ===================================================================
      TIGHTEN v4 — stop writing at people.
      The rule this enforces: nothing on screen is longer than a breath.
@@ -969,6 +972,85 @@
     display:inline-block; font-family:var(--f-mono); font-weight:800; font-size:0.64rem;
     letter-spacing:1.6px; color: var(--star); background: rgba(255,224,102,0.12);
     border:1px solid rgba(255,224,102,0.32); border-radius:20px; padding:4px 12px; margin-bottom:10px;
+  }
+
+  /* operators and variable names are types too, as far as the builder cares */
+  .val.t-op,  .slot-in.t-op { color: var(--accent-bright); }
+  .val.t-op  { background: rgba(156,144,255,0.16); border-color: rgba(156,144,255,0.45); }
+  .slot-in.t-op { border-color: var(--accent-bright); background: rgba(156,144,255,0.12); }
+  .val.t-var, .slot-in.t-var{ color: var(--good); }
+  .val.t-var { background: rgba(76,255,192,0.14); border-color: rgba(76,255,192,0.45); }
+  .slot-in.t-var{ border-color: var(--good); background: rgba(76,255,192,0.10); }
+  /* an indented code line inside the builder */
+  .codeline.indent{ padding-left: 2.2em; }
+  .codeline + .codeline{ margin-top:2px; }
+  /* the live result of running what they assembled */
+  .run-out{
+    display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px;
+  }
+  @media (max-width:460px){ .run-out{ grid-template-columns:1fr; } }
+  .run-cell{ background: rgba(255,255,255,0.04); border-radius:12px; padding:11px; text-align:center; }
+  .run-cell .n{ font-family:var(--f-mono); font-weight:800; font-size:1.4rem; }
+  .run-cell .k{ font-size:0.74rem; color: var(--text-dim); line-height:1.35; margin-top:3px; }
+  .run-cell.good .n{ color: var(--good); }
+  .run-cell.bad  .n{ color: var(--limit); }
+  .run-cell.warn .n{ color: var(--one); }
+
+  /* ===================================================================
+     v7 — THE CLOCK. One job, three rooms, police on the way.
+     =================================================================== */
+  .clock{
+    display:flex; align-items:center; gap:13px; margin:0 0 14px;
+    background: rgba(6,7,20,0.6); border:1px solid rgba(255,255,255,0.1);
+    border-left:4px solid var(--good); border-radius:14px; padding:11px 14px;
+  }
+  .clock .t{ font-family:var(--f-mono); font-weight:800; font-size:1.5rem; color: var(--good); line-height:1; min-width:4.4em; }
+  .clock .mid{ flex:1; min-width:0; }
+  .clock .lbl{ font-family:var(--f-mono); font-weight:700; font-size:0.62rem; letter-spacing:1.3px; color: var(--text-dim); margin-bottom:5px; }
+  .clock .bar{ height:8px; border-radius:6px; background: rgba(0,0,0,0.45); overflow:hidden; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06); }
+  .clock .bar i{ display:block; height:100%; width:100%; border-radius:6px; background: linear-gradient(90deg, var(--good), var(--star)); transition: width .5s ease; }
+  .clock.warn{ border-left-color: var(--star); }
+  .clock.warn .t{ color: var(--star); }
+  .clock.danger{ border-left-color: var(--limit); }
+  .clock.danger .t{ color: var(--limit); }
+  .clock.danger .bar i{ background: var(--limit); }
+  .clock.danger{ animation: heatPulse 1s ease-in-out infinite; }
+  .clock .cost{ font-family:var(--f-mono); font-size:0.68rem; color: var(--text-dim); margin-top:5px; }
+  .clock .cost b{ color: var(--star); }
+
+  /* what the house computer would be spending, alongside */
+  .vs-house{
+    display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
+    font-family:var(--f-mono); font-size:0.72rem; color: var(--text-dim);
+    background: rgba(255,255,255,0.03); border-radius:10px; padding:8px 12px; margin-bottom:12px;
+  }
+  .vs-house b{ color: var(--text); }
+  .vs-house .over{ color: var(--limit); }
+
+  /* the average line on the amplitude demo — you cannot explain "flip about
+     the average" without drawing the average */
+  .amp-wrap{ position:relative; }
+  .amp-mean{
+    position:absolute; left:0; right:0; height:0; border-top:2px dashed var(--star);
+    pointer-events:none; transition: top .45s ease; z-index:2;
+  }
+  .amp-mean span{
+    position:absolute; right:0; top:-1.35em; font-family:var(--f-mono); font-weight:700;
+    font-size:0.62rem; letter-spacing:0.8px; color: var(--star); background: rgba(11,14,36,0.85);
+    padding:1px 6px; border-radius:5px;
+  }
+
+  /* the builder points at the answer after three wrong tries */
+  .val.hintme{ animation: hintFlash 1s ease-in-out infinite; }
+  @keyframes hintFlash{
+    0%,100%{ box-shadow: 0 0 0 0 rgba(76,255,192,0); }
+    50%    { box-shadow: 0 0 0 3px rgba(76,255,192,0.8), 0 0 18px rgba(76,255,192,0.6); }
+  }
+  /* a gate that is shut should look shut */
+  .locked-note{
+    font-family:var(--f-mono); font-size:0.72rem; color: var(--star);
+    background: rgba(255,224,102,0.1); border:1px solid rgba(255,224,102,0.3);
+    border-radius:10px; padding:8px 11px; margin-top:10px; text-align:center;
   }
 </style>
 </head>
@@ -1579,6 +1661,82 @@ function showBeat(id){
   if (el) el.classList.add('on');
 }
 
+/* A reusable "assemble a real line of code" widget. The learner picks a gap,
+   then picks a literal. A value of the wrong TYPE is refused with the error a
+   real interpreter would give — which is the whole point of the exercise.
+   Byte-identical in every activity; each screen just supplies its own spec. */
+var BUILDER_TYPE = { str:'text', bool:'true/false', num:'a number', op:'an operator', var:'a variable' };
+function makeBuilder(spec){
+  var root = document.querySelector(spec.root);
+  if (!root) return null;
+  var chosen = {}, sel = spec.order[0], missed = {};
+  var out = root.querySelector('.console-out');
+  function say(html, cls){ if (out) out.innerHTML = cls ? '<span class="'+cls+'">'+html+'</span>' : html; }
+  function vals(){ var o={}; spec.order.forEach(function(k){ o[k] = chosen[k] ? chosen[k].v : null; }); return o; }
+  function complete(){ return spec.order.every(function(k){ return chosen[k]; }); }
+  function select(arg){
+    sel = arg;
+    root.querySelectorAll('.slot-in').forEach(function(s){ s.classList.toggle('sel', s.dataset.arg === arg); });
+  }
+  function shake(slot){ slot.classList.remove('bad'); void slot.offsetWidth; slot.classList.add('bad'); }
+  /* Three wrong tries on the same gap and we stop being coy about it. A learner
+     who cannot find the answer must never be able to get stuck here. */
+  function nudge(arg){
+    missed[arg] = (missed[arg] || 0) + 1;
+    if (missed[arg] < 3) return '';
+    var a = spec.args[arg];
+    if (!a.ok) return '';
+    var shown = false;
+    root.querySelectorAll('.val').forEach(function(v){
+      if (a.ok.indexOf(v.dataset.v) !== -1 && v.dataset.t === a.want){
+        v.classList.add('hintme'); shown = true;
+      }
+    });
+    return shown ? '<br><span class="ok">Try the one that is flashing.</span>' : '';
+  }
+  function clearNudge(){ root.querySelectorAll('.hintme').forEach(function(v){ v.classList.remove('hintme'); }); }
+  function place(tile){
+    var arg = sel, a = spec.args[arg];
+    var t = tile.dataset.t, v = tile.dataset.v;
+    var slot = root.querySelector('.slot-in[data-arg="'+arg+'"]');
+    if (!slot || !a) return;
+    if (t !== a.want){
+      shake(slot);
+      say('TypeError: <b>'+arg+'</b> expects '+BUILDER_TYPE[a.want]+', got '+BUILDER_TYPE[t]+' '+tile.textContent
+          + (a.hint ? '<br><span class="hint">'+a.hint+'</span>' : '') + nudge(arg), 'err');
+      return;
+    }
+    if (a.ok && a.ok.indexOf(v) === -1){
+      shake(slot);
+      var w = a.wrong && a.wrong[v];
+      say((w && w.name ? w.name : (a.errName || 'ValueError')) + ': <b>'+arg+'</b> will not take '+tile.textContent
+          + '<br><span class="hint">' + (w ? (w.say || w) : 'It accepts '+a.note+'.') + '</span>'
+          + nudge(arg), 'err');
+      return;
+    }
+    clearNudge();
+    if (chosen[arg]) chosen[arg].tile.classList.remove('used');
+    chosen[arg] = { v:v, t:t, tile:tile };
+    tile.classList.add('used');
+    slot.innerHTML = tile.textContent;
+    slot.className = 'slot-in filled t-'+t;
+    if (spec.onChange) spec.onChange(vals());
+    var nxt = spec.order.find(function(k){ return !chosen[k]; });
+    if (nxt){ select(nxt); say('<span class="ok">'+arg+' ✓</span> &mdash; now <b>'+nxt+'</b>: '+spec.args[nxt].note); }
+    else { say(spec.doneMsg || 'Every gap filled, every type correct. Run it.', 'ok');
+           if (spec.onComplete) spec.onComplete(vals()); }
+  }
+  root.querySelectorAll('.slot-in').forEach(function(s){
+    s.addEventListener('click', function(){ select(s.dataset.arg); });
+  });
+  root.querySelectorAll('.val').forEach(function(tile){
+    tile.addEventListener('click', function(){ place(tile); });
+  });
+  select(spec.order[0]);
+  say(spec.startMsg || ('Start with <b>'+spec.order[0]+'</b>: '+spec.args[spec.order[0]].note));
+  return { values: vals, complete: complete, say: say };
+}
+
 function spawnSparkles(el){
   const rect = el.getBoundingClientRect();
   const cx = rect.left + rect.width/2, cy = rect.top + rect.height/2;
@@ -2082,6 +2240,7 @@ const PW_ARGS = {
 };
 const PW_TYPENAME = { str:'text', bool:'true/false', num:'number' };
 const pwSlots = { type:null, special:null, case:null, max:null };
+const pwMissed = {};
 let pwSelected = 'type';
 
 function pwConsole(html, cls){
@@ -2105,6 +2264,23 @@ function pwSyncVars(){
 }
 function pwComplete(){ return Object.keys(PW_ARGS).every(k=> pwSlots[k]); }
 
+/* Three wrong tries on one gap and we point at the answer. Same guarantee as
+   makeBuilder gives the other three activities. */
+function pwNudge(arg){
+  pwMissed[arg] = (pwMissed[arg] || 0) + 1;
+  if (pwMissed[arg] < 3) return "";
+  const spec = PW_ARGS[arg];
+  let shown = false;
+  document.querySelectorAll("#pwTray .val").forEach(v=>{
+    if (v.dataset.t === spec.want && spec.ok.indexOf(v.dataset.v) !== -1){
+      v.classList.add("hintme"); shown = true;
+    }
+  });
+  return shown ? '<br><span class="ok">Try one of the flashing ones.</span>' : "";
+}
+function pwClearNudge(){
+  document.querySelectorAll("#pwTray .hintme").forEach(v=> v.classList.remove("hintme"));
+}
 function pwPlace(tile){
   const arg = pwSelected;
   const spec = PW_ARGS[arg];
@@ -2118,16 +2294,17 @@ function pwPlace(tile){
               '<br><span class="hint">' +
               (spec.want === 'num' ? 'Numbers have no quote marks. "16" is text — you cannot count with it.'
                : spec.want === 'bool' ? 'True and False are not words in quotes. They are their own type.'
-               : 'Text needs quote marks around it.') + '</span>', 'err');
+               : 'Text needs quote marks around it.') + '</span>' + pwNudge(arg), 'err');
     return;
   }
   if (spec.ok.indexOf(v) === -1){
     slot.classList.remove('bad'); void slot.offsetWidth; slot.classList.add('bad');
     pwConsole('ValueError: <b>' + arg + '</b> does not understand ' + tile.textContent +
-              '<br><span class="hint">It accepts ' + spec.note + '.</span>', 'err');
+              '<br><span class="hint">It accepts ' + spec.note + '.</span>' + pwNudge(arg), 'err');
     return;
   }
 
+  pwClearNudge();
   /* release whatever was in this gap before */
   if (pwSlots[arg]) pwSlots[arg].tile.classList.remove('used');
   pwSlots[arg] = { v: v, t: t, tile: tile };
