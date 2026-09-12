@@ -763,6 +763,10 @@
 
 
 
+
+
+
+
   /* ===================================================================
      TIGHTEN v4 — stop writing at people.
      The rule this enforces: nothing on screen is longer than a breath.
@@ -971,6 +975,161 @@
     border:1px solid rgba(255,224,102,0.32); border-radius:20px; padding:4px 12px; margin-bottom:10px;
   }
 
+  /* operators and variable names are types too, as far as the builder cares */
+  .val.t-op,  .slot-in.t-op { color: var(--accent-bright); }
+  .val.t-op  { background: rgba(156,144,255,0.16); border-color: rgba(156,144,255,0.45); }
+  .slot-in.t-op { border-color: var(--accent-bright); background: rgba(156,144,255,0.12); }
+  .val.t-var, .slot-in.t-var{ color: var(--good); }
+  .val.t-var { background: rgba(76,255,192,0.14); border-color: rgba(76,255,192,0.45); }
+  .slot-in.t-var{ border-color: var(--good); background: rgba(76,255,192,0.10); }
+  /* an indented code line inside the builder */
+  .codeline.indent{ padding-left: 2.2em; }
+  .codeline + .codeline{ margin-top:2px; }
+  /* the live result of running what they assembled */
+  .run-out{
+    display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px;
+  }
+  @media (max-width:460px){ .run-out{ grid-template-columns:1fr; } }
+  .run-cell{ background: rgba(255,255,255,0.04); border-radius:12px; padding:11px; text-align:center; }
+  .run-cell .n{ font-family:var(--f-mono); font-weight:800; font-size:1.4rem; }
+  .run-cell .k{ font-size:0.74rem; color: var(--text-dim); line-height:1.35; margin-top:3px; }
+  .run-cell.good .n{ color: var(--good); }
+  .run-cell.bad  .n{ color: var(--limit); }
+  .run-cell.warn .n{ color: var(--one); }
+
+  /* ===================================================================
+     v7 — THE CLOCK. One job, three rooms, police on the way.
+     =================================================================== */
+  .clock{
+    display:flex; align-items:center; gap:13px; margin:0 0 14px;
+    background: rgba(6,7,20,0.6); border:1px solid rgba(255,255,255,0.1);
+    border-left:4px solid var(--good); border-radius:14px; padding:11px 14px;
+  }
+  .clock .t{ font-family:var(--f-mono); font-weight:800; font-size:1.5rem; color: var(--good); line-height:1; min-width:4.4em; }
+  .clock .mid{ flex:1; min-width:0; }
+  .clock .lbl{ font-family:var(--f-mono); font-weight:700; font-size:0.62rem; letter-spacing:1.3px; color: var(--text-dim); margin-bottom:5px; }
+  .clock .bar{ height:8px; border-radius:6px; background: rgba(0,0,0,0.45); overflow:hidden; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06); }
+  .clock .bar i{ display:block; height:100%; width:100%; border-radius:6px; background: linear-gradient(90deg, var(--good), var(--star)); transition: width .5s ease; }
+  .clock.warn{ border-left-color: var(--star); }
+  .clock.warn .t{ color: var(--star); }
+  .clock.danger{ border-left-color: var(--limit); }
+  .clock.danger .t{ color: var(--limit); }
+  .clock.danger .bar i{ background: var(--limit); }
+  .clock.danger{ animation: heatPulse 1s ease-in-out infinite; }
+  .clock .cost{ font-family:var(--f-mono); font-size:0.68rem; color: var(--text-dim); margin-top:5px; }
+  .clock .cost b{ color: var(--star); }
+
+  /* what the house computer would be spending, alongside */
+  .vs-house{
+    display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
+    font-family:var(--f-mono); font-size:0.72rem; color: var(--text-dim);
+    background: rgba(255,255,255,0.03); border-radius:10px; padding:8px 12px; margin-bottom:12px;
+  }
+  .vs-house b{ color: var(--text); }
+  .vs-house .over{ color: var(--limit); }
+
+  /* the average line on the amplitude demo — you cannot explain "flip about
+     the average" without drawing the average */
+  .amp-wrap{ position:relative; }
+  .amp-mean{
+    position:absolute; left:0; right:0; height:0; border-top:2px dashed var(--star);
+    pointer-events:none; transition: top .45s ease; z-index:2;
+  }
+  .amp-mean span{
+    position:absolute; right:0; top:-1.35em; font-family:var(--f-mono); font-weight:700;
+    font-size:0.62rem; letter-spacing:0.8px; color: var(--star); background: rgba(11,14,36,0.85);
+    padding:1px 6px; border-radius:5px;
+  }
+
+  /* the builder points at the answer after three wrong tries */
+  .val.hintme{ animation: hintFlash 1s ease-in-out infinite; }
+  @keyframes hintFlash{
+    0%,100%{ box-shadow: 0 0 0 0 rgba(76,255,192,0); }
+    50%    { box-shadow: 0 0 0 3px rgba(76,255,192,0.8), 0 0 18px rgba(76,255,192,0.6); }
+  }
+  /* a gate that is shut should look shut */
+  .locked-note{
+    font-family:var(--f-mono); font-size:0.72rem; color: var(--star);
+    background: rgba(255,224,102,0.1); border:1px solid rgba(255,224,102,0.3);
+    border-radius:10px; padding:8px 11px; margin-top:10px; text-align:center;
+  }
+
+  /* ===================================================================
+     v8 — THE TASK STRIP and THE SCENE PANELS
+     =================================================================== */
+  .taskbar{
+    display:flex; align-items:flex-start; gap:11px; flex-wrap:wrap;
+    position:sticky; top:6px; z-index:40;
+    background: rgba(14,20,36,0.96); backdrop-filter: blur(6px);
+    border:1px solid rgba(156,144,255,0.34); border-left:4px solid var(--accent-bright);
+    border-radius:14px; padding:11px 14px; margin-bottom:14px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  }
+  .taskbar .tb-tag{
+    font-family:var(--f-mono); font-weight:800; font-size:0.62rem; letter-spacing:1.4px;
+    color:#0B0E24; background: var(--accent-bright); border-radius:6px; padding:3px 7px; flex-shrink:0;
+  }
+  .taskbar .tb-text{ flex:1; min-width:180px; font-size:0.92rem; line-height:1.45; }
+  .taskbar .tb-text b{ color: var(--star); }
+  .taskbar .tb-text .mono{ color: var(--zero); }
+  .taskbar .tb-hint{
+    background: rgba(255,224,102,0.14); border:1px solid rgba(255,224,102,0.42); color: var(--star);
+    font-family:var(--f-display); font-weight:700; font-size:0.8rem; border-radius:9px;
+    padding:6px 12px; cursor:pointer; flex-shrink:0;
+  }
+  .taskbar .tb-hint:hover{ background: rgba(255,224,102,0.24); }
+  .taskbar .tb-out{
+    flex-basis:100%; display:none; font-size:0.88rem; line-height:1.5; color: var(--text);
+    background: rgba(255,224,102,0.08); border-radius:10px; padding:9px 12px; margin-top:2px;
+  }
+  .taskbar .tb-out b{ color: var(--star); }
+  @media (max-width: 520px){ .taskbar{ position:static; } }
+
+  /* ---------- scene panels ---------- */
+  .panels{
+    background: var(--bg-deep); border:1px solid rgba(255,255,255,0.1);
+    border-radius:16px; overflow:hidden; margin:14px 0;
+  }
+  .panel-head{
+    display:flex; justify-content:space-between; gap:10px; align-items:center;
+    background: rgba(0,0,0,0.32); padding:8px 13px;
+    font-family:var(--f-mono); font-size:0.66rem; letter-spacing:1.1px; color: var(--star);
+  }
+  .panel-head .p-id{ color: var(--text-dim); }
+  .panel-art{
+    min-height:190px; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:10px; padding:16px; background: radial-gradient(circle at 50% 30%, rgba(124,111,255,0.14), transparent 65%);
+  }
+  .panel-art svg{ width:min(100%,300px); height:auto; }
+  .panel-say{ padding:15px 17px; }
+  .panel-say h4{ font-family:var(--f-display); font-weight:800; font-size:1.05rem; margin:0 0 5px; }
+  .panel-say p{ margin:0; font-size:0.92rem; line-height:1.55; color: var(--text-dim); }
+  .panel-nav{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    padding:11px 13px; border-top:1px solid rgba(255,255,255,0.07);
+  }
+  .panel-nav button{
+    background: var(--panel-2); border:1px solid rgba(255,255,255,0.12); color: var(--text);
+    font-family:var(--f-display); font-weight:700; font-size:0.86rem;
+    padding:8px 15px; border-radius:10px; cursor:pointer;
+  }
+  .panel-nav button:disabled{ opacity:.3; cursor:default; }
+  .panel-nav .panel-next{ background: var(--accent); border-color: var(--accent-bright); color:#fff; }
+  .panel-dots{ display:flex; gap:6px; }
+  .panel-dots i{ width:7px; height:7px; border-radius:50%; background: rgba(255,255,255,0.2); transition: all .2s; }
+  .panel-dots i.on{ background: var(--accent-bright); width:20px; border-radius:4px; }
+
+  /* ---------- the interference scope ---------- */
+  .scope-wrap{ text-align:center; }
+  .scope-wrap canvas{
+    background: rgba(6,7,20,0.75); border-radius:10px; cursor:pointer; max-width:100%;
+    border:1px solid rgba(255,255,255,0.1);
+  }
+  .scope-wrap .scope-hint{
+    display:block; font-family:var(--f-mono); font-size:0.68rem; color: var(--star);
+    margin-top:7px; letter-spacing:0.5px;
+  }
+
   /* ---------- index page only ---------- */
   .section-label{ font-family:var(--f-mono); font-weight:700; font-size:0.76rem; color: var(--text-dim); letter-spacing:1.5px; margin: 22px 4px 10px; }
   .session-group{ background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.07); border-radius: 22px; padding: 15px; margin-bottom: 20px; }
@@ -1061,8 +1220,8 @@
         <div class="icon">📊</div>
         <div class="card-arrow">→</div>
       </div>
-      <h3>The Investment Puzzle</h3>
-      <p>Pick a portfolio under real constraints, then watch the combinations explode past any computer.</p>
+      <h3>The Mandate</h3>
+      <p>Your first day on the desk. Write the client&rsquo;s rule as code, then find out how many combinations you never checked.</p>
       <div class="tags">
         <span class="tag live">● LIVE</span>
         <span class="tag prog">CONDITIONALS</span>
@@ -1084,8 +1243,8 @@
         <div class="icon">🎲</div>
         <div class="card-arrow">→</div>
       </div>
-      <h3>The Simulation Room</h3>
-      <p>Roll thousands of possible futures, and find out why precision costs so much.</p>
+      <h3>The 9am Number</h3>
+      <p>The board wants a probability by morning. Write the counting loop, roll a thousand futures, then buy precision.</p>
       <div class="tags">
         <span class="tag live">● LIVE</span>
         <span class="tag prog">RANDOMNESS &amp; LOOPS</span>
@@ -1099,8 +1258,8 @@
         <div class="icon">🧬</div>
         <div class="card-arrow">→</div>
       </div>
-      <h3>The Molecule Lab</h3>
-      <p>Build a molecule atom by atom, and watch classical memory give up.</p>
+      <h3>The Deadline</h3>
+      <p>Write the assembly program, build a molecule atom by atom, and watch an ordinary computer give up.</p>
       <div class="tags">
         <span class="tag live">● LIVE</span>
         <span class="tag prog">COMPOSITION</span>

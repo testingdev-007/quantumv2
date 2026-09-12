@@ -763,6 +763,10 @@
 
 
 
+
+
+
+
   /* ===================================================================
      TIGHTEN v4 — stop writing at people.
      The rule this enforces: nothing on screen is longer than a breath.
@@ -970,6 +974,161 @@
     letter-spacing:1.6px; color: var(--star); background: rgba(255,224,102,0.12);
     border:1px solid rgba(255,224,102,0.32); border-radius:20px; padding:4px 12px; margin-bottom:10px;
   }
+
+  /* operators and variable names are types too, as far as the builder cares */
+  .val.t-op,  .slot-in.t-op { color: var(--accent-bright); }
+  .val.t-op  { background: rgba(156,144,255,0.16); border-color: rgba(156,144,255,0.45); }
+  .slot-in.t-op { border-color: var(--accent-bright); background: rgba(156,144,255,0.12); }
+  .val.t-var, .slot-in.t-var{ color: var(--good); }
+  .val.t-var { background: rgba(76,255,192,0.14); border-color: rgba(76,255,192,0.45); }
+  .slot-in.t-var{ border-color: var(--good); background: rgba(76,255,192,0.10); }
+  /* an indented code line inside the builder */
+  .codeline.indent{ padding-left: 2.2em; }
+  .codeline + .codeline{ margin-top:2px; }
+  /* the live result of running what they assembled */
+  .run-out{
+    display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px;
+  }
+  @media (max-width:460px){ .run-out{ grid-template-columns:1fr; } }
+  .run-cell{ background: rgba(255,255,255,0.04); border-radius:12px; padding:11px; text-align:center; }
+  .run-cell .n{ font-family:var(--f-mono); font-weight:800; font-size:1.4rem; }
+  .run-cell .k{ font-size:0.74rem; color: var(--text-dim); line-height:1.35; margin-top:3px; }
+  .run-cell.good .n{ color: var(--good); }
+  .run-cell.bad  .n{ color: var(--limit); }
+  .run-cell.warn .n{ color: var(--one); }
+
+  /* ===================================================================
+     v7 — THE CLOCK. One job, three rooms, police on the way.
+     =================================================================== */
+  .clock{
+    display:flex; align-items:center; gap:13px; margin:0 0 14px;
+    background: rgba(6,7,20,0.6); border:1px solid rgba(255,255,255,0.1);
+    border-left:4px solid var(--good); border-radius:14px; padding:11px 14px;
+  }
+  .clock .t{ font-family:var(--f-mono); font-weight:800; font-size:1.5rem; color: var(--good); line-height:1; min-width:4.4em; }
+  .clock .mid{ flex:1; min-width:0; }
+  .clock .lbl{ font-family:var(--f-mono); font-weight:700; font-size:0.62rem; letter-spacing:1.3px; color: var(--text-dim); margin-bottom:5px; }
+  .clock .bar{ height:8px; border-radius:6px; background: rgba(0,0,0,0.45); overflow:hidden; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06); }
+  .clock .bar i{ display:block; height:100%; width:100%; border-radius:6px; background: linear-gradient(90deg, var(--good), var(--star)); transition: width .5s ease; }
+  .clock.warn{ border-left-color: var(--star); }
+  .clock.warn .t{ color: var(--star); }
+  .clock.danger{ border-left-color: var(--limit); }
+  .clock.danger .t{ color: var(--limit); }
+  .clock.danger .bar i{ background: var(--limit); }
+  .clock.danger{ animation: heatPulse 1s ease-in-out infinite; }
+  .clock .cost{ font-family:var(--f-mono); font-size:0.68rem; color: var(--text-dim); margin-top:5px; }
+  .clock .cost b{ color: var(--star); }
+
+  /* what the house computer would be spending, alongside */
+  .vs-house{
+    display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
+    font-family:var(--f-mono); font-size:0.72rem; color: var(--text-dim);
+    background: rgba(255,255,255,0.03); border-radius:10px; padding:8px 12px; margin-bottom:12px;
+  }
+  .vs-house b{ color: var(--text); }
+  .vs-house .over{ color: var(--limit); }
+
+  /* the average line on the amplitude demo — you cannot explain "flip about
+     the average" without drawing the average */
+  .amp-wrap{ position:relative; }
+  .amp-mean{
+    position:absolute; left:0; right:0; height:0; border-top:2px dashed var(--star);
+    pointer-events:none; transition: top .45s ease; z-index:2;
+  }
+  .amp-mean span{
+    position:absolute; right:0; top:-1.35em; font-family:var(--f-mono); font-weight:700;
+    font-size:0.62rem; letter-spacing:0.8px; color: var(--star); background: rgba(11,14,36,0.85);
+    padding:1px 6px; border-radius:5px;
+  }
+
+  /* the builder points at the answer after three wrong tries */
+  .val.hintme{ animation: hintFlash 1s ease-in-out infinite; }
+  @keyframes hintFlash{
+    0%,100%{ box-shadow: 0 0 0 0 rgba(76,255,192,0); }
+    50%    { box-shadow: 0 0 0 3px rgba(76,255,192,0.8), 0 0 18px rgba(76,255,192,0.6); }
+  }
+  /* a gate that is shut should look shut */
+  .locked-note{
+    font-family:var(--f-mono); font-size:0.72rem; color: var(--star);
+    background: rgba(255,224,102,0.1); border:1px solid rgba(255,224,102,0.3);
+    border-radius:10px; padding:8px 11px; margin-top:10px; text-align:center;
+  }
+
+  /* ===================================================================
+     v8 — THE TASK STRIP and THE SCENE PANELS
+     =================================================================== */
+  .taskbar{
+    display:flex; align-items:flex-start; gap:11px; flex-wrap:wrap;
+    position:sticky; top:6px; z-index:40;
+    background: rgba(14,20,36,0.96); backdrop-filter: blur(6px);
+    border:1px solid rgba(156,144,255,0.34); border-left:4px solid var(--accent-bright);
+    border-radius:14px; padding:11px 14px; margin-bottom:14px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  }
+  .taskbar .tb-tag{
+    font-family:var(--f-mono); font-weight:800; font-size:0.62rem; letter-spacing:1.4px;
+    color:#0B0E24; background: var(--accent-bright); border-radius:6px; padding:3px 7px; flex-shrink:0;
+  }
+  .taskbar .tb-text{ flex:1; min-width:180px; font-size:0.92rem; line-height:1.45; }
+  .taskbar .tb-text b{ color: var(--star); }
+  .taskbar .tb-text .mono{ color: var(--zero); }
+  .taskbar .tb-hint{
+    background: rgba(255,224,102,0.14); border:1px solid rgba(255,224,102,0.42); color: var(--star);
+    font-family:var(--f-display); font-weight:700; font-size:0.8rem; border-radius:9px;
+    padding:6px 12px; cursor:pointer; flex-shrink:0;
+  }
+  .taskbar .tb-hint:hover{ background: rgba(255,224,102,0.24); }
+  .taskbar .tb-out{
+    flex-basis:100%; display:none; font-size:0.88rem; line-height:1.5; color: var(--text);
+    background: rgba(255,224,102,0.08); border-radius:10px; padding:9px 12px; margin-top:2px;
+  }
+  .taskbar .tb-out b{ color: var(--star); }
+  @media (max-width: 520px){ .taskbar{ position:static; } }
+
+  /* ---------- scene panels ---------- */
+  .panels{
+    background: var(--bg-deep); border:1px solid rgba(255,255,255,0.1);
+    border-radius:16px; overflow:hidden; margin:14px 0;
+  }
+  .panel-head{
+    display:flex; justify-content:space-between; gap:10px; align-items:center;
+    background: rgba(0,0,0,0.32); padding:8px 13px;
+    font-family:var(--f-mono); font-size:0.66rem; letter-spacing:1.1px; color: var(--star);
+  }
+  .panel-head .p-id{ color: var(--text-dim); }
+  .panel-art{
+    min-height:190px; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:10px; padding:16px; background: radial-gradient(circle at 50% 30%, rgba(124,111,255,0.14), transparent 65%);
+  }
+  .panel-art svg{ width:min(100%,300px); height:auto; }
+  .panel-say{ padding:15px 17px; }
+  .panel-say h4{ font-family:var(--f-display); font-weight:800; font-size:1.05rem; margin:0 0 5px; }
+  .panel-say p{ margin:0; font-size:0.92rem; line-height:1.55; color: var(--text-dim); }
+  .panel-nav{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    padding:11px 13px; border-top:1px solid rgba(255,255,255,0.07);
+  }
+  .panel-nav button{
+    background: var(--panel-2); border:1px solid rgba(255,255,255,0.12); color: var(--text);
+    font-family:var(--f-display); font-weight:700; font-size:0.86rem;
+    padding:8px 15px; border-radius:10px; cursor:pointer;
+  }
+  .panel-nav button:disabled{ opacity:.3; cursor:default; }
+  .panel-nav .panel-next{ background: var(--accent); border-color: var(--accent-bright); color:#fff; }
+  .panel-dots{ display:flex; gap:6px; }
+  .panel-dots i{ width:7px; height:7px; border-radius:50%; background: rgba(255,255,255,0.2); transition: all .2s; }
+  .panel-dots i.on{ background: var(--accent-bright); width:20px; border-radius:4px; }
+
+  /* ---------- the interference scope ---------- */
+  .scope-wrap{ text-align:center; }
+  .scope-wrap canvas{
+    background: rgba(6,7,20,0.75); border-radius:10px; cursor:pointer; max-width:100%;
+    border:1px solid rgba(255,255,255,0.1);
+  }
+  .scope-wrap .scope-hint{
+    display:block; font-family:var(--f-mono); font-size:0.68rem; color: var(--star);
+    margin-top:7px; letter-spacing:0.5px;
+  }
 </style>
 </head>
 <body>
@@ -987,6 +1146,13 @@
   </header>
 
   <div class="stepper" id="stepper"></div>
+  <div class="taskbar" id="taskBar" style="display:none;">
+    <span class="tb-tag">TASK</span>
+    <span class="tb-text" id="taskText"></span>
+    <button class="tb-hint" id="btnHint" type="button">💡 Stuck?</button>
+    <div class="tb-out" id="hintOut"></div>
+  </div>
+
 
   <!-- AIMS -->
   <section class="screen active" id="screenAims">
@@ -996,11 +1162,12 @@
 
       <div class="dossier">
         <div class="d-label">MERIDIAN &mdash; VAULT FLOOR</div>
-        <p>Each door hides its combination in a wall of identical boxes. The house computer checks them one at a
-        time. Get there first, or the floor locks down.</p>
+        <p>Each door hides its combination in a wall of identical boxes. The front door trips the alarm, so from the moment you are inside you have six minutes.</p>
+        <p>Checking boxes one at a time &mdash; all 84 of them &mdash; takes <b>ten and a half minutes on average</b>. An ordinary search might get lucky. You are going to make luck unnecessary.</p>
         <div class="d-row">
           <div class="d-fact"><b>3</b>doors</div>
           <div class="d-fact"><b>4 &rarr; 64</b>boxes per wall</div>
+          <div class="d-fact"><b>6:00</b>before the police arrive</div>
           <div class="d-fact"><b>0</b>code you have written</div>
         </div>
       </div>
@@ -1109,22 +1276,62 @@
   <!-- WHY IT WORKS (own screen) -->
   <section class="screen" id="screenWhy">
     <div class="stage">
-      <div class="live-tag"><span class="pulse-dot"></span>BEFORE YOU CRACK A REAL VAULT</div>
-      <h2>Why Mark + Boost actually works</h2>
-      <p class="lede">A practice vault — 8 boxes, one of them the one we want. Nothing here counts, so poke at it freely.</p><details class="more"><summary>more on this</summary><div class="m-body"><p>Each bar below is one box, and its height is how strongly that box is "in play". Press Next step and watch what Mark and Boost actually do.</p></div></details>
-      <div class="callback-box"><details class="more"><summary>why this works</summary><div class="m-body">You already know this trick from real life. Noise-cancelling headphones play an <i>inverted</i> copy of the noise around you — when the two waves meet, they cancel out into silence. Mark does the same thing to one box's wave. Boost is what happens next.</div></details></div>
-
-      <div class="amp-bars" id="ampBars"></div>
-      <div class="amp-sides"><span>▲ above the line = pointing up</span><span>pointing down = below the line ▼</span></div>
-      <div class="amp-target-label">🎯 The gold bar is the box we are hunting for</div>
-      <div class="amp-readout"><div class="num mono" id="ampProb">—</div><div class="lbl">probability of measuring the marked box</div></div>
-      <div class="amp-caption" id="ampCaption">Every box starts with an identical wave, all pointing the same way. Equal waves mean an equal chance for every box — no favourites yet.</div>
-      <div class="amp-controls">
-        <button class="primary" id="ampNext">Next step ▶</button>
-        <button id="ampReset">Reset example</button>
+      <div class="scene-tag">THE VAN &middot; 25 MINUTES OUT</div>
+      <h2>But why does that work?</h2>
+      <div class="comms">
+        <span class="av">🕶️</span>
+        <div class="say"><span class="who">VALE</span>Eight boxes on the bench, one of them live. Press the
+        button and watch what the two instructions actually do. Nothing here counts.</div>
       </div>
 
-      <button class="intro-cta" id="btnStartWhy" disabled style="margin-top:20px;">Now try it for real →</button>
+      <div class="amp-wrap">
+        <div class="amp-bars" id="ampBars"></div>
+        <div class="amp-mean" id="ampMean" style="top:50%;"><span>AVERAGE</span></div>
+      </div>
+      <div class="amp-sides"><span>&#9650; above the line = pointing up</span><span>pointing down = below the line &#9660;</span></div>
+      <div class="amp-target-label">🎯 The gold bar is the box we are hunting for</div>
+      <div class="amp-readout"><div class="num mono" id="ampProb">&mdash;</div><div class="lbl">chance of measuring the marked box</div></div>
+      <div class="amp-caption" id="ampCaption">Eight identical waves. Identical waves mean an equal chance for every box &mdash; no favourites yet.</div>
+      <div class="amp-controls">
+        <button class="primary" id="ampNext">Next step ▶</button>
+        <button id="ampReset">Start over</button>
+      </div>
+
+      <div class="beats" id="whyBeats">
+        <div class="beat" id="beatScope">Two waves the same way round reinforce. Flip one and they cancel — that is how noise-cancelling headphones work, and it is what Mark does.</div>
+        <div class="beat" id="beatMark"><b>Mark</b> turned one wave upside-down. Nothing else moved, and the
+          odds did not change &mdash; upside-down is still just as likely.</div>
+        <div class="beat" id="beatOracle">So how did it know which one? <b>It did not.</b> The lock recognises
+          its own key when a key is tried &mdash; it can say "that one" without telling you which one it was.
+          Marking is a <i>test</i>, not knowledge.</div>
+        <div class="beat" id="beatMean">Watch the gold dashed line. That is the <b>average</b> of all eight waves.
+          One pointing down drags it lower.</div>
+        <div class="beat" id="beatBoost"><b>Boost</b> reflects every wave across that line. The seven near it
+          barely move. The one below it swings all the way up and over.</div>
+        <div class="beat" id="beatAgain">Do it again and the gap widens again. That is the whole algorithm:
+          two moves, repeated.</div>
+        <div class="beat" id="beatOver">And there it is &mdash; <b>it went down</b>. Keep going past the sweet
+          spot and the wave swings back past vertical. More is not better.</div>
+      </div>
+
+      <div class="scope-wrap">
+        <canvas id="scopeCanvas" width="320" height="120"></canvas>
+        <span class="scope-hint" id="scopeHint">▸ Click the scope to flip the wrong answer upside-down</span>
+      </div>
+      <div class="codecard">
+        <div class="cc-name">SO WHY DOES IT WORK?</div>
+        <div class="cc-say">Not because it checks faster. Because <b>Mark</b> makes the right answer the odd
+        one out, and <b>Boost</b> punishes whatever is odd. Repeat and the odd one grows.</div>
+      </div>
+
+      <div class="frontier">
+        <div class="ico">⚠️</div>
+        <div><span class="tagline">AND IT IS NOT ALWAYS RIGHT</span>It is <b>almost</b> always right &mdash; if
+        you stop at the right moment. That is the skill, and it is why the doors ahead make you choose when
+        to stop.</div>
+      </div>
+
+      <button class="intro-cta" id="btnStartWhy" disabled style="margin-top:20px;">Now do it for real →</button>
     </div>
   </section>
 
@@ -1172,6 +1379,18 @@
   <section class="screen" id="screenHeist">
     <div class="stage">
       <div class="scan-sweep"></div>
+      <div class="clock" id="heistClock">
+        <div class="t mono" id="clockTime">6:00</div>
+        <div class="mid">
+          <div class="lbl">UNTIL THE POLICE ARRIVE</div>
+          <div class="bar"><i id="clockBar" style="width:100%"></i></div>
+          <div class="cost">Each Search Step you run costs <b>15 seconds</b>. A miss costs <b>30</b> more.</div>
+        </div>
+      </div>
+      <div class="vs-house" id="vsHouse">
+        <span>YOU: <b id="vsYou">0 steps &middot; 0:00</b></span>
+        <span>HOUSE COMPUTER: <b id="vsThem">84 checks worst case &middot; avg 10:30</b></span>
+      </div>
       <div class="live-tag"><span class="pulse-dot"></span><span id="levelTag">DOOR 1 · LIVE</span></div>
       <h2 id="levelTitle">Door One — The Service Cage</h2>
       <p class="lede" id="levelLede">A small vault — perfect for your first real quantum program.</p>
@@ -1338,7 +1557,7 @@
       <h2 style="margin-top:22px;">Let's check what stuck</h2>
       <div class="frontier">
         <div class="ico">🛰️</div>
-        <div><span class="tagline">KEEP SOME PERSPECTIVE ON WHAT JUST HAPPENED</span>More people have climbed Everest than have written a quantum search program by hand. You just did, in a browser.</div>
+        <div><span class="tagline">KEEP SOME PERSPECTIVE ON WHAT JUST HAPPENED</span>Published in <b>1996</b>. The hardware to run it at useful scale still does not exist. You just wrote it by hand, in a browser, with no experience.</div>
       </div>
       
       <div class="recap-card">
@@ -1418,7 +1637,7 @@
 
     <h3>Questions you will actually get</h3>
     <p><b>"Is this a real quantum computer?"</b> No — it is an ordinary computer working out what a quantum one would do. What is real is the physics: every number on screen is what a real machine would produce. Say this plainly; people respect it and it makes everything else more credible.</p>
-    <p><b>"So it is just faster?"</b> No, and this is worth correcting. It is not doing the same work more quickly — it is doing a different kind of work. The Molecule Lab activity makes this point best if they go on to it.</p>
+    <p><b>"So it is just faster?"</b> No, and this is worth correcting. It is not doing the same work more quickly — it is doing a different kind of work. The Deadline (the molecule activity) makes this point best if they go on to it.</p>
     <p><b>"Could this break my bank password?"</b> Not today. Machines are nowhere near big enough. The Cipher Room activity covers why banks are changing their locks anyway.</p>
     <p><b>"I don't get the 75% thing."</b> Nor does almost anyone on first pass, which is exactly why it is a bonus rather than part of the lesson. Fall back to: two people in separate rooms, no way to communicate, and no possible arrangement lets them succeed together more than 75% of the time. Entangled equipment manages 85%. Nobody has ever made that feel obvious — it won a Nobel Prize precisely because it is so hard to accept.</p>
     <p><b>"Why did the meter disappear in Level 3?"</b> On purpose. With a percentage on screen people optimise against the number without thinking. Take it away and they have to reason, commit to a guess, and find out. Level 3 is also the only place they are asked to call it before running — everywhere else the meter already answers that question, so it would just be an extra click. Let somebody get it wrong once; it is the most useful thing that happens all session.</p>
@@ -1506,6 +1725,27 @@ function renderStepper(){
   });
 }
 
+
+/* ---- the task strip: what you are doing right now ---- */
+TASKS = {
+  'intro': 'Work through the practice run. Click the boxes, slap the coin, drag the block.',
+  'why': 'Press <b>Next step</b> and watch the gold dashed line — that is the average.',
+  'level1': 'Drag <b>one Mark and one Boost</b> into the track, then Run &amp; measure.',
+  'loop': 'Drag the <b>Repeat</b> block in and watch six blocks become one.',
+  'level2': 'This door needs <b>three</b> Search Steps. Use the Repeat block instead of six drags.',
+  'level3': 'No readout on this one. Decide how many steps, commit, and run it.',
+  'level4': 'Press <b>250 rounds</b> and watch the green bar against the white line.',
+  'plenary': 'Name yourself, copy your report, and try the field test.',
+};
+HINTS = {
+  'why': ['Mark flips one wave below the average. Boost then reflects everything across it.', 'Keep pressing. Past the sweet spot the odds fall again — that is the lesson.'],
+  'level1': ['Four boxes needs exactly one Search Step — one Mark, one Boost.', 'Tap a block instead of dragging if that is easier.'],
+  'level2': ['Drop the Repeat block in, then set its number to 3.', 'Try 4 afterwards and watch the odds get worse — that is the point.'],
+  'level3': ['Sixteen times the boxes of Door One, but nothing like sixteen times the steps.', 'Six Search Steps is the sweet spot for 64 boxes.'],
+  'level4': ['A handful of rounds swings wildly. 250 settles it.'],
+};
+document.getElementById('btnHint').addEventListener('click', showHint);
+
 function goToStage(key){
   currentStage = key;
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
@@ -1521,6 +1761,7 @@ function goToStage(key){
     }
   }
   renderStepper();
+  setTask(key);
   window.scrollTo({top:0, behavior:'smooth'});
 }
 function unlockNext(fromKey){
@@ -1730,6 +1971,153 @@ function showBeat(id){
   if (el) el.classList.add('on');
 }
 
+/* A reusable "assemble a real line of code" widget. The learner picks a gap,
+   then picks a literal. A value of the wrong TYPE is refused with the error a
+   real interpreter would give — which is the whole point of the exercise.
+   Byte-identical in every activity; each screen just supplies its own spec. */
+var BUILDER_TYPE = { str:'text', bool:'true/false', num:'a number', op:'an operator', var:'a variable' };
+function makeBuilder(spec){
+  var root = document.querySelector(spec.root);
+  if (!root) return null;
+  var chosen = {}, sel = spec.order[0], missed = {};
+  var out = root.querySelector('.console-out');
+  function say(html, cls){ if (out) out.innerHTML = cls ? '<span class="'+cls+'">'+html+'</span>' : html; }
+  function vals(){ var o={}; spec.order.forEach(function(k){ o[k] = chosen[k] ? chosen[k].v : null; }); return o; }
+  function complete(){ return spec.order.every(function(k){ return chosen[k]; }); }
+  function select(arg){
+    sel = arg;
+    root.querySelectorAll('.slot-in').forEach(function(s){ s.classList.toggle('sel', s.dataset.arg === arg); });
+  }
+  function shake(slot){ slot.classList.remove('bad'); void slot.offsetWidth; slot.classList.add('bad'); }
+  /* Three wrong tries on the same gap and we stop being coy about it. A learner
+     who cannot find the answer must never be able to get stuck here. */
+  function nudge(arg){
+    missed[arg] = (missed[arg] || 0) + 1;
+    if (missed[arg] < 3) return '';
+    var a = spec.args[arg];
+    if (!a.ok) return '';
+    var shown = false;
+    root.querySelectorAll('.val').forEach(function(v){
+      if (a.ok.indexOf(v.dataset.v) !== -1 && v.dataset.t === a.want){
+        v.classList.add('hintme'); shown = true;
+      }
+    });
+    return shown ? '<br><span class="ok">Try the one that is flashing.</span>' : '';
+  }
+  function clearNudge(){ root.querySelectorAll('.hintme').forEach(function(v){ v.classList.remove('hintme'); }); }
+  function place(tile){
+    var arg = sel, a = spec.args[arg];
+    var t = tile.dataset.t, v = tile.dataset.v;
+    var slot = root.querySelector('.slot-in[data-arg="'+arg+'"]');
+    if (!slot || !a) return;
+    if (t !== a.want){
+      shake(slot);
+      say('TypeError: <b>'+arg+'</b> expects '+BUILDER_TYPE[a.want]+', got '+BUILDER_TYPE[t]+' '+tile.textContent
+          + (a.hint ? '<br><span class="hint">'+a.hint+'</span>' : '') + nudge(arg), 'err');
+      return;
+    }
+    if (a.ok && a.ok.indexOf(v) === -1){
+      shake(slot);
+      var w = a.wrong && a.wrong[v];
+      say((w && w.name ? w.name : (a.errName || 'ValueError')) + ': <b>'+arg+'</b> will not take '+tile.textContent
+          + '<br><span class="hint">' + (w ? (w.say || w) : 'It accepts '+a.note+'.') + '</span>'
+          + nudge(arg), 'err');
+      return;
+    }
+    clearNudge();
+    if (chosen[arg]) chosen[arg].tile.classList.remove('used');
+    chosen[arg] = { v:v, t:t, tile:tile };
+    tile.classList.add('used');
+    slot.innerHTML = tile.textContent;
+    slot.className = 'slot-in filled t-'+t;
+    if (spec.onChange) spec.onChange(vals());
+    var nxt = spec.order.find(function(k){ return !chosen[k]; });
+    if (nxt){ select(nxt); say('<span class="ok">'+arg+' ✓</span> &mdash; now <b>'+nxt+'</b>: '+spec.args[nxt].note); }
+    else { say(spec.doneMsg || 'Every gap filled, every type correct. Run it.', 'ok');
+           if (spec.onComplete) spec.onComplete(vals()); }
+  }
+  root.querySelectorAll('.slot-in').forEach(function(s){
+    s.addEventListener('click', function(){ select(s.dataset.arg); });
+  });
+  root.querySelectorAll('.val').forEach(function(tile){
+    tile.addEventListener('click', function(){ place(tile); });
+  });
+  select(spec.order[0]);
+  say(spec.startMsg || ('Start with <b>'+spec.order[0]+'</b>: '+spec.args[spec.order[0]].note));
+  return { values: vals, complete: complete, say: say };
+}
+
+/* The task strip: what you are doing RIGHT NOW, pinned above the work so it
+   never scrolls out of reach, plus an always-available way to get unstuck.
+   Each activity supplies its own TASKS / HINTS keyed by stage. */
+/* Guarded, not plain assignment: each activity fills these in earlier in the
+   same script, and a bare `= {}` here would run later and wipe them. */
+var TASKS = (typeof TASKS !== 'undefined' && TASKS) || {};
+var HINTS = (typeof HINTS !== 'undefined' && HINTS) || {};
+var _hintIdx = (typeof _hintIdx !== 'undefined' && _hintIdx) || {};
+function setTask(stageKey){
+  var bar = document.getElementById('taskBar');
+  if (!bar) return;
+  var t = TASKS[stageKey];
+  bar.style.display = t ? 'flex' : 'none';
+  if (!t) return;
+  document.getElementById('taskText').innerHTML = t;
+  var hb = document.getElementById('btnHint');
+  if (hb) hb.style.display = (HINTS[stageKey] && HINTS[stageKey].length) ? 'inline-flex' : 'none';
+  var out = document.getElementById('hintOut');
+  if (out){ out.style.display = 'none'; out.innerHTML = ''; }
+  bar.dataset.stage = stageKey;
+}
+function showHint(){
+  var bar = document.getElementById('taskBar');
+  if (!bar) return;
+  var key = bar.dataset.stage;
+  var list = HINTS[key] || [];
+  if (!list.length) return;
+  _hintIdx[key] = Math.min((_hintIdx[key] || 0), list.length - 1);
+  var out = document.getElementById('hintOut');
+  out.style.display = 'block';
+  out.innerHTML = '<b>Hint ' + (_hintIdx[key] + 1) + ' of ' + list.length + ':</b> ' + list[_hintIdx[key]];
+  if (_hintIdx[key] < list.length - 1) _hintIdx[key]++;
+}
+
+/* A short scene told as panels you click through — art, one line, next.
+   Any panel may carry its own interactive element via onShow(). */
+function makePanels(spec){
+  var root = document.querySelector(spec.root);
+  if (!root) return null;
+  var i = 0;
+  var art = root.querySelector('.panel-art');
+  var dots = root.querySelector('.panel-dots');
+  function render(){
+    var p = spec.panels[i];
+    root.querySelector('.p-id').textContent = (i + 1) + ' / ' + spec.panels.length;
+    root.querySelector('.p-where').textContent = p.where || '';
+    root.querySelector('.panel-say h4').textContent = p.title || '';
+    root.querySelector('.panel-say p').innerHTML = p.say || '';
+    art.innerHTML = p.art || '';
+    dots.innerHTML = '';
+    spec.panels.forEach(function(_, n){
+      var d = document.createElement('i');
+      if (n === i) d.className = 'on';
+      dots.appendChild(d);
+    });
+    root.querySelector('.panel-prev').disabled = (i === 0);
+    root.querySelector('.panel-next').textContent =
+      (i === spec.panels.length - 1) ? (spec.finishLabel || 'Begin →') : 'Next ▸';
+    if (p.onShow) p.onShow(art);
+  }
+  root.querySelector('.panel-prev').addEventListener('click', function(){
+    if (i > 0){ i--; render(); }
+  });
+  root.querySelector('.panel-next').addEventListener('click', function(){
+    if (i < spec.panels.length - 1){ i++; render(); }
+    else if (spec.onFinish) spec.onFinish();
+  });
+  render();
+  return { go: function(n){ i = n; render(); } };
+}
+
 
 let tutorialDone = false;
 makeDraggable(document.getElementById('introPaletteMark'), ()=>{
@@ -1812,6 +2200,56 @@ document.getElementById('btnLoopNext').addEventListener('click', ()=>{
   unlockTo('level2');
   goToStage('level2');
 });
+
+
+/* ================= THE CLOCK =================
+   One job, three rooms, one deadline. Every Search Step is a real physical
+   operation on a real lock, so it costs real time. Sixty-four boxes is only an
+   eight-fold advantage, not an infinite one — so the deadline is set where that
+   eight-fold difference is exactly what decides it. */
+const HEIST_LIMIT = 6 * 60;        /* police, in seconds */
+const SEC_PER_STEP = 15;           /* one Search Step */
+const SEC_PER_MISS = 30;           /* reset the spinners and go again */
+const HOUSE_BOXES = 4 + 16 + 64;   /* what an ordinary search must be ready for */
+let heistSpent = 0;
+let heistSteps = 0;
+let heistRescued = false;
+
+function fmtClock(sec){
+  const s = Math.max(0, Math.round(sec));
+  return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
+}
+function renderClock(){
+  const el = document.getElementById('heistClock');
+  if (!el) return;
+  const left = HEIST_LIMIT - heistSpent;
+  const t = document.getElementById('clockTime');
+  t.textContent = left >= 0 ? fmtClock(left) : '-' + fmtClock(-left);
+  document.getElementById('clockBar').style.width = Math.max(0, left / HEIST_LIMIT * 100) + '%';
+  el.classList.toggle('warn', left <= 180 && left > 60);
+  el.classList.toggle('danger', left <= 60);
+  const you = document.getElementById('vsYou');
+  if (you) you.textContent = heistSteps + ' step' + (heistSteps === 1 ? '' : 's') + ' · ' + fmtClock(heistSpent);
+  /* Worst case on its own overstates the ordinary route. Quote the average
+     too, because the average is what actually beats the deadline or does not. */
+  const them = document.getElementById('vsThem');
+  if (them) them.textContent = HOUSE_BOXES + ' checks worst case · avg '
+    + fmtClock(HOUSE_BOXES / 2 * SEC_PER_STEP);
+}
+function chargeTime(sec, steps){
+  heistSpent += sec;
+  heistSteps += (steps || 0);
+  renderClock();
+  const left = HEIST_LIMIT - heistSpent;
+  /* Nobody gets locked out of a learning activity. Okonjo buys time, once. */
+  if (left < 0 && !heistRescued){
+    heistRescued = true;
+    heistSpent = HEIST_LIMIT - 90;
+    renderClock();
+    showToast('\U0001F6FB Okonjo bought you 90 seconds. Do not need it again.');
+  }
+}
+renderClock();
 
 /* ================= SHARED HEIST ENGINE (Levels 1-3) ================= */
 const LEVEL_CONFIG = {
@@ -1994,6 +2432,57 @@ function renderCode(){
 }
 
 /* ================= "WHY IT WORKS" AMPLITUDE DEMO (own screen) ================= */
+/* ---- the same event, drawn as waves instead of bars ----
+   Noise-cancelling headphones play an inverted copy of a sound so the two
+   cancel. Mark does that to one answer. This is that, on an oscilloscope. */
+let scopeFlipped = false;
+function drawScope(){
+  const cv = document.getElementById('scopeCanvas');
+  if (!cv) return;
+  const g = cv.getContext('2d');
+  const W = cv.width, H = cv.height, mid = H / 2;
+  g.clearRect(0, 0, W, H);
+  g.strokeStyle = 'rgba(255,255,255,0.16)';
+  g.lineWidth = 1;
+  g.beginPath(); g.moveTo(0, mid); g.lineTo(W, mid); g.stroke();
+
+  function wave(amp, colour, width, dash){
+    g.strokeStyle = colour; g.lineWidth = width;
+    g.setLineDash(dash || []);
+    g.beginPath();
+    for (let x = 0; x <= W; x++){
+      const y = mid - Math.sin(x * 0.055) * amp;
+      x ? g.lineTo(x, y) : g.moveTo(x, y);
+    }
+    g.stroke();
+    g.setLineDash([]);
+  }
+
+  if (!scopeFlipped){
+    wave(34, '#4CD6FF', 2);
+    wave(34, '#FFE066', 2, [5, 4]);
+    g.fillStyle = '#C3C9EE'; g.font = '11px monospace';
+    g.fillText('two identical waves — nothing cancels', 10, 14);
+  } else {
+    wave(34, '#4CD6FF', 2);
+    wave(-34, '#FF7D95', 2, [5, 4]);
+    g.strokeStyle = '#4CFFC0'; g.lineWidth = 3;
+    g.beginPath(); g.moveTo(0, mid); g.lineTo(W, mid); g.stroke();
+    g.fillStyle = '#4CFFC0'; g.font = 'bold 11px monospace';
+    g.fillText('flipped — they cancel to flat', 10, 14);
+  }
+}
+function toggleScope(){
+  scopeFlipped = !scopeFlipped;
+  drawScope();
+  document.getElementById('scopeHint').innerHTML = scopeFlipped
+    ? 'That is what <b>Mark</b> does to one answer. Click again to undo.'
+    : '▸ Click the scope to flip the wrong answer upside-down';
+  if (scopeFlipped) showBeat('beatScope');
+}
+document.getElementById('scopeCanvas').addEventListener('click', toggleScope);
+drawScope();
+
 const WHY_N = 8, WHY_TARGET = 3;
 let ampVec = [], ampStep = 0;
 
@@ -2023,6 +2512,11 @@ function renderAmpDemo(caption){
     bar.appendChild(fill);
     wrap.appendChild(bar);
   });
+  /* Boost reflects every wave about the average, so the average has to be
+     visible or the sentence explaining it is just words. */
+  const mean = ampVec.reduce((a, b) => a + b, 0) / ampVec.length;
+  const meanEl = document.getElementById("ampMean");
+  if (meanEl) meanEl.style.top = (50 - (mean / maxAbs) * 45) + "%";
   const prob = ampVec[WHY_TARGET]*ampVec[WHY_TARGET];
   document.getElementById('ampProb').textContent = (prob*100).toFixed(1)+'%';
   if (caption) document.getElementById('ampCaption').textContent = caption;
@@ -2031,13 +2525,16 @@ document.getElementById('ampNext').addEventListener('click', ()=>{
   ampStep++;
   if (ampStep % 2 === 1){
     ampMark();
-    renderAmpDemo("Mark has flipped one wave upside-down — exactly like the inverted sound in your headphones. Now the strange bit: the odds have not moved at all. Upside-down or right way up, that box is still as likely as any other. Nothing you could see has happened. Yet.");
+    showBeat("beatMark"); showBeat("beatOracle"); showBeat("beatMean");
+    renderAmpDemo("One wave is upside-down. The odds have not moved a bit \u2014 and that is the point. Nothing measurable has happened yet. But the average has just dropped.");
   } else {
     ampBoost();
     const prob = ampVec[WHY_TARGET]*ampVec[WHY_TARGET];
     const msg = prob > 0.5
-      ? "Now Boost. It flips every wave around the group's average. Our box was pointing down while all the others pointed up — so instead of cancelling out, it stacks up and grows tall while the rest shrink. That one swing is the whole trick, and it is why the odds just jumped."
+      ? "Boost reflects every wave across the dashed line. The seven sitting near the average barely move. The one below it swings all the way up and past them. That single reflection is the entire trick."
       : "Flipped again — but this time the swing went the wrong way. Past the sweet spot, more steps make it worse rather than better. That is genuinely how it behaves, not a quirk of this demo.";
+    showBeat(prob > 0.5 ? "beatBoost" : "beatOver");
+    if (ampStep >= 4 && prob > 0.5) showBeat("beatAgain");
     renderAmpDemo(msg);
     if (prob > 0.85 && document.getElementById('btnStartWhy').disabled){
       document.getElementById('btnStartWhy').disabled = false;
@@ -2134,6 +2631,7 @@ function enterHeistLevel(key){
   programBlocks = [];
   vaultRunning = false;
   levelRuns = 0;
+  if (typeof renderClock === "function") renderClock();
   vaultAttempts = 0; vaultQSuccesses = 0;
   classicalStepsHistory = [];
 
@@ -2203,6 +2701,8 @@ function executeRun(predictedHit){
 
   const conf = currentConfidence();
   const success = Math.random() < conf;
+  chargeTime(currentIterations() * SEC_PER_STEP, currentIterations());
+  if (!success) chargeTime(SEC_PER_MISS, 0);
   const guessBox = success ? treasureBox : otherIndex(activeN, treasureBox);
 
   resetGridVisual('vaultQuantum');
@@ -2360,7 +2860,13 @@ function renderTwins(){
     document.getElementById('celebrateTwinText').textContent = txt;
     showToast('🎉 Classical limit beaten!');
   }
-  missionLog.level4 = { attempts: twinQ.total, qRate: qPct, cRate: cPct };
+  /* Opening the screen is not playing it. Without this guard the debrief
+     reports "0.0% across 0 plays" for anyone who just looked. */
+  if (twinQ.total > 0){
+    missionLog.level4 = { attempts: twinQ.total, qRate: qPct, cRate: cPct };
+  } else {
+    delete missionLog.level4;
+  }
 }
 function playTwinRounds(n, showFlash){
   let lastQWin = null;
@@ -2488,6 +2994,17 @@ function renderFieldTest(){
 function renderPlenary(){
   const area = document.getElementById('recapArea');
   area.innerHTML = '';
+  const clockCard = document.createElement('div');
+  clockCard.className = 'recap-card';
+  const leftOver = HEIST_LIMIT - heistSpent;
+  clockCard.innerHTML = '<h4>\u23F1\uFE0F The clock</h4><p>' +
+    (heistSteps === 0
+      ? 'No doors run yet.'
+      : 'You opened the doors in <b>' + heistSteps + ' Search Steps</b> \u2014 ' + fmtClock(heistSpent) +
+        ' on the floor, out with <b>' + fmtClock(Math.max(0, leftOver)) + '</b> to spare' +
+        (heistRescued ? ', after Okonjo covered for you once' : '') +
+        '. Checking all 84 boxes one at a time averages 10:30. You never had to hope.') + '</p>';
+  area.appendChild(clockCard);
   const items = [
     { key:'level1', title:'Door One — The Service Cage (4 boxes, a sequence)', fallback:'Not attempted.' },
     { key:'level2', title:'Door Two — The Deposit Hall (16 boxes, where the loop earns its keep)', fallback:'Not attempted.' },
@@ -2501,7 +3018,14 @@ function renderPlenary(){
     let body = it.fallback;
     if (log){
       if (it.key==='level4'){
-        body = `Entangled tools won ${log.qRate.toFixed(1)}% of rounds across ${log.attempts} plays — classical tools stayed at ${log.cRate.toFixed(1)}%, right at the proven 75% ceiling.`;
+        const gap = (log.qRate - log.cRate).toFixed(1);
+        if (log.attempts < 30){
+          body = `Entangled ${log.qRate.toFixed(1)}% vs ordinary ${log.cRate.toFixed(1)}% over ${log.attempts} round${log.attempts === 1 ? '' : 's'} — too few to prove anything. A short run swings wildly either way; 250 rounds settles it.`;
+        } else if (log.qRate > 75){
+          body = `Entangled tools won ${log.qRate.toFixed(1)}% of ${log.attempts} rounds, past the 75% ceiling that no ordinary strategy can beat. Ordinary tools managed ${log.cRate.toFixed(1)}% — a gap of ${gap} points.`;
+        } else {
+          body = `Entangled ${log.qRate.toFixed(1)}% vs ordinary ${log.cRate.toFixed(1)}% over ${log.attempts} rounds. The entangled bar did not clear 75% this time — it averages 85% over a long run, so play more rounds and it will.`;
+        }
       } else {
         body = `Best confidence reached: ${(log.bestConfidence*100).toFixed(1)}% · ${log.successes}/${log.attempts} quantum finds in one guess · classical averaged ${log.avgClassical.toFixed(1)} checks.`;
       }
@@ -2537,7 +3061,7 @@ document.getElementById('btnCopyAgentCard').addEventListener('click', async ()=>
     }
   });
   if (missionLog.level4){
-    lines.push(`▸ Bonus — the Twin Vaults (entanglement): ${missionLog.level4.qRate.toFixed(1)}% win rate vs classical's proven 75% ceiling`);
+    lines.push(`▸ Bonus — the Twin Vaults (entanglement): ${missionLog.level4.qRate.toFixed(1)}% over ${missionLog.level4.attempts} rounds, against a proven classical ceiling of 75%`);
   }
   if (quizAnswered === QUIZ.length){
     lines.push(`▸ Field test: ${quizScore}/${QUIZ.length} — actually understood it, not just clicked through it`);

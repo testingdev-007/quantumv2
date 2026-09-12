@@ -766,6 +766,7 @@
 
 
 
+
   /* ===================================================================
      TIGHTEN v4 — stop writing at people.
      The rule this enforces: nothing on screen is longer than a breath.
@@ -1052,6 +1053,82 @@
     background: rgba(255,224,102,0.1); border:1px solid rgba(255,224,102,0.3);
     border-radius:10px; padding:8px 11px; margin-top:10px; text-align:center;
   }
+
+  /* ===================================================================
+     v8 — THE TASK STRIP and THE SCENE PANELS
+     =================================================================== */
+  .taskbar{
+    display:flex; align-items:flex-start; gap:11px; flex-wrap:wrap;
+    position:sticky; top:6px; z-index:40;
+    background: rgba(14,20,36,0.96); backdrop-filter: blur(6px);
+    border:1px solid rgba(156,144,255,0.34); border-left:4px solid var(--accent-bright);
+    border-radius:14px; padding:11px 14px; margin-bottom:14px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  }
+  .taskbar .tb-tag{
+    font-family:var(--f-mono); font-weight:800; font-size:0.62rem; letter-spacing:1.4px;
+    color:#0B0E24; background: var(--accent-bright); border-radius:6px; padding:3px 7px; flex-shrink:0;
+  }
+  .taskbar .tb-text{ flex:1; min-width:180px; font-size:0.92rem; line-height:1.45; }
+  .taskbar .tb-text b{ color: var(--star); }
+  .taskbar .tb-text .mono{ color: var(--zero); }
+  .taskbar .tb-hint{
+    background: rgba(255,224,102,0.14); border:1px solid rgba(255,224,102,0.42); color: var(--star);
+    font-family:var(--f-display); font-weight:700; font-size:0.8rem; border-radius:9px;
+    padding:6px 12px; cursor:pointer; flex-shrink:0;
+  }
+  .taskbar .tb-hint:hover{ background: rgba(255,224,102,0.24); }
+  .taskbar .tb-out{
+    flex-basis:100%; display:none; font-size:0.88rem; line-height:1.5; color: var(--text);
+    background: rgba(255,224,102,0.08); border-radius:10px; padding:9px 12px; margin-top:2px;
+  }
+  .taskbar .tb-out b{ color: var(--star); }
+  @media (max-width: 520px){ .taskbar{ position:static; } }
+
+  /* ---------- scene panels ---------- */
+  .panels{
+    background: var(--bg-deep); border:1px solid rgba(255,255,255,0.1);
+    border-radius:16px; overflow:hidden; margin:14px 0;
+  }
+  .panel-head{
+    display:flex; justify-content:space-between; gap:10px; align-items:center;
+    background: rgba(0,0,0,0.32); padding:8px 13px;
+    font-family:var(--f-mono); font-size:0.66rem; letter-spacing:1.1px; color: var(--star);
+  }
+  .panel-head .p-id{ color: var(--text-dim); }
+  .panel-art{
+    min-height:190px; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:10px; padding:16px; background: radial-gradient(circle at 50% 30%, rgba(124,111,255,0.14), transparent 65%);
+  }
+  .panel-art svg{ width:min(100%,300px); height:auto; }
+  .panel-say{ padding:15px 17px; }
+  .panel-say h4{ font-family:var(--f-display); font-weight:800; font-size:1.05rem; margin:0 0 5px; }
+  .panel-say p{ margin:0; font-size:0.92rem; line-height:1.55; color: var(--text-dim); }
+  .panel-nav{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    padding:11px 13px; border-top:1px solid rgba(255,255,255,0.07);
+  }
+  .panel-nav button{
+    background: var(--panel-2); border:1px solid rgba(255,255,255,0.12); color: var(--text);
+    font-family:var(--f-display); font-weight:700; font-size:0.86rem;
+    padding:8px 15px; border-radius:10px; cursor:pointer;
+  }
+  .panel-nav button:disabled{ opacity:.3; cursor:default; }
+  .panel-nav .panel-next{ background: var(--accent); border-color: var(--accent-bright); color:#fff; }
+  .panel-dots{ display:flex; gap:6px; }
+  .panel-dots i{ width:7px; height:7px; border-radius:50%; background: rgba(255,255,255,0.2); transition: all .2s; }
+  .panel-dots i.on{ background: var(--accent-bright); width:20px; border-radius:4px; }
+
+  /* ---------- the interference scope ---------- */
+  .scope-wrap{ text-align:center; }
+  .scope-wrap canvas{
+    background: rgba(6,7,20,0.75); border-radius:10px; cursor:pointer; max-width:100%;
+    border:1px solid rgba(255,255,255,0.1);
+  }
+  .scope-wrap .scope-hint{
+    display:block; font-family:var(--f-mono); font-size:0.68rem; color: var(--star);
+    margin-top:7px; letter-spacing:0.5px;
+  }
 </style>
 </head>
 <body>
@@ -1069,6 +1146,13 @@
   </header>
 
   <div class="stepper" id="stepper"></div>
+  <div class="taskbar" id="taskBar" style="display:none;">
+    <span class="tb-tag">TASK</span>
+    <span class="tb-text" id="taskText"></span>
+    <button class="tb-hint" id="btnHint" type="button">💡 Stuck?</button>
+    <div class="tb-out" id="hintOut"></div>
+  </div>
+
 
   <!-- AIMS -->
   <section class="screen active" id="screenAims">
@@ -1591,6 +1675,77 @@ function makeBuilder(spec){
   return { values: vals, complete: complete, say: say };
 }
 
+/* The task strip: what you are doing RIGHT NOW, pinned above the work so it
+   never scrolls out of reach, plus an always-available way to get unstuck.
+   Each activity supplies its own TASKS / HINTS keyed by stage. */
+/* Guarded, not plain assignment: each activity fills these in earlier in the
+   same script, and a bare `= {}` here would run later and wipe them. */
+var TASKS = (typeof TASKS !== 'undefined' && TASKS) || {};
+var HINTS = (typeof HINTS !== 'undefined' && HINTS) || {};
+var _hintIdx = (typeof _hintIdx !== 'undefined' && _hintIdx) || {};
+function setTask(stageKey){
+  var bar = document.getElementById('taskBar');
+  if (!bar) return;
+  var t = TASKS[stageKey];
+  bar.style.display = t ? 'flex' : 'none';
+  if (!t) return;
+  document.getElementById('taskText').innerHTML = t;
+  var hb = document.getElementById('btnHint');
+  if (hb) hb.style.display = (HINTS[stageKey] && HINTS[stageKey].length) ? 'inline-flex' : 'none';
+  var out = document.getElementById('hintOut');
+  if (out){ out.style.display = 'none'; out.innerHTML = ''; }
+  bar.dataset.stage = stageKey;
+}
+function showHint(){
+  var bar = document.getElementById('taskBar');
+  if (!bar) return;
+  var key = bar.dataset.stage;
+  var list = HINTS[key] || [];
+  if (!list.length) return;
+  _hintIdx[key] = Math.min((_hintIdx[key] || 0), list.length - 1);
+  var out = document.getElementById('hintOut');
+  out.style.display = 'block';
+  out.innerHTML = '<b>Hint ' + (_hintIdx[key] + 1) + ' of ' + list.length + ':</b> ' + list[_hintIdx[key]];
+  if (_hintIdx[key] < list.length - 1) _hintIdx[key]++;
+}
+
+/* A short scene told as panels you click through — art, one line, next.
+   Any panel may carry its own interactive element via onShow(). */
+function makePanels(spec){
+  var root = document.querySelector(spec.root);
+  if (!root) return null;
+  var i = 0;
+  var art = root.querySelector('.panel-art');
+  var dots = root.querySelector('.panel-dots');
+  function render(){
+    var p = spec.panels[i];
+    root.querySelector('.p-id').textContent = (i + 1) + ' / ' + spec.panels.length;
+    root.querySelector('.p-where').textContent = p.where || '';
+    root.querySelector('.panel-say h4').textContent = p.title || '';
+    root.querySelector('.panel-say p').innerHTML = p.say || '';
+    art.innerHTML = p.art || '';
+    dots.innerHTML = '';
+    spec.panels.forEach(function(_, n){
+      var d = document.createElement('i');
+      if (n === i) d.className = 'on';
+      dots.appendChild(d);
+    });
+    root.querySelector('.panel-prev').disabled = (i === 0);
+    root.querySelector('.panel-next').textContent =
+      (i === spec.panels.length - 1) ? (spec.finishLabel || 'Begin →') : 'Next ▸';
+    if (p.onShow) p.onShow(art);
+  }
+  root.querySelector('.panel-prev').addEventListener('click', function(){
+    if (i > 0){ i--; render(); }
+  });
+  root.querySelector('.panel-next').addEventListener('click', function(){
+    if (i < spec.panels.length - 1){ i++; render(); }
+    else if (spec.onFinish) spec.onFinish();
+  });
+  render();
+  return { go: function(n){ i = n; render(); } };
+}
+
 
 /* ================= STEPPER ================= */
 const STAGE_ORDER = ['aims','build','scale','quantum','plenary'];
@@ -1612,6 +1767,20 @@ function renderStepper(){
     el.appendChild(pill);
   });
 }
+
+/* ---- the task strip: what you are doing right now ---- */
+TASKS = {
+  'build': 'Write the assembly program, then add twelve atoms.',
+  'scale': 'Drag the slider up and watch the memory number.',
+  'quantum': 'Drag <b>two Mark + Boost pairs</b> in, then measure.',
+  'plenary': 'Copy your report and try the field test.',
+};
+HINTS = {
+  'build': ['You start from nothing and build onto what you already have.', 'Putting <span class="mono">atom</span> first throws away every previous pass.'],
+  'scale': ['Every extra bond multiplies the states. It does not add.'],
+};
+document.getElementById('btnHint').addEventListener('click', showHint);
+
 function goToStage(key){
   currentStage = key;
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
@@ -1626,6 +1795,7 @@ function goToStage(key){
     }
   }
   renderStepper();
+  setTask(key);
   window.scrollTo({top:0, behavior:'smooth'});
 }
 function unlockNext(fromKey){
